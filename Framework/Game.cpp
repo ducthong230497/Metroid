@@ -4,6 +4,7 @@ void Game::_RenderFrame()
 {
 	if (Device->getD3DDevice()->BeginScene())
 	{
+		Device->getD3DDevice()->ColorFill(Device->getBackBuffer(), NULL, D3DCOLOR_XRGB(0, 0, 0));
 		RenderFrame();
 		Device->getD3DDevice()->EndScene();
 	}
@@ -12,7 +13,6 @@ void Game::_RenderFrame()
 
 void Game::RenderFrame()
 {
-	Device->getD3DDevice()->ColorFill(Device->getBackBuffer(), NULL, D3DCOLOR_XRGB(0, 0, 0));
 }
 
 void Game::ProcessInput()

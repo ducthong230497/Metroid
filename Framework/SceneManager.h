@@ -10,7 +10,8 @@
 //#include "RetireScene.h"
 #include "testScene_1.h"
 #include "testScene_2.h"
-
+#include "Texture.h"
+#include "SpriteBatch.h"
 #ifdef _DEBUG
 #include "CKeyboard.h"
 #endif
@@ -20,7 +21,7 @@ class SceneManager
 private:
 	Scene * CurrentScene;
 	eSceneID CurrentID, NextID;
-	//SpriteSheet *BlackScreen;
+	Texture *BlackScreen;
 	UINT BlackScreenDelay;
 #ifdef _DEBUG
 	CKeyboard *Keyboard;

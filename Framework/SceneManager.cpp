@@ -6,7 +6,7 @@ SceneManager::SceneManager() :
 	CurrentScene(nullptr),
 	CurrentID(UNKNOWNSCENE),
 	NextID(UNKNOWNSCENE),
-	//BlackScreen(nullptr),
+	BlackScreen(nullptr),
 	BlackScreenDelay(ALA_BLACKSCENE_DELAY)
 {
 }
@@ -15,7 +15,7 @@ bool SceneManager::CloseScene()
 {
 	if (BlackScreenDelay > 0)
 	{
-		//BlackScreen->Render();
+		SpriteBatch::Instance()->Draw(*BlackScreen, 0, 0);
 		BlackScreenDelay--;
 		return false;
 	}
@@ -51,7 +51,7 @@ Scene* SceneManager::get(eSceneID uid)
 SceneManager::~SceneManager()
 {
 	SAFE_DELETE(CurrentScene);
-	//SAFE_DELETE(BlackScreen);
+	SAFE_DELETE(BlackScreen);
 }
 
 Scene * SceneManager::getCurrentScene() const
@@ -66,7 +66,7 @@ eSceneID SceneManager::getCurrentID() const
 
 void SceneManager::Init()
 {
-	//BlackScreen = new SpriteSheet(L"Sprites/blacksprite.png");
+	BlackScreen = new Texture("Resources/blacksprite.png");
 	//BlackScreen->setOpacity(0.4f);
 
 	// First scene change here.

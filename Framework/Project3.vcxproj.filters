@@ -114,6 +114,12 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRegion.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -174,6 +180,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRegion.h">
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
   </ItemGroup>
