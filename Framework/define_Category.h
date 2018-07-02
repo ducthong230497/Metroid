@@ -1,5 +1,5 @@
 #pragma once
-enum BitMask {
+enum Category {
 	PLAYER,
 	BRICK,
 

@@ -123,6 +123,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Core\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
