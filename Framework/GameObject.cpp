@@ -20,6 +20,11 @@ POINT GameObject::getSize() const
 	return _Size;
 }
 
+CollisionType GameObject::getCollisionType()
+{
+	return collisionType;
+}
+
 void GameObject::setPosition(const POINT & p)
 {
 	_Position = p;
@@ -40,4 +45,9 @@ void GameObject::setSize(const float& w, const float& h)
 {
 	_Size.x = w;
 	_Size.y = h;
+}
+
+void GameObject::setCollisionType(CollisionType ct)
+{
+	collisionType = ct;
 }

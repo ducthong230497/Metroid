@@ -120,6 +120,9 @@
     <ClCompile Include="TextureRegion.cpp">
       <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -186,6 +189,9 @@
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
     <ClInclude Include="TextureRegion.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
   </ItemGroup>
