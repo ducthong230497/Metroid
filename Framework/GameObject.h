@@ -26,5 +26,6 @@ public:
 	void setPosition(const float& x, const float& y);
 	void setSize(const float& w, const float& h);
 	void setCollisionType(CollisionType ct);
-	void set
+	void setBitMask(Category bitmask);
+	void setCategoryMask(Category categorymask);
 };

@@ -124,7 +124,7 @@
       <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +182,6 @@
     <ClInclude Include="define_CollisionType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="define_BitMask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
@@ -199,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="define_Category.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
