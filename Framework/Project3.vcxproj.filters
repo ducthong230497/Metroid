@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{0299cc8f-8aca-4836-aedb-2c017e36ec1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\src">
+      <UniqueIdentifier>{725837c8-e397-4cd1-9e30-268816a23e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{f9e14684-ee4a-4bcf-98ae-269fe1e9c55d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\include">
+      <UniqueIdentifier>{0fbd8893-0579-4072-9c1e-2991e9a67b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\src">
+      <UniqueIdentifier>{7332e534-5bf3-4fdd-bcb5-db107f8b1db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\include">
+      <UniqueIdentifier>{7d69767c-c05c-407a-8f30-9ef33e388f83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{94d5b141-6c6a-43cd-bce6-407f6e00fa2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\include">
+      <UniqueIdentifier>{4a891882-6eb5-4da6-8281-1033f1e38935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\src">
+      <UniqueIdentifier>{0ee045ef-9033-4999-baf8-0774fba722bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{a6c5bba7-f776-4772-a5da-703c12a44d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SpriteManager">
+      <UniqueIdentifier>{214a7948-3d2a-4577-a780-8bfeb3871579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SpriteManager\include">
+      <UniqueIdentifier>{1419f89a-4748-4a52-a314-d327bece0020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SpriteManager\src">
+      <UniqueIdentifier>{12fb294d-f208-4f43-a1a0-8d0bdfed9300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SneneManager">
+      <UniqueIdentifier>{f4b8231b-8889-47f0-8462-52f1aa342b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SneneManager\include">
+      <UniqueIdentifier>{7764f981-2cf7-4499-b833-dfffe6628d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SneneManager\src">
+      <UniqueIdentifier>{86a1e2d7-c7c9-4869-9e29-c572b411d5ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Trace.cpp">
+      <Filter>Utility\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="CDevice.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyboard.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindow.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Utility\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="testScene_1.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGame.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="testScene_2.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trace.h">
+      <Filter>Utility\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="CDevice.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyboard.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindow.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Utility\include</Filter>
+    </ClInclude>
+    <ClInclude Include="define_eSceneID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="testScene_1.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGame.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="testScene_2.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="define_CollisionType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="define_BitMask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
