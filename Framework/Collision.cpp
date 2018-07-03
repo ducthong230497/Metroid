@@ -226,3 +226,15 @@ bool Collision::CanMaskCollide(GameObject * targetGameObject, GameObject * other
 	auto e2 = targetGameObject->getCategoryMask() & otherGameObject->getBitMask();
 	return (e1 != 0 && e2 != 0);
 }
+
+bool Collision::IsOverlayingRect(const RECT & rect1, const RECT & rect2)
+{
+#if _DEBUG
+	bool temp = !(rect1.right < rect2.left || rect1.left > rect2.right ||
+		rect1.bottom > rect2.top || rect1.top < rect2.bottom);
+	return temp;
+#endif
+	//if it's not overlaying rect
+	return !(rect1.right < rect2.left || rect1.left > rect2.right ||
+		rect1.bottom > rect2.top || rect1.top < rect2.bottom);
+}

@@ -8,8 +8,8 @@ protected:
 	POINT _Position;
 	POINT _Size;
 	POINT _Velocity;
-	Category _BitMask;
-	Category _CategoryMask;
+	uint16_t _BitMask;
+	uint16_t _CategoryMask;
 	CollisionType collisionType;
 public:
 	GameObject();
@@ -17,8 +17,8 @@ public:
 	POINT getPosition() const;
 	POINT getSize() const;
 	POINT getVelocity() const;
-	Category getBitMask();
-	Category getCategoryMask();
+	uint16_t getBitMask();
+	uint16_t getCategoryMask();
 	CollisionType getCollisionType();
 	void setPosition(const POINT& p);
 	void setSize(const POINT &p);
@@ -26,6 +26,6 @@ public:
 	void setPosition(const float& x, const float& y);
 	void setSize(const float& w, const float& h);
 	void setCollisionType(CollisionType ct);
-	void setBitMask(Category bitmask);
-	void setCategoryMask(Category categorymask);
+	void setBitMask(uint16_t bitmask);
+	void setCategoryMask(uint16_t categorymask);
 };

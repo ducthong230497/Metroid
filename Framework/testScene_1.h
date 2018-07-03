@@ -5,6 +5,7 @@
 #include "SpriteBatch.h"
 #include "Camera.h"
 #include "CKeyboard.h"
+#include "Collision.h"
 class testScene1 : public Scene
 {
 private:
@@ -14,6 +15,9 @@ private:
 	SpriteBatch * batch;
 
 	GameObject * object1;
+	CKeyboard * KeyBoard;
+
+	Collision * collision;
 public:
 	testScene1();
 	~testScene1();

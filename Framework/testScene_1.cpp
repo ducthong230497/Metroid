@@ -2,6 +2,7 @@
 
 testScene1::testScene1()
 {
+	Time = GameTime::getInstance();
 }
 
 testScene1::~testScene1()
@@ -12,19 +13,27 @@ void testScene1::Init()
 {
 	object1 = new GameObject();
 	object1->setPosition(100, -100);
-	object1->setSize(100, 100);
+	object1->setSize(50, 50);
+	object1->setCategoryMask(Category::PLAYER);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER);
 
 	GameObject * object2 = new GameObject();
 	object2->setPosition(200, -200);
-	object2->setSize(100, 100);
+	object2->setSize(50, 50);
+	object2->setCategoryMask(Category::PLATFORM);
+	object2->setBitMask(Category::PLAYER | Category::SKREE | Category::ZOOMER);
 
 	GameObject * object3 = new GameObject();
 	object3->setPosition(300, -300);
-	object3->setSize(100, 100);
+	object3->setSize(50, 50);
+	object3->setCategoryMask(Category::SKREE);
+	object3->setBitMask(Category::PLAYER | Category::PLATFORM);
 
 	GameObject * object4 = new GameObject();
 	object4->setPosition(400, -400);
-	object4->setSize(100, 100);
+	object4->setSize(50, 50);
+	object4->setCategoryMask(Category::ZOOMER);
+	object4->setBitMask(Category::PLAYER | Category::PLATFORM);
 
 	GameObjects.push_back(object1);
 	GameObjects.push_back(object2);
@@ -42,19 +51,47 @@ void testScene1::Init()
 
 	batch = SpriteBatch::Instance();
 	texture = new Texture("Resources/metroidTileMap2.png");
+	KeyBoard = CKeyboard::getInstance();
+	collision = new Collision();
 }
 
 void testScene1::Update()
 {
-	Trace::Log("Update Scene");
+	//Trace::Log("Update Scene");
+	float dt = Time->getDeltaTime();
+	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++) {
+		/*POINT velocity = (*it1)->getVelocity();
+		POINT position = (*it1)->getPosition();
+		position.x += velocity.x * dt;
+		position.y += velocity.y * dt;*/
+		RECT boardphase = collision->GetBroadphaseRect((*it1), dt);
+		RECT box1 = collision->GetRECT((*it1));
+		box1.left += 25;
+		box1.top -= 25;
+		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++) {
+			if (collision->CanMaskCollide((*it1), (*it2)))
+			{
+				RECT box2 = collision->GetRECT((*it2));
+				if (collision->IsOverlayingRect(box1, box2))
+				{
+					if (collision->Collide((*it1), (*it2), dt))
+					{
+						Trace::Log("Collide");
+					}
+				}
+			}
+		}
+		//(*it1)->setPosition(position);
+	}
 }
 
 eSceneID testScene1::Render()
 {
 	batch->Begin();
-	batch->Draw(*texture, 100, -100, 200, 200);
+	//batch->Draw(*texture, 100, -100);
 	for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
 	{
+		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 		// Generate a random area (within back buffer) to draw the surface onto
 		RECT rect;
 		/*
@@ -86,6 +123,7 @@ eSceneID testScene1::Render()
 		rect.top = p.y;
 		rect.right = rect.left + 50;
 		rect.bottom = rect.top + 50;
+
 		Trace::Log("x : %f, y : %f", p.x, p.y);
 		CDevice::getInstance()->getD3DDevice()->StretchRect(
 			surface,
@@ -105,21 +143,42 @@ eSceneID testScene1::Render()
 
 void testScene1::ProcessInput()
 {
-	if (CKeyboard::getInstance()->IsKeyDown(DIK_RIGHT)) 
+	
+	if (KeyBoard->IsKeyDown(DIK_RIGHT))
 	{
-		object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
+		//object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
+		object1->setVelocity(0.5, object1->getVelocity().y);
 	}
-	if (CKeyboard::getInstance()->IsKeyDown(DIK_LEFT))
+	else if(KeyBoard->IsKeyUp(DIK_RIGHT))
 	{
-		object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
+		object1->setVelocity(0, object1->getVelocity().y);
 	}
-	if (CKeyboard::getInstance()->IsKeyDown(DIK_UP))
+	if (KeyBoard->IsKeyDown(DIK_LEFT))
 	{
-		object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+		//object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
+		object1->setVelocity(-0.5, object1->getVelocity().y);
 	}
-	if (CKeyboard::getInstance()->IsKeyDown(DIK_DOWN))
+	else if (KeyBoard->IsKeyUp(DIK_LEFT))
 	{
-		object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+		object1->setVelocity(0, object1->getVelocity().y);
+	}
+	if (KeyBoard->IsKeyDown(DIK_UP))
+	{
+		//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+		object1->setVelocity(object1->getVelocity().x, 0.5);
+	}
+	else if (KeyBoard->IsKeyUp(DIK_UP))
+	{
+		object1->setVelocity(object1->getVelocity().x, 0);
+	}
+	if (KeyBoard->IsKeyDown(DIK_DOWN))
+	{
+		//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+		object1->setVelocity(object1->getVelocity().x, -0.5);
+	}
+	else if (KeyBoard->IsKeyUp(DIK_DOWN))
+	{
+		object1->setVelocity(object1->getVelocity().x, 0);
 	}
 }
 
