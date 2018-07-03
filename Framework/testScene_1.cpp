@@ -66,8 +66,6 @@ void testScene1::Update()
 		position.y += velocity.y * dt;*/
 		RECT boardphase = collision->GetBroadphaseRect((*it1), dt);
 		RECT box1 = collision->GetRECT((*it1));
-		box1.left += 25;
-		box1.top -= 25;
 		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++) {
 			if (collision->CanMaskCollide((*it1), (*it2)))
 			{
