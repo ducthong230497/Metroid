@@ -10,7 +10,7 @@ testScene1::~testScene1()
 
 void testScene1::Init()
 {
-	GameObject * object1 = new GameObject();
+	object1 = new GameObject();
 	object1->setPosition(100, -100);
 	object1->setSize(100, 100);
 
@@ -101,6 +101,26 @@ eSceneID testScene1::Render()
 	return e;
 #endif
 	return getUID();
+}
+
+void testScene1::ProcessInput()
+{
+	if (CKeyboard::getInstance()->IsKeyDown(DIK_RIGHT)) 
+	{
+		object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
+	}
+	if (CKeyboard::getInstance()->IsKeyDown(DIK_LEFT))
+	{
+		object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
+	}
+	if (CKeyboard::getInstance()->IsKeyDown(DIK_UP))
+	{
+		object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+	}
+	if (CKeyboard::getInstance()->IsKeyDown(DIK_DOWN))
+	{
+		object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+	}
 }
 
 void testScene1::End()

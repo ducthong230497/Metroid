@@ -27,6 +27,7 @@ void TestGame::RenderFrame()
 
 void TestGame::ProcessInput()
 {
+	sceneManager->getCurrentScene()->ProcessInput();
 }
 
 void TestGame::OnKillFocus()

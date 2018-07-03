@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "SpriteBatch.h"
 #include "Camera.h"
+#include "CKeyboard.h"
 class testScene1 : public Scene
 {
 private:
@@ -12,6 +13,7 @@ private:
 	Texture * texture;
 	SpriteBatch * batch;
 
+	GameObject * object1;
 public:
 	testScene1();
 	~testScene1();
@@ -19,7 +21,7 @@ public:
 	void Init() override;
 	void Update() override;
 	eSceneID Render() override;
-	//void ProcessInput();
+	void ProcessInput();
 	void End() override;
 
 	DEFINE_SCENE_UID(TESTSCENE1)
