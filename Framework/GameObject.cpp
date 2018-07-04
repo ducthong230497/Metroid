@@ -83,3 +83,19 @@ void GameObject::setCategoryMask(uint16_t categorymask)
 {
 	_CategoryMask = categorymask;
 }
+
+void GameObject::Next(float DeltaTime, bool moveX, bool moveY)
+{
+	if (moveX)
+	{
+		_Position.x += _Velocity.x * DeltaTime;
+	}
+	if (moveY)
+	{
+		_Position.y += _Velocity.y * DeltaTime;
+	}
+	else 
+	{
+		_Velocity.y = 0;
+	}
+}

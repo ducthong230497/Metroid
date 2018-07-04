@@ -28,4 +28,5 @@ public:
 	void setCollisionType(CollisionType ct);
 	void setBitMask(uint16_t bitmask);
 	void setCategoryMask(uint16_t categorymask);
+	void Next(float DeltaTime, bool moveX, bool moveY);
 };

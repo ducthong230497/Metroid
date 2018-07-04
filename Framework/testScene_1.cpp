@@ -30,7 +30,7 @@ void testScene1::Init()
 	object3->setBitMask(Category::PLAYER | Category::PLATFORM);
 
 	GameObject * object4 = new GameObject();
-	object4->setPosition(400, -400);
+	object4->setPosition(300, -400);
 	object4->setSize(50, 50);
 	object4->setCategoryMask(Category::ZOOMER);
 	object4->setBitMask(Category::PLAYER | Category::PLATFORM);
@@ -57,29 +57,37 @@ void testScene1::Init()
 
 void testScene1::Update()
 {
+	int i = 0, j = 0;
+	bool collide = false;
 	//Trace::Log("Update Scene");
 	float dt = Time->getDeltaTime();
-	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++) {
-		/*POINT velocity = (*it1)->getVelocity();
+	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
+		POINT velocity = (*it1)->getVelocity();
 		POINT position = (*it1)->getPosition();
 		position.x += velocity.x * dt;
-		position.y += velocity.y * dt;*/
+		position.y += velocity.y * dt;
 		RECT boardphase = collision->GetBroadphaseRect((*it1), dt);
 		RECT box1 = collision->GetRECT((*it1));
-		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++) {
+
+		bool moveX = true, moveY = true;
+
+		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
 			if (collision->CanMaskCollide((*it1), (*it2)))
 			{
 				RECT box2 = collision->GetRECT((*it2));
-				if (collision->IsOverlayingRect(box1, box2))
+				if (collision->IsOverlayingRect(boardphase, box2))
 				{
 					if (collision->Collide((*it1), (*it2), dt))
 					{
 						Trace::Log("Collide");
+						collide = true;
+						collision->PerformCollision((*it1), (*it2), dt, 0, moveX, moveY);
 					}
 				}
 			}
 		}
-		//(*it1)->setPosition(position);
+		j = 0;
+		(*it1)->Next(dt, moveX, moveY);
 	}
 }
 
@@ -89,7 +97,6 @@ eSceneID testScene1::Render()
 	//batch->Draw(*texture, 100, -100);
 	for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
 	{
-		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 		// Generate a random area (within back buffer) to draw the surface onto
 		RECT rect;
 		/*
@@ -130,6 +137,7 @@ eSceneID testScene1::Render()
 			&rect,
 			D3DTEXF_NONE
 		);
+		batch->DrawSquare((*it)->getPosition().x + (*it)->getSize().x / 2, (*it)->getPosition().y - (*it)->getSize().y / 2, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}
 	batch->End();
 #ifdef _DEBUG

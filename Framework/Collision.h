@@ -52,7 +52,6 @@ public:
 
 	void PerformCollision(GameObject *targetGameObject, GameObject *otherGameObject, float DeltaTime, int collisionAction, bool &needMoveX, bool &needMoveY);
 
-
 	//bool IsPreviousCollding(GameObject *targetGameObject, GameObject *otherGameObject, float DeltaTime);
 
 	//return 1 if bottom or top, return 2 if left or right and return 0 if not previous touching
