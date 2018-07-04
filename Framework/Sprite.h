@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Texture.h"
 #include "GameObject.h"
+#include "TextureRegion.h"
 //Texture + Texture Region
 class Sprite :public GameObject
 {
@@ -53,7 +54,7 @@ public:
 	void SetPosition(float x, float y);
 	void SetSize(float width, float height);
 	void SetTexture(Texture *texture);
-	//void SetRegion(const TextureRegion &textureRegion);
+	void SetRegion(const TextureRegion &textureRegion);
 	void SetRectPosition(float rectX, float rectY);
 	void SetRectSize(float rectWidth, float rectHeight);
 

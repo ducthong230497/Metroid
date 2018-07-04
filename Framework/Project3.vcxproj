@@ -131,6 +131,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="testScene_1.cpp" />
     <ClCompile Include="testScene_2.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturePacker.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -158,6 +160,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="testScene_1.h" />
     <ClInclude Include="testScene_2.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturePacker.h" />
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="utils.h" />

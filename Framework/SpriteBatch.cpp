@@ -101,6 +101,59 @@ void SpriteBatch::Draw(const Texture &texture, float x, float y)
 
 }
 
+void SpriteBatch::Draw(const TextureRegion & textureRegion, float x, float y)
+{
+	if (_SpriteHandler == NULL || &textureRegion == NULL) return;
+
+	if (IsOutsideCam(x, y, textureRegion.GetRectSize().x, textureRegion.GetRectSize().y)) return;
+
+	//virtual position
+	_Position.x = x;
+	_Position.y = y;
+	_Position.z = 0;
+
+	GetActualPosition(&_Position);
+
+	//get rect size
+	_RectSize.x = textureRegion.GetRectSize().x;
+	_RectSize.y = textureRegion.GetRectSize().y;
+
+	////get scale factor
+	//_ScaleFactor.x = textureRegion.GetScale().x;
+	//_ScaleFactor.y = textureRegion.GetScale().y;
+
+	//get scale origin
+	_ScaleOrigin.x = _Position.x;
+	_ScaleOrigin.y = _Position.y;
+
+	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
+	D3DXMatrixTransformation2D(&_SpriteMatrix, &_ScaleOrigin, 0, NULL, NULL, 0, NULL);
+
+	_SpriteHandler->SetTransform(&_SpriteMatrix);
+
+
+	//the portion of image we want to draw
+	_Rect.left = textureRegion.GetRectPosition().x;
+	_Rect.top = textureRegion.GetRectPosition().y;
+	_Rect.right = _Rect.left + _RectSize.x;
+	_Rect.bottom = _Rect.top + _RectSize.y;
+
+	//Get center
+	_Center.x = _RectSize.x / 2;
+	_Center.y = _RectSize.y / 2;
+	_Center.z = 0;
+
+
+	//draw sprite
+	_SpriteHandler->Draw(
+		textureRegion.GetTexture()->GetImage(),
+		&_Rect,
+		&_Center,
+		&_Position,
+		textureRegion.GetTexture()->GetTranscolor()
+	);
+}
+
 void SpriteBatch::Draw(const Texture &texture, float x, float y, float width, float height)
 {
 	if (_SpriteHandler == NULL || &texture == NULL) return;
@@ -249,6 +302,75 @@ void SpriteBatch::Draw(const Texture &texture, float x, float y, float rectLeft,
 		&_Center,
 		&_Position,
 		texture.GetTranscolor()
+	);
+}
+
+void SpriteBatch::Draw(const Sprite & sprite)
+{
+	if (_SpriteHandler == NULL || sprite.GetTexture() == NULL) return;
+
+	if (IsOutsideCam(sprite.GetPosition().x, sprite.GetPosition().y, sprite.GetSize().x, sprite.GetSize().y)) return;
+
+	//virtual position
+	_Position.x = sprite.GetPosition().x;
+	_Position.y = sprite.GetPosition().y;
+	_Position.z = 0;
+
+	GetActualPosition(&_Position);
+
+	//get rect size
+	_RectSize.x = sprite.GetRectSize().x;
+	_RectSize.y = sprite.GetRectSize().y;
+
+	//get scale factor
+	_ScaleFactor.x = sprite.GetScale().x;
+	_ScaleFactor.y = sprite.GetScale().y;
+
+	//get scale origin
+	_ScaleOrigin.x = _Position.x;
+	_ScaleOrigin.y = _Position.y;
+
+	//get rotation origin
+	if (sprite.IsCenterOrigin())
+	{
+		_RotationOrigin.x = _Position.x;
+		_RotationOrigin.y = _Position.y;
+	}
+	else
+	{
+		_RotationOrigin.x = sprite.GetRotationOrigin().x;
+		_RotationOrigin.y = sprite.GetRotationOrigin().y;
+	}
+
+
+	//get rotation
+	_RotationFactor = sprite.GetRotation();
+
+	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
+	D3DXMatrixTransformation2D(&_SpriteMatrix, &_ScaleOrigin, 0, &_ScaleFactor, &_RotationOrigin, _RotationFactor* Pi / 180, NULL);
+
+	_SpriteHandler->SetTransform(&_SpriteMatrix);
+
+
+	//the portion of image we want to draw
+	_Rect.left = sprite.GetRectPosition().x;
+	_Rect.top = sprite.GetRectPosition().y;
+	_Rect.right = _Rect.left + _RectSize.x;
+	_Rect.bottom = _Rect.top + _RectSize.y;
+
+	//Get center
+	_Center.x = _RectSize.x / 2;
+	_Center.y = _RectSize.y / 2;
+	_Center.z = 0;
+
+
+	//draw sprite
+	_SpriteHandler->Draw(
+		sprite.GetTexture()->GetImage(),
+		&_Rect,
+		&_Center,
+		&_Position,
+		sprite.GetTexture()->GetTranscolor()
 	);
 }
 

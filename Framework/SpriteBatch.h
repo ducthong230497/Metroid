@@ -4,8 +4,8 @@
 #include "Camera.h"
 #include "CDevice.h"
 #include "Texture.h"
-//#include "TextureRegion.h"
-//#include "Sprite.h"
+#include "TextureRegion.h"
+#include "Sprite.h"
 //#include "..\others\Global.h"
 
 #define Pi 3.14159265
@@ -64,7 +64,7 @@ public:
 	void Draw(const Texture &texture, float x, float y);
 
 	////Draw textureregion at (x,y)
-	//void Draw(const TextureRegion &textureRegion, float x, float y);
+	void Draw(const TextureRegion &textureRegion, float x, float y);
 
 	//draw the texture at (x,y) and stretch it to width and height
 	void Draw(const Texture &texture, float x, float y, float width, float height);
@@ -72,7 +72,7 @@ public:
 	//draw or portion of texture at (x,y) and stretch it to width and height
 	void Draw(const Texture &texture, float x, float y, float rectLeft, float rectTop, float rectWidth, float rectHeight, float width, float height);
 
-	//void Draw(const Sprite &sprite);
+	void Draw(const Sprite &sprite);
 
 	void DrawSquare(float x, float y, float width, float height, D3DCOLOR color);
 

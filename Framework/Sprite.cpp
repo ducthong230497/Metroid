@@ -138,16 +138,14 @@ void Sprite::SetRotation(float rotation)
 	_Rotation = rotation;
 }
 
-
-//chýa có texture region
-//void Sprite::SetRegion(const TextureRegion &textureRegion)
-//{
-//	_Texture = textureRegion.GetTexture();
-//	_RectSize = textureRegion.GetRectSize();
-//	_RectPosition = textureRegion.GetRectPosition();
-//	/*_ScaleFactor.x = abs(_ScaleFactor.x)* textureRegion->GetScale().x;
-//	_ScaleFactor.y = abs(_ScaleFactor.y)* textureRegion->GetScale().y;*/
-//}
+void Sprite::SetRegion(const TextureRegion &textureRegion)
+{
+	_Texture = textureRegion.GetTexture();
+	_RectSize = textureRegion.GetRectSize();
+	_RectPosition = textureRegion.GetRectPosition();
+	/*_ScaleFactor.x = abs(_ScaleFactor.x)* textureRegion->GetScale().x;
+	_ScaleFactor.y = abs(_ScaleFactor.y)* textureRegion->GetScale().y;*/
+}
 
 const POINT& Sprite::GetPosition() const
 {

@@ -32,7 +32,7 @@ Scene* SceneManager::get(eSceneID uid)
 	switch (uid)
 	{
 	case UNKNOWNSCENE: scene = nullptr; break;
-	case INTROSCENE: scene = nullptr; break;
+	case INTROSCENE: scene = new IntroScene(); break;
 	/*case MENUSCENE: scene = new MenuScene(); break;
 	case INSTRUCTIONSCENE: scene = new InstructionScene(); break;
 	case AGRABAHMARKETSCENE: scene = new AgrabahMarket(); break;
@@ -71,7 +71,7 @@ void SceneManager::Init()
 
 	// First scene change here.
 	//CurrentID = NextID = MENUSCENE;
-	CurrentID = NextID = TESTSCENE1;
+	CurrentID = NextID = INTROSCENE;
 	CurrentScene = get(CurrentID);
 
 #ifdef _DEBUG

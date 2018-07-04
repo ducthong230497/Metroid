@@ -126,6 +126,12 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Core\src</Filter>
     </ClCompile>
+    <ClCompile Include="TexturePacker.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -199,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="define_Category.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturePacker.h">
+      <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
