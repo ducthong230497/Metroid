@@ -33,8 +33,9 @@ Scene* SceneManager::get(eSceneID uid)
 	{
 	case UNKNOWNSCENE: scene = nullptr; break;
 	case INTROSCENE: scene = new IntroScene(); break;
-	/*case MENUSCENE: scene = new MenuScene(); break;
-	case INSTRUCTIONSCENE: scene = new InstructionScene(); break;
+	case MENUSCENE: scene = new MenuScene(); break;
+	case GAMEOVERSCENE: scene = new GameOverScene(); break;
+		/*case INSTRUCTIONSCENE: scene = new InstructionScene(); break;
 	case AGRABAHMARKETSCENE: scene = new AgrabahMarket(); break;
 	case JAFARPALACESCENE: scene = new JafarPalace(); break;
 	case LEVELCOMPLETESCENE: scene = new LevelCompleteScene(); break;
@@ -70,8 +71,8 @@ void SceneManager::Init()
 	//BlackScreen->setOpacity(0.4f);
 
 	// First scene change here.
-	//CurrentID = NextID = MENUSCENE;
 	CurrentID = NextID = INTROSCENE;
+	//CurrentID = NextID = INTROSCENE;
 	CurrentScene = get(CurrentID);
 
 #ifdef _DEBUG
@@ -88,20 +89,18 @@ void SceneManager::Render()
 		//GameObject::_show_boundingbox = !GameObject::_show_boundingbox;
 #endif
 	if (Keyboard->IsKeyDown(DIK_F1))
-		NextID = AGRABAHMARKETSCENE;
+		NextID = INTROSCENE;
 	else if (Keyboard->IsKeyDown(DIK_F2))
-		NextID = JAFARPALACESCENE;
-	else if (Keyboard->IsKeyDown(DIK_F3))
 		NextID = MENUSCENE;
+	else if (Keyboard->IsKeyDown(DIK_F3))
+		NextID = MAINSCENE;
 	else if (Keyboard->IsKeyDown(DIK_F4))
-		NextID = INSTRUCTIONSCENE;
+		NextID = GAMEOVERSCENE;
 	else if (Keyboard->IsKeyDown(DIK_F5))
 		NextID = LEVELCOMPLETESCENE;
-	else if (Keyboard->IsKeyDown(DIK_F6))
-		NextID = RETIRESCENE;
 	else if (Keyboard->IsKeyDown(DIK_F7))
 		NextID = TESTSCENE1;
-	else if (Keyboard->IsKeyDown(DIK_F8))
+	else if (Keyboard->IsKeyDown(DIK_F7))
 		NextID = TESTSCENE2;
 #endif
 

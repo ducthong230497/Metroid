@@ -130,6 +130,7 @@
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="testScene_1.cpp" />
     <ClCompile Include="testScene_2.cpp" />
@@ -159,12 +161,14 @@
     <ClInclude Include="define_Category.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="TestGame.h" />
     <ClInclude Include="testScene_1.h" />
     <ClInclude Include="testScene_2.h" />

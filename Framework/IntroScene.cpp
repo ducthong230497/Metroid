@@ -7,6 +7,10 @@ IntroScene::IntroScene()
 
 IntroScene::~IntroScene()
 {
+	cam = nullptr;
+	batch = nullptr;
+	KeyBoard = nullptr;
+	Window = nullptr;
 }
 
 void IntroScene::Init()
@@ -22,8 +26,9 @@ void IntroScene::Init()
 	CWindow * Window;
 	*/
 
-	KeyBoard = CKeyboard::getInstance();
 	Window = CWindow::getInstance();
+	KeyBoard = CKeyboard::getInstance();
+	//KeyBoard->Init(Window->gethWnd(), Window->gethInstance());
 
 	cam = Camera::Instance();
 	cam->setPosition(0, Window->getHeight() / 2);
@@ -42,27 +47,33 @@ void IntroScene::Init()
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 
+	nextScene = INTROSCENE;
 	//TitleTheme = Sound::LoadSound("Resources/SoundEffect/TitleTheme.wav");
+
+	Trace::Log("Init IntroScene");
 }
 
 eSceneID IntroScene::Render()
 {
 	//start drawing
 	batch->Begin();
-	float deltatime = Time->getDeltaTime();
-	float dt = deltatime / 1000;
-	background.SetRegion(*introSceneAnimation.Next(dt));
+	background.SetRegion(*introSceneAnimation.Next(Time->getDeltaTime() / 1000.0f));
 	batch->Draw(background);
 	//end drawing
 	batch->End();
 	//Sound::Loop(TitleTheme);
-	if (KeyBoard->IsKeyDown(DIK_RETURN))
+	return nextScene;
+}
+
+void IntroScene::ProcessInput()
+{
+	if (KeyBoard->IsFirstKeyDown(DIK_RETURN))
 	{
-		return MENUSCENE;
+		nextScene = MENUSCENE;
 	}
-	return getUID();
 }
 
 void IntroScene::End()
 {
+	Trace::Log("End IntroScene");
 }

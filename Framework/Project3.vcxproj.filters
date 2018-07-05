@@ -132,6 +132,12 @@
     <ClCompile Include="IntroScene.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -210,6 +216,12 @@
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
     <ClInclude Include="IntroScene.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
       <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
   </ItemGroup>

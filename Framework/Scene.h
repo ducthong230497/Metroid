@@ -9,6 +9,7 @@ class Scene
 protected:
 	std::vector<GameObject *> GameObjects;
 	GameTime *Time;
+	eSceneID nextScene;
 public:
 	Scene();
 	virtual ~Scene();

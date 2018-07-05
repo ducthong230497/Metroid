@@ -13,7 +13,7 @@ private:
 	//test
 	Texture * texture;
 	SpriteBatch * batch;
-
+	Camera * cam;
 	GameObject * object1;
 	CKeyboard * KeyBoard;
 

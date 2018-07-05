@@ -49,10 +49,16 @@ void testScene1::Init()
 		NULL);
 	CDevice::getInstance()->getD3DDevice()->ColorFill(surface, NULL, D3DCOLOR_XRGB(155, 155, 155));
 
+	cam = Camera::Instance();
+	cam->setPosition(0, 0);
 	batch = SpriteBatch::Instance();
+	batch->SetCamera(cam);
 	texture = new Texture("Resources/metroidTileMap2.png");
 	KeyBoard = CKeyboard::getInstance();
 	collision = new Collision();
+
+	nextScene = TESTSCENE1;
+	Trace::Log("Init TestScene1");
 }
 
 void testScene1::Update()
@@ -129,7 +135,7 @@ eSceneID testScene1::Render()
 		rect.right = rect.left + 50;
 		rect.bottom = rect.top + 50;
 
-		Trace::Log("x : %f, y : %f", p.x, p.y);
+		//Trace::Log("x : %f, y : %f", p.x, p.y);
 		CDevice::getInstance()->getD3DDevice()->StretchRect(
 			surface,
 			NULL,
@@ -140,11 +146,8 @@ eSceneID testScene1::Render()
 		batch->DrawSquare((*it)->getPosition().x + (*it)->getSize().x / 2, (*it)->getPosition().y - (*it)->getSize().y / 2, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}
 	batch->End();
-#ifdef _DEBUG
-	eSceneID e = getUID();
-	return e;
-#endif
-	return getUID();
+
+	return nextScene;
 }
 
 void testScene1::ProcessInput()
@@ -186,8 +189,13 @@ void testScene1::ProcessInput()
 	{
 		object1->setVelocity(object1->getVelocity().x, 0);
 	}
+	if (KeyBoard->IsKeyDown(DIK_RETURN))
+	{
+		nextScene = GAMEOVERSCENE;
+	}
 }
 
 void testScene1::End()
 {
+	Trace::Log("Init TestScene1");
 }

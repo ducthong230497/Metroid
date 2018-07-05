@@ -11,6 +11,9 @@
 #include "testScene_1.h"
 #include "testScene_2.h"
 #include "IntroScene.h"
+#include "MenuScene.h"
+
+#include "GameOverScene.h"
 #include "Texture.h"
 #include "SpriteBatch.h"
 #ifdef _DEBUG

@@ -1,27 +1,26 @@
 ﻿#pragma once
 #include "Scene.h"
-#include "SpriteBatch.h"
 #include "Texture.h"
-#include "CKeyboard.h"
-#include "Animation.h"
-#include "TexturePacker.h"
+#include "SpriteBatch.h"
 #include "Sprite.h"
+#include "CKeyboard.h"
 #include "CWindow.h"
-class IntroScene : public Scene
+#include "TexturePacker.h"
+class MenuScene : public Scene
 {
 private:
 	Camera * cam;
-	Texture introSceneTexture;
-	Animation introSceneAnimation;
+	Texture MenuSceneTexture;
+	std::vector<TextureRegion> regions;
 	SpriteBatch * batch;
 	Sprite background;
-	
+
 	CKeyboard * KeyBoard;
 	CWindow * Window;
 	//thiếu sound
 public:
-	IntroScene();
-	~IntroScene();
+	MenuScene();
+	~MenuScene();
 
 	void Init() override;
 	//void Update() override;
@@ -29,6 +28,5 @@ public:
 	void ProcessInput() override;
 	void End() override;
 
-	DEFINE_SCENE_UID(INTROSCENE)
-
+	DEFINE_SCENE_UID(MENUSCENE)
 };
