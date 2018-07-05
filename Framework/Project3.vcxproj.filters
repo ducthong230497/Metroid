@@ -138,6 +138,9 @@
     <ClCompile Include="GameOverScene.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="Ripper.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="GameOverScene.h">
       <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Ripper.h">
+      <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

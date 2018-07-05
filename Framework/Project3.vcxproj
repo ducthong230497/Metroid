@@ -134,6 +134,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ripper.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="Ripper.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />

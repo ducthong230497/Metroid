@@ -99,3 +99,7 @@ void GameObject::Next(float DeltaTime, bool moveX, bool moveY)
 		_Velocity.y = 0;
 	}
 }
+
+void GameObject::Update()
+{
+}

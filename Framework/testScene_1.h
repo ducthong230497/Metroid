@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "CKeyboard.h"
 #include "Collision.h"
+#include "Ripper.h"
 class testScene1 : public Scene
 {
 private:
@@ -16,7 +17,8 @@ private:
 	Camera * cam;
 	GameObject * object1;
 	CKeyboard * KeyBoard;
-
+	Texture enemiesTexture;
+	Ripper * ripper;
 	Collision * collision;
 public:
 	testScene1();
