@@ -6,5 +6,7 @@ enum Category {
 	SKREE = 4,
 	ZOOMER = 8,
 	RIPPER = 16,
-	PLAYER_BULLET = 32
+	RIO = 32,
+	PLAYER_BULLET = 64,
+	BOOM_EXPLOSION = 128
 };

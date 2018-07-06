@@ -16,15 +16,15 @@ RECT Collision::GetBroadphaseRect(GameObject * GameObject, float DeltaTime)
 	POINT distance = POINT(GameObject->getVelocity().x * DeltaTime, GameObject->getVelocity().y * DeltaTime);
 
 	RECT rect;
-	/*rect.top = distance.y > 0 ? (GameObject->getPosition().y + GameObject->getSize().y / 2) + distance.y : GameObject->getPosition().y + GameObject->getSize().y / 2;
+	rect.top = distance.y > 0 ? (GameObject->getPosition().y + GameObject->getSize().y / 2) + distance.y : GameObject->getPosition().y + GameObject->getSize().y / 2;
 	rect.bottom = distance.y > 0 ? GameObject->getPosition().y - GameObject->getSize().y / 2 : GameObject->getPosition().y - GameObject->getSize().y / 2 + distance.y;
 	rect.left = distance.x > 0 ? GameObject->getPosition().x - GameObject->getSize().x / 2 : GameObject->getPosition().x - GameObject->getSize().x / 2 + distance.x;
-	rect.right = distance.x > 0 ? GameObject->getPosition().x + GameObject->getSize().x / 2 + distance.x : GameObject->getPosition().x + GameObject->getSize().x / 2;*/
+	rect.right = distance.x > 0 ? GameObject->getPosition().x + GameObject->getSize().x / 2 + distance.x : GameObject->getPosition().x + GameObject->getSize().x / 2;
 
-	rect.top = distance.y > 0 ? (GameObject->getPosition().y) + distance.y : GameObject->getPosition().y;
+	/*rect.top = distance.y > 0 ? (GameObject->getPosition().y) + distance.y : GameObject->getPosition().y;
 	rect.bottom = distance.y > 0 ? GameObject->getPosition().y - GameObject->getSize().y : GameObject->getPosition().y - GameObject->getSize().y + distance.y;
 	rect.left = distance.x > 0 ? GameObject->getPosition().x : GameObject->getPosition().x + distance.x;
-	rect.right = distance.x > 0 ? GameObject->getPosition().x + GameObject->getSize().x + distance.x : GameObject->getPosition().x + GameObject->getSize().x;
+	rect.right = distance.x > 0 ? GameObject->getPosition().x + GameObject->getSize().x + distance.x : GameObject->getPosition().x + GameObject->getSize().x;*/
 
 	return rect;
 }
@@ -32,15 +32,15 @@ RECT Collision::GetBroadphaseRect(GameObject * GameObject, float DeltaTime)
 RECT Collision::GetRECT(GameObject *GameObject)
 {
 	RECT rect;
-	/*rect.top = GameObject->getPosition().y + GameObject->getSize().y / 2;
+	rect.top = GameObject->getPosition().y + GameObject->getSize().y / 2;
 	rect.bottom = GameObject->getPosition().y - GameObject->getSize().y / 2;
 	rect.left = GameObject->getPosition().x - GameObject->getSize().x / 2;
-	rect.right = GameObject->getPosition().x + GameObject->getSize().x / 2;*/
+	rect.right = GameObject->getPosition().x + GameObject->getSize().x / 2;
 
-	rect.top = GameObject->getPosition().y;
+	/*rect.top = GameObject->getPosition().y;
 	rect.bottom = GameObject->getPosition().y - GameObject->getSize().y;
 	rect.left = GameObject->getPosition().x;
-	rect.right = GameObject->getPosition().x + GameObject->getSize().x;
+	rect.right = GameObject->getPosition().x + GameObject->getSize().x;*/
 
 	return rect;
 }

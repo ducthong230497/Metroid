@@ -97,10 +97,8 @@ void SceneManager::Render()
 	else if (Keyboard->IsKeyDown(DIK_F4))
 		NextID = GAMEOVERSCENE;
 	else if (Keyboard->IsKeyDown(DIK_F5))
-		NextID = LEVELCOMPLETESCENE;
-	else if (Keyboard->IsKeyDown(DIK_F7))
 		NextID = TESTSCENE1;
-	else if (Keyboard->IsKeyDown(DIK_F7))
+	else if (Keyboard->IsKeyDown(DIK_F6))
 		NextID = TESTSCENE2;
 #endif
 

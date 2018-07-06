@@ -7,6 +7,9 @@
 #include "CKeyboard.h"
 #include "Collision.h"
 #include "Ripper.h"
+#include "Skree.h"
+#include "Rio.h"
+#include "Zoomer.h"
 class testScene1 : public Scene
 {
 private:
@@ -19,6 +22,9 @@ private:
 	CKeyboard * KeyBoard;
 	Texture enemiesTexture;
 	Ripper * ripper;
+	Skree * skree;
+	Rio * rio;
+	Zoomer * zoomer;
 	Collision * collision;
 public:
 	testScene1();

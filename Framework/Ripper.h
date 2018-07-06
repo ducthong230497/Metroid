@@ -2,7 +2,6 @@
 #include "Sprite.h"
 #include "Animation.h"
 #include "TexturePacker.h"
-#include "Animation.h"
 #include "SpriteBatch.h"
 class Ripper : public Sprite
 {
@@ -16,7 +15,7 @@ public:
 	~Ripper();
 
 	void Init(Texture * ripperTexture, float x, float y);
-	void Update() override;
+	void Update(float dt) override;
 	void Render(SpriteBatch * batch);
 	void OnHitGround();
 	void OnHitBullet();

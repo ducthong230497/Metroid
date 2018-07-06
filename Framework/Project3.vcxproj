@@ -134,9 +134,11 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rio.cpp" />
     <ClCompile Include="Ripper.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Skree.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="MenuScene.cpp" />
@@ -148,6 +150,7 @@
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Zoomer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -165,9 +168,11 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="Rio.h" />
     <ClInclude Include="Ripper.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Skree.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="MenuScene.h" />
@@ -179,6 +184,7 @@
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Zoomer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

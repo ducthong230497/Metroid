@@ -20,9 +20,9 @@ void Ripper::Init(Texture *ripperTexture, float x, float y)
 	SetPosition(x, y);
 
 	//setup body
-	_CategoryMask = RIPPER;RIPPER;
+	_CategoryMask = RIPPER;
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
-
+	collisionType = CollisionType::Dynamic;
 
 	_Velocity.x = -0;
 	_Velocity.y = 0;
@@ -31,7 +31,7 @@ void Ripper::Init(Texture *ripperTexture, float x, float y)
 	//isShot = Sound::LoadSound("Resources/SoundEffect/ShootRipper.wav");
 }
 
-void Ripper::Update()
+void Ripper::Update(float dt)
 {
 }
 

@@ -100,6 +100,14 @@ void GameObject::Next(float DeltaTime, bool moveX, bool moveY)
 	}
 }
 
-void GameObject::Update()
+void GameObject::Update(float)
 {
 }
+
+void GameObject::UpdateVelocity(GameObject * Player)
+{
+}
+
+//void GameObject::Render(SpriteBatch *batch)
+//{
+//}

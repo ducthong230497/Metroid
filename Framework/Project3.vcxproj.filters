@@ -141,6 +141,15 @@
     <ClCompile Include="Ripper.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="Skree.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Rio.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Zoomer.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -228,6 +237,15 @@
       <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
     <ClInclude Include="Ripper.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Skree.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Rio.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Zoomer.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>

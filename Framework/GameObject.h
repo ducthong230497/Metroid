@@ -2,6 +2,7 @@
 #include "define.h"
 #include "define_CollisionType.h"
 #include "define_Category.h"
+//#include "SpriteBatch.h"
 class GameObject
 {
 protected:
@@ -29,5 +30,7 @@ public:
 	void setBitMask(uint16_t bitmask);
 	void setCategoryMask(uint16_t categorymask);
 	void Next(float DeltaTime, bool moveX, bool moveY);
-	virtual void Update();
+	virtual void Update(float );
+	virtual void UpdateVelocity(GameObject * Player);
+	//virtual void Render(SpriteBatch*);
 };

@@ -15,13 +15,13 @@ void testScene1::Init()
 	object1->setPosition(100, -100);
 	object1->setSize(50, 50);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO);
 
 	GameObject * object2 = new GameObject();
 	object2->setPosition(200, -200);
 	object2->setSize(50, 50);
 	object2->setCategoryMask(Category::PLATFORM);
-	object2->setBitMask(Category::PLAYER | Category::SKREE | Category::ZOOMER);
+	object2->setBitMask(Category::PLAYER | Category::SKREE | Category::ZOOMER | Category::RIPPER);
 
 	GameObject * object3 = new GameObject();
 	object3->setPosition(300, -300);
@@ -35,15 +35,28 @@ void testScene1::Init()
 	object4->setCategoryMask(Category::ZOOMER);
 	object4->setBitMask(Category::PLAYER | Category::PLATFORM);
 
-	ripper = new Ripper();
 	enemiesTexture = Texture("Resources/enemies.png");
-	ripper->Init(&enemiesTexture, 200, -200);
+
+	ripper = new Ripper();
+	ripper->Init(&enemiesTexture, 400, -200);
+
+	skree = new Skree();
+	skree->Init(&enemiesTexture, 500, -200);
+
+	rio = new Rio();
+	rio->Init(&enemiesTexture, 600, -200);
+
+	zoomer = new Zoomer();
+	zoomer->Init(&enemiesTexture, 600, -300, 1);
 
 	GameObjects.push_back(object1);
 	GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
 	GameObjects.push_back(object4);
 	GameObjects.push_back(ripper);
+	GameObjects.push_back(skree);
+	GameObjects.push_back(rio);
+	GameObjects.push_back(zoomer);
 
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
@@ -73,6 +86,7 @@ void testScene1::Update()
 	//Trace::Log("Update Scene");
 	float dt = Time->getDeltaTime();
 	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
+		(*it1)->UpdateVelocity(object1);
 		POINT velocity = (*it1)->getVelocity();
 		POINT position = (*it1)->getPosition();
 		position.x += velocity.x * dt;
@@ -99,6 +113,7 @@ void testScene1::Update()
 		}
 		j = 0;
 		(*it1)->Next(dt, moveX, moveY);
+		(*it1)->Update(dt);
 	}
 }
 
@@ -106,51 +121,54 @@ eSceneID testScene1::Render()
 {
 	batch->Begin();
 	ripper->Render(batch);
-	batch->Draw(*texture, 100, -100);
-	//for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
-	//{
-	//	// Generate a random area (within back buffer) to draw the surface onto
-	//	RECT rect;
-	//	/*
-	//	rect.left = rand() % (SCREEN_WIDTH/2);
-	//	rect.top = rand() % (SCREEN_HEIGHT/2);
-	//	rect.right = rect.left + rand() % (SCREEN_WIDTH/2);
-	//	rect.bottom = rect.left + rand() % (SCREEN_HEIGHT/2);
-	//	*/
+	skree->Render(batch);
+	rio->Render(batch);
+	//batch->Draw(*texture, 100, -100);
+	for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
+	{
+		
+		// Generate a random area (within back buffer) to draw the surface onto
+		RECT rect;
+		/*
+		rect.left = rand() % (SCREEN_WIDTH/2);
+		rect.top = rand() % (SCREEN_HEIGHT/2);
+		rect.right = rect.left + rand() % (SCREEN_WIDTH/2);
+		rect.bottom = rect.left + rand() % (SCREEN_HEIGHT/2);
+		*/
 
-	//	/*x += v * dt;
-	//	if (x + 50 > SCREEN_WIDTH || x<0) v = -v;*/
+		/*x += v * dt;
+		if (x + 50 > SCREEN_WIDTH || x<0) v = -v;*/
 
-	//	//
-	//	// WORLD TO VIEWPORT TRANSFORM USING MATRIX
-	//	//
-	//	D3DXVECTOR3 position((*it)->getPosition().x, (*it)->getPosition().y, 0);
-	//	D3DXMATRIX mt;
-	//	D3DXMatrixIdentity(&mt);
-	//	mt._22 = -1.0f;
-	//	mt._41 = -0;
-	//	mt._42 = 0;
-	//	D3DXVECTOR4 vp_pos;
-	//	D3DXVec3Transform(&vp_pos, &position, &mt);
+		//
+		// WORLD TO VIEWPORT TRANSFORM USING MATRIX
+		//
+		D3DXVECTOR3 position((*it)->getPosition().x, (*it)->getPosition().y, 0);
+		D3DXMATRIX mt;
+		D3DXMatrixIdentity(&mt);
+		mt._22 = -1.0f;
+		mt._41 = -0;
+		mt._42 = 0;
+		D3DXVECTOR4 vp_pos;
+		D3DXVec3Transform(&vp_pos, &position, &mt);
 
-	//	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
-	//	D3DXVECTOR3 center((float)100 / 2, (float)100 / 2, 0);
+		D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
+		D3DXVECTOR3 center((float)100 / 2, (float)100 / 2, 0);
 
-	//	rect.left = p.x;
-	//	rect.top = p.y;
-	//	rect.right = rect.left + 50;
-	//	rect.bottom = rect.top + 50;
+		rect.left = p.x;
+		rect.top = p.y;
+		rect.right = rect.left + (*it)->getSize().x;
+		rect.bottom = rect.top + (*it)->getSize().y;
 
-	//	//Trace::Log("x : %f, y : %f", p.x, p.y);
-	//	CDevice::getInstance()->getD3DDevice()->StretchRect(
-	//		surface,
-	//		NULL,
-	//		CDevice::getInstance()->getBackBuffer(),
-	//		&rect,
-	//		D3DTEXF_NONE
-	//	);
-	//	batch->DrawSquare((*it)->getPosition().x + (*it)->getSize().x / 2, (*it)->getPosition().y - (*it)->getSize().y / 2, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
-	//}
+		//Trace::Log("x : %f, y : %f", p.x, p.y);
+		CDevice::getInstance()->getD3DDevice()->StretchRect(
+			surface,
+			NULL,
+			CDevice::getInstance()->getBackBuffer(),
+			&rect,
+			D3DTEXF_NONE
+		);
+		batch->DrawSquare((*it)->getPosition().x + (*it)->getSize().x / 2, (*it)->getPosition().y - (*it)->getSize().y / 2, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
+	}
 	batch->End();
 
 	return nextScene;
