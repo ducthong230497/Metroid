@@ -61,6 +61,15 @@
     <Filter Include="Manager\SneneManager\src">
       <UniqueIdentifier>{86a1e2d7-c7c9-4869-9e29-c572b411d5ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\MapManager">
+      <UniqueIdentifier>{40c4e550-8b46-410e-9433-bf245db3738f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MapManager\include">
+      <UniqueIdentifier>{5b31b2c7-a5eb-4237-aff0-c3fd0870b776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MapManager\src">
+      <UniqueIdentifier>{ca41f103-e529-4ad9-8f5e-b32b586305e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -149,6 +158,24 @@
     </ClCompile>
     <ClCompile Include="Zoomer.cpp">
       <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Manager\MapManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="TileLayer.cpp">
+      <Filter>Manager\MapManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGroup.cpp">
+      <Filter>Manager\MapManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Manager\MapManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Manager\MapManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>Manager\MapManager\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +274,24 @@
     </ClInclude>
     <ClInclude Include="Zoomer.h">
       <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="TileLayer.h">
+      <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectGroup.h">
+      <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>Manager\MapManager\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

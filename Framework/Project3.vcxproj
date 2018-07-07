@@ -133,7 +133,10 @@
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Rio.cpp" />
     <ClCompile Include="Ripper.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -148,6 +151,9 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePacker.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
+    <ClCompile Include="TileLayer.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Trace.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Zoomer.cpp" />
@@ -168,6 +174,9 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="MapLoader.h" />
+    <ClInclude Include="ObjectGroup.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rio.h" />
     <ClInclude Include="Ripper.h" />
     <ClInclude Include="Scene.h" />
@@ -182,6 +191,9 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturePacker.h" />
     <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="TileLayer.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileSet.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Zoomer.h" />

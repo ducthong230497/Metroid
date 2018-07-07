@@ -12,12 +12,13 @@ testScene1::~testScene1()
 void testScene1::Init()
 {
 	object1 = new GameObject();
-	object1->setPosition(100, -100);
+	object1->setPosition(100, 100);
 	object1->setSize(50, 50);
 	object1->setCategoryMask(Category::PLAYER);
 	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO);
 
-	GameObject * object2 = new GameObject();
+	#pragma region TESTREGION
+	/*GameObject * object2 = new GameObject();
 	object2->setPosition(200, -200);
 	object2->setSize(50, 50);
 	object2->setCategoryMask(Category::PLATFORM);
@@ -33,26 +34,27 @@ void testScene1::Init()
 	object4->setPosition(300, -400);
 	object4->setSize(50, 50);
 	object4->setCategoryMask(Category::ZOOMER);
-	object4->setBitMask(Category::PLAYER | Category::PLATFORM);
+	object4->setBitMask(Category::PLAYER | Category::PLATFORM);*/
+	#pragma endregion
 
 	enemiesTexture = Texture("Resources/enemies.png");
 
 	ripper = new Ripper();
-	ripper->Init(&enemiesTexture, 400, -200);
+	ripper->Init(&enemiesTexture, 400, 400);
 
 	skree = new Skree();
-	skree->Init(&enemiesTexture, 500, -200);
+	skree->Init(&enemiesTexture, 500, 300);
 
 	rio = new Rio();
-	rio->Init(&enemiesTexture, 600, -200);
+	rio->Init(&enemiesTexture, 600, 200);
 
 	zoomer = new Zoomer();
-	zoomer->Init(&enemiesTexture, 600, -300, 1);
+	zoomer->Init(&enemiesTexture, 600, 100, 1);
 
-	GameObjects.push_back(object1);
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
 	GameObjects.push_back(object4);*/
+	GameObjects.push_back(object1);
 	GameObjects.push_back(ripper);
 	GameObjects.push_back(skree);
 	GameObjects.push_back(rio);
@@ -68,12 +70,16 @@ void testScene1::Init()
 	CDevice::getInstance()->getD3DDevice()->ColorFill(surface, NULL, D3DCOLOR_XRGB(155, 155, 155));
 
 	cam = Camera::Instance();
-	cam->setPosition(0, 0);
+	cam->setPosition(0, 32*15);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	texture = new Texture("Resources/metroidTileMap2.png");
 	KeyBoard = CKeyboard::getInstance();
 	collision = new Collision();
+
+	//load map
+	mapLoader.AddMap("map1", "Resources/maptest.tmx", 1);
+	tileMap = mapLoader.GetMap("map1");
 
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
@@ -124,10 +130,19 @@ eSceneID testScene1::Render()
 	skree->Render(batch);
 	rio->Render(batch);
 	zoomer->Render(batch);
+	tileMap->Render(batch);
+	DrawSquare();
+	batch->End();
+
+	return nextScene;
+}
+
+void testScene1::DrawSquare()
+{
 	//batch->Draw(*texture, 100, -100);
 	for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
 	{
-		
+
 		//// Generate a random area (within back buffer) to draw the surface onto
 		//RECT rect;
 		///*
@@ -170,9 +185,6 @@ eSceneID testScene1::Render()
 		//);
 		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}
-	batch->End();
-
-	return nextScene;
 }
 
 void testScene1::ProcessInput()

@@ -10,6 +10,7 @@
 #include "Skree.h"
 #include "Rio.h"
 #include "Zoomer.h"
+#include "MapLoader.h"
 class testScene1 : public Scene
 {
 private:
@@ -26,6 +27,9 @@ private:
 	Rio * rio;
 	Zoomer * zoomer;
 	Collision * collision;
+	
+	MapLoader mapLoader;
+	TileMap * tileMap;
 public:
 	testScene1();
 	~testScene1();
@@ -33,6 +37,7 @@ public:
 	void Init() override;
 	void Update() override;
 	eSceneID Render() override;
+	void DrawSquare();
 	void ProcessInput();
 	void End() override;
 
