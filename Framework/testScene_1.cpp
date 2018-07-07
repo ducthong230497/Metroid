@@ -80,6 +80,17 @@ void testScene1::Init()
 	//load map
 	mapLoader.AddMap("map1", "Resources/maptest.tmx", 1);
 	tileMap = mapLoader.GetMap("map1");
+	std::vector<GameObject*> Platforms;
+	std::vector<Shape::Rectangle> PlatformGroup = tileMap->GetObjectGroup("Platform")->GetRects();
+	for (std::vector<Shape::Rectangle>::iterator it = PlatformGroup.begin(); it != PlatformGroup.end(); ++it)
+	{
+		GameObject * platform = new GameObject();
+		platform->setPosition((*it).x, (*it).y);
+		platform->setSize((*it).width, (*it).height);
+		platform->setCategoryMask(Category::PLATFORM);
+		platform->setBitMask(Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER);
+		GameObjects.push_back(platform);
+	}
 
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");

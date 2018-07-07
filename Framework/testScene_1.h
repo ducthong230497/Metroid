@@ -11,6 +11,7 @@
 #include "Rio.h"
 #include "Zoomer.h"
 #include "MapLoader.h"
+#include "Rectangle.h"
 class testScene1 : public Scene
 {
 private:
