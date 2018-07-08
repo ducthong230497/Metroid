@@ -13,7 +13,7 @@ void testScene1::Init()
 {
 	object1 = new GameObject();
 	object1->setPosition(100, 100);
-	object1->setSize(50, 50);
+	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
 	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO);
 
@@ -76,6 +76,7 @@ void testScene1::Init()
 	texture = new Texture("Resources/metroidTileMap2.png");
 	KeyBoard = CKeyboard::getInstance();
 	collision = new Collision();
+	callback = new CollisionCallback();
 
 	//load map
 	mapLoader.AddMap("map1", "Resources/maptest.tmx", 1);
@@ -99,9 +100,7 @@ void testScene1::Init()
 void testScene1::Update()
 {
 	int i = 0, j = 0;
-	bool collide = false;
-	//Trace::Log("Update Scene");
-	float dt = Time->getDeltaTime();
+	float dt = Time->getDeltaTime() / 1000.0f;
 	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 		(*it1)->UpdateVelocity(object1);
 		POINT velocity = (*it1)->getVelocity();
@@ -121,9 +120,14 @@ void testScene1::Update()
 				{
 					if (collision->Collide((*it1), (*it2), dt))
 					{
-						Trace::Log("Collide");
-						collide = true;
+						callback->OnCollisionEnter((*it1), (*it2), collision->_CollisionDirection);
 						collision->PerformCollision((*it1), (*it2), dt, 0, moveX, moveY);
+
+						//check overlaying (sometimes two bodies are already overlaying each other 
+						if (collision->IsOverlaying((*it1), (*it2)))
+						{
+							collision->PerformOverlaying((*it1), (*it2), moveX, moveY);
+						}
 					}
 				}
 			}
@@ -204,7 +208,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_RIGHT))
 	{
 		//object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
-		object1->setVelocity(0.5, object1->getVelocity().y);
+		object1->setVelocity(150, object1->getVelocity().y);
 	}
 	else if(KeyBoard->IsKeyUp(DIK_RIGHT))
 	{
@@ -213,7 +217,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_LEFT))
 	{
 		//object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
-		object1->setVelocity(-0.5, object1->getVelocity().y);
+		object1->setVelocity(-150, object1->getVelocity().y);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_LEFT))
 	{
@@ -222,7 +226,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_UP))
 	{
 		//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
-		object1->setVelocity(object1->getVelocity().x, 0.5);
+		object1->setVelocity(object1->getVelocity().x, 150);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_UP))
 	{
@@ -231,7 +235,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_DOWN))
 	{
 		//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
-		object1->setVelocity(object1->getVelocity().x, -0.5);
+		object1->setVelocity(object1->getVelocity().x, -150);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_DOWN))
 	{

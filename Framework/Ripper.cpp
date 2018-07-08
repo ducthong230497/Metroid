@@ -24,7 +24,7 @@ void Ripper::Init(Texture *ripperTexture, float x, float y)
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
 	collisionType = CollisionType::Dynamic;
 
-	_Velocity.x = -0;
+	_Velocity.x = -90;
 	_Velocity.y = 0;
 
 	//sound when Ripper is shot

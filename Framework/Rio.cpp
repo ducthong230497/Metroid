@@ -36,7 +36,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 	TexturePacker p = TexturePacker(rioTexture, "Resources/enemies_packer.xml");
 
 	rioAnimation.AddRegion(p.GetRegion("rio"));
-	//zoomerAnimation.SetFrameInterval(0.04);
+	rioAnimation.SetFrameInterval(0.04);
 
 	SetRegion(*rioAnimation.GetKeyAnimation());
 	SetSize(45, 40);
@@ -47,7 +47,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
 	collisionType = CollisionType::Dynamic;
 
-	_Velocity.x = -0;
+	_Velocity.x = -90;
 	_Velocity.y = 0;
 
 	//sound when Ripper is shot

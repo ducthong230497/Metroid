@@ -127,6 +127,7 @@
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CollisionCallback.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CKeyboard.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionCallback.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="define_CollisionType.h" />

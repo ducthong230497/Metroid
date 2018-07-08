@@ -30,6 +30,8 @@ private:
 
 	bool IsSensorEntered;
 
+	friend class testScene1;
+
 private: //private function
 
 	void UpdateTargetPosition(GameObject *GameObject, const POINT &move);

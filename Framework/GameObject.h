@@ -9,6 +9,7 @@ protected:
 	POINT _Position;
 	POINT _Size;
 	POINT _Velocity;
+public:
 	uint16_t _BitMask;
 	uint16_t _CategoryMask;
 	CollisionType collisionType;

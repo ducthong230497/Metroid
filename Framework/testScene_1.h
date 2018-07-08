@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "CKeyboard.h"
 #include "Collision.h"
+#include "CollisionCallback.h"
 #include "Ripper.h"
 #include "Skree.h"
 #include "Rio.h"
@@ -28,7 +29,7 @@ private:
 	Rio * rio;
 	Zoomer * zoomer;
 	Collision * collision;
-	
+	CollisionCallback * callback;
 	MapLoader mapLoader;
 	TileMap * tileMap;
 public:
@@ -41,6 +42,8 @@ public:
 	void DrawSquare();
 	void ProcessInput();
 	void End() override;
+
+	void OnCollisionEnter();
 
 	DEFINE_SCENE_UID(TESTSCENE1)
 };

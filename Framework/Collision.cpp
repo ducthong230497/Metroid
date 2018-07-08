@@ -57,6 +57,10 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 	//	_CollisionPosition.y = 0.0f;
 	//	return false;
 	//}
+	if (targetGameObject->getCategoryMask() == Category::PLAYER && otherGameObject->getCategoryMask() == Category::RIO /*&& otherGameObject->getPosition().y == 16*/)
+	{
+		int a = 2;
+	}
 
 	POINT targetVelocity = targetGameObject->getVelocity();
 	POINT otherVelocity = otherGameObject->getVelocity();
@@ -98,6 +102,8 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 	{
 		rxentry = dxentry / (target_tempvx*DeltaTime);
 		rxexit = dxexit / (target_tempvx*DeltaTime);
+		/*rxentry = dxentry / (targetVelocity.x*DeltaTime);
+		rxexit = dxexit / (targetVelocity.x*DeltaTime);*/
 	}
 
 	//tính toán t y entry/ exit, tương tự x entry/ exit
@@ -222,8 +228,8 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 		_CollisionRatio = rentry;
 		_RemainingTime = DeltaTime - rentry * DeltaTime;
 
-		_CollisionPosition.x = targetGameObject->getPosition().x + rentry * DeltaTime*targetVelocity.x;
-		_CollisionPosition.y = targetGameObject->getPosition().y + rentry * DeltaTime*targetVelocity.y;
+		_CollisionPosition.x = targetGameObject->getPosition().x + rentry * DeltaTime*target_tempvx;
+		_CollisionPosition.y = targetGameObject->getPosition().y + rentry * DeltaTime*target_tempvy;
 
 
 		return true;
@@ -251,10 +257,19 @@ bool Collision::IsOverlayingRect(const RECT & rect1, const RECT & rect2)
 
 void Collision::UpdateTargetPosition(GameObject * GameObject, const POINT & move)
 {
+	POINT temp = GameObject->getPosition();
 	if (move.x == 0 && move.y == 0)
 		GameObject->setPosition(_CollisionPosition.x, _CollisionPosition.y);
 	else {
-		GameObject->setPosition(GameObject->getPosition().x + move.x, GameObject->getPosition().y + move.y);
+		//GameObject->setPosition(temp.x + move.x, temp.y + move.y);
+		if (move.x != 0)
+		{
+			GameObject->setPosition(_CollisionPosition.x, temp.y);
+		}
+		if (move.y != 0)
+		{
+			GameObject->setPosition(temp.x, _CollisionPosition.y);
+		}
 	}
 }
 
@@ -269,8 +284,10 @@ void Collision::PerformCollision(GameObject * targetGameObject, GameObject * oth
 		// nếu va chạm theo trục x
 		if (_CollisionDirection.x == targetVelocity.x * -1)
 		{
-			// cập nhật tọa độ
-			UpdateTargetPosition(targetGameObject, POINT(0, 0));
+			if (needMoveX) {
+				// cập nhật tọa độ
+				UpdateTargetPosition(targetGameObject, POINT(_CollisionPosition.x, 0));
+			}
 
 			// ngăn không cho targetObject di chuyển theo x trong hàm Body->Next trong vòng update World
 			needMoveX = false;
@@ -280,13 +297,84 @@ void Collision::PerformCollision(GameObject * targetGameObject, GameObject * oth
 			//nếu va chạm theo trục y
 			if (_CollisionDirection.y == targetVelocity.y * -1)
 			{
-				// cập nhật tọa độ
-				UpdateTargetPosition(targetGameObject, POINT(0, 0));
+				if (needMoveY) {
+					// cập nhật tọa độ
+					UpdateTargetPosition(targetGameObject, POINT(0, _CollisionPosition.y));
+				}
 
 				// ngăn không cho targetObject di chuyển theo y trong hàm Body->Next trong vòng update World
 				needMoveY = false;
 			}
 		}
 	}
+}
+
+bool Collision::IsOverlaying(GameObject * targetGameObject, GameObject * otherGameObject)
+{
+	moveX = moveY = 0.0f;
+	//auto myRect = _target->getBounding();
+	//auto otherRect = otherObject->getBounding();
+
+	if (targetGameObject->getCategoryMask() == Category::PLAYER)
+	{
+		float left = otherGameObject->getPosition().x - otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x + targetGameObject->getSize().x / 2);
+		float top = otherGameObject->getPosition().y + otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y - targetGameObject->getSize().y / 2);
+		float right = otherGameObject->getPosition().x + otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x - targetGameObject->getSize().x / 2);
+		float bottom = otherGameObject->getPosition().y - otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y + targetGameObject->getSize().y / 2);
+	}
+
+	float left = otherGameObject->getPosition().x - otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x + targetGameObject->getSize().x / 2);
+	float top = otherGameObject->getPosition().y + otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y - targetGameObject->getSize().y / 2);
+	float right = otherGameObject->getPosition().x + otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x - targetGameObject->getSize().x / 2);
+	float bottom = otherGameObject->getPosition().y - otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y + targetGameObject->getSize().y / 2);
+
+	// kt coi có va chạm không
+	//  CÓ va chạm khi 
+	//  left < 0 && right > 0 && top > 0 && bottom < 0
+	//
+	if (left >= 0 || right <= 0 || top <= 0 || bottom >= 0)
+		return false;
+
+	// tính offset x, y để đi hết va chạm
+	// lấy khoảng cách nhỏ nhất
+	moveX = abs(left) < right ? left : right;
+	moveY = top < abs(bottom) ? top : bottom;
+
+	// chỉ lấy phần lấn vào nhỏ nhất
+	if (abs(moveX) < abs(moveY))
+		moveY = 0.0f;
+	else
+		moveX = 0.0f;
+
+	return true;
+}
+
+void Collision::PerformOverlaying(GameObject * targetGameObject, GameObject * otherGameObject, bool & needMoveX, bool & needMoveY)
+{
+	/*if (!targetBody->_IsSensor)
+	{*/
+	if (moveX != 0) //nếu cần chỉnh lại toạ độ x thì không cho obj thay đổi x trong Body->Next
+		needMoveX = false;
+	if (moveY != 0) //nếu cần chỉnh lại toạ độ y thì không cho obj thay đổi y trong Body->Next
+		needMoveY = false;
+	//}
+
+	//if (targetBody->_IsSensor)
+	//{
+	//	if (!IsPreviousOverlayed(targetBody, otherBody))
+	//	{
+	//		if (!IsSensorEntered)
+	//		{
+	//			//Console::Log("Hello");
+	//			_Listener->OnSersorEnter(targetBody, otherBody);
+	//		}
+	//	}
+	//	else
+	//	{
+	//		_Listener->OnSersorOverlaying(targetBody, otherBody);
+	//	}
+	//}
+
+	UpdateTargetPosition(targetGameObject, POINT(moveX, moveY));
 }
 

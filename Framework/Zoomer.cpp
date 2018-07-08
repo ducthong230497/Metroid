@@ -57,7 +57,69 @@ void Zoomer::Render(SpriteBatch * batch)
 	batch->Draw(*this);
 }
 
+void Zoomer::Update(float dt)
+{
+	SetRegion(*zoomerAnimation.Next(dt));
+}
+
 void Zoomer::Update(float dt, Camera * cam)
 {
+	//if (body->GetPosition().x > cam->GetPosition().x - screenWidth / 2 && body->GetPosition().x < cam->GetPosition().x + screenWidth / 2
+	//	&&
+	//	(body->GetPosition().y - body->GetSize().y / 2 - 5) < (cam->GetPosition().y + screenHeight / 2) && (body->GetPosition().y + body->GetSize().y / 2 + 5) > (cam->GetPosition().y - screenHeight / 2)) {
+	//	outsideOfCamera = false;
+	//	body->SetBodyType(Body::BodyType::Kinematic);
+	//	if (isDead) return;
 
+	//	if (health <= 0)
+	//	{
+	//		isDead = true;
+	//		world->DestroyBody(body);
+	//		return;
+	//	}
+
+	//	if (hitBulletTime == -1) //-1 means not being hit by bullet
+	//	{
+	//		SetRegion(*zoomerAnimation.Next(dt));
+	//	}
+	//	else
+	//	{
+	//		if (hitBulletTime < MAXHITBULLETTIME)
+	//		{
+	//			hitBulletTime += dt;
+	//		}
+	//		else
+	//		{
+	//			hitBulletTime = -1;
+	//			body->SetBodyType(Body::BodyType::Kinematic);
+	//		}
+	//	}
+
+	//	if (hitPlayerTime != -1)
+	//	{
+	//		if (hitPlayerTime < MAXHITPLAYERHITTIME)
+	//		{
+	//			hitPlayerTime += dt;
+	//		}
+	//		else
+	//		{
+	//			hitPlayerTime = -1;
+	//			body->maskBits = PLAYER_BIT | PLATFORM_BIT | BULLET_BIT | EXPLOSION_BIT | BREAKABLEPLATFORM_BIT | DOOR_BIT;
+	//		}
+	//	}
+
+	//	//set sprite position
+	//	if (body != NULL)
+	//		this->SetPosition(body->GetPosition().x, body->GetPosition().y);
+
+	//	//body->SetVelocity(0.5f, -0.5f);
+	//	if (body->GetBodyType() != Body::BodyType::Static)
+	//	{
+	//		StickToGround();
+	//	}
+	//}
+	//else {
+	//	body->SetBodyType(Body::BodyType::Static);
+	//	outsideOfCamera = true;
+	//}
 }

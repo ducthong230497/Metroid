@@ -42,6 +42,8 @@ public:
 
 	void Render(SpriteBatch *batch);
 
+	void Update(float dt) override;
+
 	void Update(float dt, Camera *cam);
 
 	void OnHitBullet();

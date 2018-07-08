@@ -47,11 +47,11 @@ void Skree::UpdateVelocity(GameObject * player)
 			collisionType = CollisionType::Dynamic;
 			if (player->getPosition().x - getPosition().x > 0)
 			{
-				setVelocity(0.25, -0.3);
+				setVelocity(90, -150);
 			}
 			else
 			{
-				setVelocity(-0.25, -0.3);
+				setVelocity(-90, -150);
 			}
 		}
 	}

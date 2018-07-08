@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	AGG->Run();*/
 
 	TestGame *g = new TestGame();
-	g->Init(hInstance, L"Test", 800, 600, 0, 30);
+	g->Init(hInstance, L"Test", 800, 600, 0, 60);
 	g->Run();
 	return 0;
 }
