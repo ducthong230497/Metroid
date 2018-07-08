@@ -208,7 +208,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_RIGHT))
 	{
 		//object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
-		object1->setVelocity(150, object1->getVelocity().y);
+		object1->setVelocity(200, object1->getVelocity().y);
 	}
 	else if(KeyBoard->IsKeyUp(DIK_RIGHT))
 	{
@@ -217,7 +217,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_LEFT))
 	{
 		//object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
-		object1->setVelocity(-150, object1->getVelocity().y);
+		object1->setVelocity(-200, object1->getVelocity().y);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_LEFT))
 	{
@@ -226,7 +226,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_UP))
 	{
 		//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
-		object1->setVelocity(object1->getVelocity().x, 150);
+		object1->setVelocity(object1->getVelocity().x, 200);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_UP))
 	{
@@ -235,7 +235,7 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_DOWN))
 	{
 		//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
-		object1->setVelocity(object1->getVelocity().x, -150);
+		object1->setVelocity(object1->getVelocity().x, -200);
 	}
 	else if (KeyBoard->IsKeyUp(DIK_DOWN))
 	{

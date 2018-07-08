@@ -21,7 +21,7 @@ private:
 	int Health;
 	bool isHitGround;
 	bool isDead;
-
+	friend class CollisionCallback;
 	//CSound *isShot = NULL;
 public:
 	Skree();

@@ -33,6 +33,30 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}*/
 		break;
 	}
+	case RIO * PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == Category::RIO)
+		{
+			if (CollisionDirection.x != NOT_COLLIDED)
+			{
+				((Rio*)gameObjectA)->setVelocity(0, gameObjectA->getVelocity().y);
+			}
+			if (CollisionDirection.y != NOT_COLLIDED)
+			{
+				((Rio*)gameObjectA)->setVelocity(gameObjectA->getVelocity().x, 0);
+			}
+		}
+	}
+	case SKREE * PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == Category::SKREE)
+		{
+			if (CollisionDirection.y != NOT_COLLIDED)
+			{
+				((Skree*)gameObjectA)->setVelocity(0, 0);
+			}
+		}
+	}
 	default:
 		break;
 	}
