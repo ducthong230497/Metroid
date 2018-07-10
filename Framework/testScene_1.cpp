@@ -93,12 +93,16 @@ void testScene1::Init()
 		GameObjects.push_back(platform);
 	}
 
+	bulletTexture = Texture("Resources/metroidfullsheet.png");
+
 	numberOfBullet = 10;
 	for (int i = 0; i < 10; i++)
 	{
-		Bullet * b = new Bullet();
+		Bullet * b = new Bullet(&bulletTexture);
+		b->SetPosition(100, 200);
+		Bullets.push_back(b);
 	}
-
+	
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
 }
@@ -248,6 +252,10 @@ eSceneID testScene1::Render()
 	rio->Render(batch);
 	zoomer->Render(batch);
 	tileMap->Render(batch);
+	for (int i = 0; i < Bullets.size(); ++i)
+	{
+		Bullets[i]->Render(batch);
+	}
 	DrawSquare();
 	batch->End();
 
@@ -346,6 +354,16 @@ void testScene1::ProcessInput()
 	if (KeyBoard->IsKeyDown(DIK_RETURN))
 	{
 		nextScene = GAMEOVERSCENE;
+	}
+	if (KeyBoard->IsKeyDown(DIK_X))
+	{
+		if (Bullets.size() != 0)
+		{
+			GameObjects.push_back(Bullets.front());
+			std::vector<Bullet*>::iterator it = std::find(Bullets.begin(), Bullets.end(), Bullets.front());
+			(*it)->isActive = true;
+			//Bullets.erase(it);
+		}
 	}
 }
 

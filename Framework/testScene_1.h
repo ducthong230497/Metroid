@@ -34,6 +34,7 @@ private:
 	MapLoader mapLoader;
 	TileMap * tileMap;
 
+	Texture bulletTexture;
 	std::vector<Bullet*> Bullets;
 	int numberOfBullet;
 public:

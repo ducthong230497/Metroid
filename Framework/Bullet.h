@@ -16,6 +16,7 @@ public:
 
 	Bullet(Texture* texture); 
 
+	bool isActive;
 	void Render(SpriteBatch *batch);
 	void Update(float dt) override;
 	//void Release();
