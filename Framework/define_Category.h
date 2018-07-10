@@ -8,5 +8,5 @@ enum Category {
 	RIPPER = 16,
 	RIO = 32,
 	PLAYER_BULLET = 64,
-	BOOM_EXPLOSION = 128
+	BOOM_EXPLOSION = 128,
 };

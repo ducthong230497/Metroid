@@ -57,7 +57,7 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 	//	_CollisionPosition.y = 0.0f;
 	//	return false;
 	//}
-	if (targetGameObject->getCategoryMask() == Category::PLAYER && otherGameObject->getCategoryMask() == Category::RIO /*&& otherGameObject->getPosition().y == 16*/)
+	if (targetGameObject->getCategoryMask() == Category::PLAYER && otherGameObject->getCategoryMask() == Category::RIPPER /*&& otherGameObject->getPosition().y == 480-32-32-16*/)
 	{
 		int a = 2;
 	}
@@ -223,15 +223,19 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 		//	IsSensorEntered = true;
 		//}
 
-
-
 		_CollisionRatio = rentry;
 		_RemainingTime = DeltaTime - rentry * DeltaTime;
 
 		_CollisionPosition.x = targetGameObject->getPosition().x + rentry * DeltaTime*target_tempvx;
 		_CollisionPosition.y = targetGameObject->getPosition().y + rentry * DeltaTime*target_tempvy;
 
-
+		CollisionInfo ci;
+		ci.position = _CollisionPosition;
+		ci.direction = _CollisionDirection;
+		ci.size = otherGameObject->getSize();
+		ci.dxEntry = dxentry;
+		ci.dyEntry = dyentry;
+		_Collided_Objects.push_back(ci);
 		return true;
 	}
 }
@@ -270,6 +274,37 @@ void Collision::UpdateTargetPosition(GameObject * GameObject, const POINT & move
 		{
 			GameObject->setPosition(temp.x, _CollisionPosition.y);
 		}
+	}
+}
+
+void Collision::UpdateTargetPosition(GameObject * GameObject, const POINT & move, bool & needMoveX, bool & needMoveY)
+{
+	POINT temp = GameObject->getPosition();
+	if (move.x == 0 && move.y == 0)
+		GameObject->setPosition(_CollisionPosition.x, _CollisionPosition.y);
+	else {
+		//GameObject->setPosition(temp.x + move.x, temp.y + move.y);
+		if (move.x != 0)
+		{
+			GameObject->setPosition(move.x, temp.y);
+			needMoveX = false;
+		}
+		if (move.y != 0)
+		{
+			GameObject->setPosition(temp.x, move.y);
+			needMoveY = false;
+		}
+	}
+}
+
+void Collision::UpdateOverLayingPosition(GameObject * GameObject, const POINT & move)
+{
+	//if (targetBody->IsSensor()) return;
+
+	if (move.x == 0 && move.y == 0)
+		GameObject->setPosition(_CollisionPosition.x, _CollisionPosition.y);
+	else {
+		GameObject->setPosition(GameObject->getPosition().x + move.x, GameObject->getPosition().y + move.y);
 	}
 }
 
@@ -375,6 +410,11 @@ void Collision::PerformOverlaying(GameObject * targetGameObject, GameObject * ot
 	//	}
 	//}
 
-	UpdateTargetPosition(targetGameObject, POINT(moveX, moveY));
+	UpdateOverLayingPosition(targetGameObject, POINT(moveX, moveY));
+}
+
+void Collision::Reset()
+{
+	_Collided_Objects.clear();
 }
 

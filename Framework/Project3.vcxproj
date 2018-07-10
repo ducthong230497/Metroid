@@ -123,6 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Rio.cpp" />
     <ClCompile Include="Ripper.cpp" />
+    <ClCompile Include="Samus.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Skree.cpp" />
@@ -161,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CKeyboard.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rio.h" />
     <ClInclude Include="Ripper.h" />
+    <ClInclude Include="Samus.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Skree.h" />

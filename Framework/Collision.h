@@ -1,6 +1,16 @@
 ﻿#pragma once
 #include "GameObject.h"
 #define NOT_COLLIDED 10000.0f
+
+struct CollisionInfo
+{
+	POINT position;
+	POINT direction;
+	POINT size;
+	float dxEntry;
+	float dyEntry;
+};
+
 class Collision
 {
 private:
@@ -30,11 +40,16 @@ private:
 
 	bool IsSensorEntered;
 
+	std::vector<CollisionInfo> _Collided_Objects;
+
 	friend class testScene1;
 
 private: //private function
 
 	void UpdateTargetPosition(GameObject *GameObject, const POINT &move);
+	void UpdateTargetPosition(GameObject *GameObject, const POINT &move, bool &needMoveX, bool &needMoveY);
+	void UpdateOverLayingPosition(GameObject *GameObject, const POINT &move);
+
 
 	void Push(GameObject *GameObject);
 	void Slide(GameObject *GameObject);
@@ -52,7 +67,7 @@ public:
 	// Hàm dùng để dự đoán vùng bao phủ của object trong frame kế
 	bool IsOverlayingRect(const RECT &rect1, const RECT &rect2);
 
-	void PerformCollision(GameObject *targetGameObject, GameObject *otherGameObject, float DeltaTime, int collisionAction, bool &needMoveX, bool &needMoveY);
+	void PerformCollision(GameObject *targetGameObject, GameObject *otherGameObject, float DeltaTime, int collisionDirection, bool &needMoveX, bool &needMoveY);
 
 	//bool IsPreviousCollding(GameObject *targetGameObject, GameObject *otherGameObject, float DeltaTime);
 

@@ -11,9 +11,9 @@ CollisionCallback::~CollisionCallback()
 void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * gameObjectB, const POINT & CollisionDirection)
 {
 
-	switch (gameObjectA->_CategoryMask * gameObjectB->_CategoryMask)
+	switch (gameObjectA->_CategoryMask | gameObjectB->_CategoryMask)
 	{
-	case RIPPER * PLATFORM: // PLAYER * RIO:
+	case RIPPER | PLATFORM: // PLAYER * RIO:
 	{
 		if (gameObjectA->_CategoryMask == RIPPER)
 		{
@@ -33,7 +33,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}*/
 		break;
 	}
-	case RIO * PLATFORM:
+	case RIO | PLATFORM:
 	{
 		if (gameObjectA->_CategoryMask == Category::RIO)
 		{
@@ -46,8 +46,9 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 				((Rio*)gameObjectA)->setVelocity(gameObjectA->getVelocity().x, 0);
 			}
 		}
+		break;
 	}
-	case SKREE * PLATFORM:
+	case SKREE | PLATFORM:
 	{
 		if (gameObjectA->_CategoryMask == Category::SKREE)
 		{
@@ -56,6 +57,12 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 				((Skree*)gameObjectA)->setVelocity(0, 0);
 			}
 		}
+		break;
+	}
+	case RIPPER | PLAYER:
+	{
+		int a = 2;
+		break;
 	}
 	default:
 		break;

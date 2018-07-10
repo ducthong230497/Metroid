@@ -13,6 +13,7 @@
 #include "Zoomer.h"
 #include "MapLoader.h"
 #include "Rectangle.h"
+#include "Bullet.h"
 class testScene1 : public Scene
 {
 private:
@@ -32,6 +33,9 @@ private:
 	CollisionCallback * callback;
 	MapLoader mapLoader;
 	TileMap * tileMap;
+
+	std::vector<Bullet*> Bullets;
+	int numberOfBullet;
 public:
 	testScene1();
 	~testScene1();

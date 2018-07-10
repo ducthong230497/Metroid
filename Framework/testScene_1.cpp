@@ -93,14 +93,26 @@ void testScene1::Init()
 		GameObjects.push_back(platform);
 	}
 
+	numberOfBullet = 10;
+	for (int i = 0; i < 10; i++)
+	{
+		Bullet * b = new Bullet();
+	}
+
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
 }
-
+float test = 0;
 void testScene1::Update()
 {
 	int i = 0, j = 0;
 	float dt = Time->getDeltaTime() / 1000.0f;
+	test += dt;
+	if (test > 1)
+	{
+		Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
+		test = 0;
+	}
 	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 		(*it1)->UpdateVelocity(object1);
 		POINT velocity = (*it1)->getVelocity();
@@ -111,7 +123,7 @@ void testScene1::Update()
 		RECT box1 = collision->GetRECT((*it1));
 
 		bool moveX = true, moveY = true;
-
+		bool needMoveX = false, needMoveY = false;
 		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
 			if (collision->CanMaskCollide((*it1), (*it2)))
 			{
@@ -123,16 +135,106 @@ void testScene1::Update()
 						callback->OnCollisionEnter((*it1), (*it2), collision->_CollisionDirection);
 						collision->PerformCollision((*it1), (*it2), dt, 0, moveX, moveY);
 
-						//check overlaying (sometimes two bodies are already overlaying each other 
-						if (collision->IsOverlaying((*it1), (*it2)))
-						{
-							collision->PerformOverlaying((*it1), (*it2), moveX, moveY);
-						}
+						
 					}
+				}
+				//check overlaying (sometimes two bodies are already overlaying each other 
+				if (collision->IsOverlaying((*it1), (*it2)))
+				{
+					collision->PerformOverlaying((*it1), (*it2), moveX, moveY);
 				}
 			}
 		}
-		j = 0;
+
+#pragma region AFTER CHECKING COLLISION
+		/*
+		POINT actualCollisionPosition(1000.0f, 1000.0f);
+		POINT actualCollisionPosition_1(-1000.0f, -1000.0f);
+		POINT smallestDistance(1000.0f, 1000.0f);
+		//if (collision->_Collided_Objects.size() == 1)
+		//{
+		//	//collision->PerformCollision((*it1), NULL, 0, collision->_Collided_Objects[0].direction, moveX, moveY);
+		//	if (collision->_Collided_Objects[0].direction.x != NOT_COLLIDED)
+		//	{
+		//		collision->UpdateTargetPosition((*it1), POINT(collision->_Collided_Objects[0].position.x, 0));
+		//	}
+		//	if (collision->_Collided_Objects[0].direction.y != NOT_COLLIDED)
+		//	{
+		//		collision->UpdateTargetPosition((*it1), POINT(0, collision->_Collided_Objects[0].position.y));
+		//	}
+		//}
+		if (collision->_Collided_Objects.size() != 0)
+		{
+			if (collision->_Collided_Objects.size() == 3)
+			{
+				int a = 2;
+			}
+			if ((*it1)->_CategoryMask == Category::RIPPER)
+			{
+				int a = 2;
+			}
+			actualCollisionPosition = collision->_Collided_Objects[0].position;
+			for (int i = 0; i < collision->_Collided_Objects.size(); ++i)
+			{
+				if (velocity.x > 0 && collision->_Collided_Objects[i].direction.x != NOT_COLLIDED)
+				{
+					actualCollisionPosition.x = actualCollisionPosition.x < collision->_Collided_Objects[i].position.x ? actualCollisionPosition.x : collision->_Collided_Objects[i].position.x;
+					needMoveX = true;
+				}
+				else if (velocity.x < 0 && collision->_Collided_Objects[i].direction.x != NOT_COLLIDED)
+				{
+					actualCollisionPosition_1.x = actualCollisionPosition_1.x > collision->_Collided_Objects[i].position.x ? actualCollisionPosition_1.x : collision->_Collided_Objects[i].position.x;
+					needMoveX = true;
+				}
+				if (velocity.y > 0 && collision->_Collided_Objects[i].direction.y != NOT_COLLIDED)
+				{
+					actualCollisionPosition.y = actualCollisionPosition.y < collision->_Collided_Objects[i].position.y ? actualCollisionPosition.y : collision->_Collided_Objects[i].position.y;
+					needMoveY = true;
+				}
+				else if (velocity.y < 0 && collision->_Collided_Objects[i].direction.y != NOT_COLLIDED)
+				{
+					actualCollisionPosition_1.y = actualCollisionPosition_1.y > collision->_Collided_Objects[i].position.y ? actualCollisionPosition_1.y : collision->_Collided_Objects[i].position.y;
+					needMoveY = true;
+				}
+
+				if (collision->_Collided_Objects[i].direction.x != NOT_COLLIDED)
+				{
+					smallestDistance.x = smallestDistance.x < abs(collision->_Collided_Objects[i].dxEntry) ? smallestDistance.x : collision->_Collided_Objects[i].dxEntry;
+					needMoveX = true;
+				}
+				if (collision->_Collided_Objects[i].direction.y != NOT_COLLIDED)
+				{
+					smallestDistance.y = smallestDistance.y < abs(collision->_Collided_Objects[i].dyEntry) ? smallestDistance.y : collision->_Collided_Objects[i].dyEntry;
+					needMoveY = true;
+				}
+			}
+		}
+		if (needMoveX)
+		{
+			if (velocity.x > 0)
+			{
+				collision->UpdateTargetPosition((*it1), POINT(actualCollisionPosition.x, 0), moveX, moveY);
+			}
+			else if (velocity.x < 0)
+			{
+				collision->UpdateTargetPosition((*it1), POINT(actualCollisionPosition_1.x, 0), moveX, moveY);
+			}
+		}
+		if (needMoveY)
+		{
+			if (velocity.y > 0)
+			{
+				collision->UpdateTargetPosition((*it1), POINT(0, actualCollisionPosition.y), moveX, moveY);
+			}
+			else if (velocity.y < 0)
+			{
+				collision->UpdateTargetPosition((*it1), POINT(0, actualCollisionPosition_1.y), moveX, moveY);
+			}
+		}
+		collision->Reset();
+		*/
+#pragma endregion
+
 		(*it1)->Next(dt, moveX, moveY);
 		(*it1)->Update(dt);
 	}
