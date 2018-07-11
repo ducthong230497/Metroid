@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "CDevice.h"
 #include "Texture.h"
@@ -33,9 +33,12 @@ private:
 	CollisionCallback * callback;
 	MapLoader mapLoader;
 	TileMap * tileMap;
-
+	//phần này bỏ trong player
+	bool canMove = true;
 	Texture bulletTexture;
 	std::vector<Bullet*> Bullets;
+	float FIRERATE = 0.1f;
+	float lastShootTime = 0;
 	int numberOfBullet;
 public:
 	testScene1();

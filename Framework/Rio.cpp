@@ -111,3 +111,8 @@ void Rio::Update(float dt)
 	//if (body != NULL)
 		this->SetPosition(GetPosition().x, GetPosition().y);
 }
+
+void Rio::OnHitPlayer()
+{
+	Trace::Log("Rio hit player");
+}

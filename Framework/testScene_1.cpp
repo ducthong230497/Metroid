@@ -95,13 +95,13 @@ void testScene1::Init()
 
 	bulletTexture = Texture("Resources/metroidfullsheet.png");
 
-	numberOfBullet = 10;
+	/*numberOfBullet = 10;
 	for (int i = 0; i < 10; i++)
 	{
 		Bullet * b = new Bullet(&bulletTexture);
 		b->SetPosition(100, 200);
 		Bullets.push_back(b);
-	}
+	}*/
 	
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
@@ -114,9 +114,10 @@ void testScene1::Update()
 	test += dt;
 	if (test > 1)
 	{
-		Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
+		//Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
 		test = 0;
 	}
+	
 	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 		(*it1)->UpdateVelocity(object1);
 		POINT velocity = (*it1)->getVelocity();
@@ -242,6 +243,17 @@ void testScene1::Update()
 		(*it1)->Next(dt, moveX, moveY);
 		(*it1)->Update(dt);
 	}
+	for (int i = 0; i < Bullets.size(); ++i)
+	{
+		Bullet* currentBullet = Bullets[i];
+		if (currentBullet->IsDestroyed())
+		{
+			std::vector<GameObject*>::iterator it = std::find(GameObjects.begin(), GameObjects.end(), currentBullet);
+			GameObjects.erase(it);
+			delete currentBullet;
+			Bullets.erase(Bullets.begin() + i--);
+		}
+	}
 }
 
 eSceneID testScene1::Render()
@@ -314,42 +326,44 @@ void testScene1::DrawSquare()
 
 void testScene1::ProcessInput()
 {
-	
-	if (KeyBoard->IsKeyDown(DIK_RIGHT))
+	if (canMove)
 	{
-		//object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
-		object1->setVelocity(200, object1->getVelocity().y);
-	}
-	else if(KeyBoard->IsKeyUp(DIK_RIGHT))
-	{
-		object1->setVelocity(0, object1->getVelocity().y);
-	}
-	if (KeyBoard->IsKeyDown(DIK_LEFT))
-	{
-		//object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
-		object1->setVelocity(-200, object1->getVelocity().y);
-	}
-	else if (KeyBoard->IsKeyUp(DIK_LEFT))
-	{
-		object1->setVelocity(0, object1->getVelocity().y);
-	}
-	if (KeyBoard->IsKeyDown(DIK_UP))
-	{
-		//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
-		object1->setVelocity(object1->getVelocity().x, 200);
-	}
-	else if (KeyBoard->IsKeyUp(DIK_UP))
-	{
-		object1->setVelocity(object1->getVelocity().x, 0);
-	}
-	if (KeyBoard->IsKeyDown(DIK_DOWN))
-	{
-		//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
-		object1->setVelocity(object1->getVelocity().x, -200);
-	}
-	else if (KeyBoard->IsKeyUp(DIK_DOWN))
-	{
-		object1->setVelocity(object1->getVelocity().x, 0);
+		if (KeyBoard->IsKeyDown(DIK_RIGHT))
+		{
+			//object1->setPosition(object1->getPosition().x+1, object1->getPosition().y);
+			object1->setVelocity(200, object1->getVelocity().y);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_RIGHT))
+		{
+			object1->setVelocity(0, object1->getVelocity().y);
+		}
+		if (KeyBoard->IsKeyDown(DIK_LEFT))
+		{
+			//object1->setPosition(object1->getPosition().x -1, object1->getPosition().y);
+			object1->setVelocity(-200, object1->getVelocity().y);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_LEFT))
+		{
+			object1->setVelocity(0, object1->getVelocity().y);
+		}
+		if (KeyBoard->IsKeyDown(DIK_UP))
+		{
+			//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+			object1->setVelocity(object1->getVelocity().x, 200);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_UP))
+		{
+			object1->setVelocity(object1->getVelocity().x, 0);
+		}
+		if (KeyBoard->IsKeyDown(DIK_DOWN))
+		{
+			//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+			object1->setVelocity(object1->getVelocity().x, -200);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_DOWN))
+		{
+			object1->setVelocity(object1->getVelocity().x, 0);
+		}
 	}
 	if (KeyBoard->IsKeyDown(DIK_RETURN))
 	{
@@ -357,12 +371,21 @@ void testScene1::ProcessInput()
 	}
 	if (KeyBoard->IsKeyDown(DIK_X))
 	{
-		if (Bullets.size() != 0)
+		//if (Bullets.size() != 0)
+		//{
+		//	GameObjects.push_back(Bullets.front());
+		//	std::vector<Bullet*>::iterator it = std::find(Bullets.begin(), Bullets.end(), Bullets.front());
+		//	(*it)->isActive = true;
+		//	//Bullets.erase(it);
+		//}
+		float currentTime = GetTickCount() / 1000.0f;
+		if (currentTime > FIRERATE +  lastShootTime)
 		{
-			GameObjects.push_back(Bullets.front());
-			std::vector<Bullet*>::iterator it = std::find(Bullets.begin(), Bullets.end(), Bullets.front());
-			(*it)->isActive = true;
-			//Bullets.erase(it);
+			lastShootTime = currentTime;
+			Bullet *b = new Bullet(&bulletTexture);
+			b->setPosition(object1->getPosition().x + 20, object1->getPosition().y + 28);
+			Bullets.push_back(b);
+			GameObjects.push_back(b);
 		}
 	}
 }

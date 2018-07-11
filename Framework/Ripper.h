@@ -1,9 +1,10 @@
 #pragma once
+#include "Enemy.h"
 #include "Sprite.h"
 #include "Animation.h"
 #include "TexturePacker.h"
 #include "SpriteBatch.h"
-class Ripper : public Sprite
+class Ripper : public Sprite, public Enemy
 {
 private:
 	Animation ripperAnimation;
@@ -19,4 +20,5 @@ public:
 	void Render(SpriteBatch * batch);
 	void OnHitGround();
 	void OnHitBullet();
+	void OnHitPlayer() override;
 };

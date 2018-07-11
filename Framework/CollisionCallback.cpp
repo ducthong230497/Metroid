@@ -59,9 +59,76 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
-	case RIPPER | PLAYER:
+	case PLAYER_BULLET | RIO:
 	{
-		int a = 2;
+		if (gameObjectA->_CategoryMask == RIO)
+		{
+			Trace::Log("Bullet hit Rio");
+		}
+		else
+		{
+
+		}
+		break;
+	}
+	case PLAYER_BULLET | RIPPER:
+	{
+		if (gameObjectA->_CategoryMask == RIPPER)
+		{
+			Trace::Log("Bullet hit Ripper");
+		}
+		else
+		{
+
+		}
+		break;
+	}
+	case PLAYER_BULLET | SKREE:
+	{
+		if (gameObjectA->_CategoryMask == SKREE)
+		{
+			Trace::Log("Bullet hit Skree");
+		}
+		else if(gameObjectA->_CategoryMask == PLAYER_BULLET)
+		{
+
+		}
+		break;
+	}
+	case PLAYER_BULLET | ZOOMER:
+	{
+		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			Trace::Log("Bullet hit Zoomer");
+		}
+		else if(gameObjectA->_CategoryMask == PLAYER_BULLET)
+		{
+			Trace::Log("Bullet hit Zoomer");
+		}
+		break;
+	}
+	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			//OnHitEnemy
+			Trace::Log("Player hit enemy");
+			gameObjectA->setVelocity(CollisionDirection.x * 3, 100);
+		}
+		else
+		{
+			if (gameObjectA->_CategoryMask == RIO)
+			{
+				((Rio*)gameObjectA)->OnHitPlayer();
+				Trace::Log("Player hit Rio");
+				gameObjectB->setVelocity(CollisionDirection.x * 3, 100);
+			}
+			else if (gameObjectA->_CategoryMask == RIPPER)
+			{
+				((Ripper*)gameObjectA)->OnHitPlayer();
+				Trace::Log("Player hit Ripper");
+			}
+		}
 		break;
 	}
 	default:

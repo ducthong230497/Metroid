@@ -52,3 +52,8 @@ void Ripper::OnHitGround()
 void Ripper::OnHitBullet()
 {
 }
+
+void Ripper::OnHitPlayer()
+{
+	Trace::Log("Ripper hit Player");
+}

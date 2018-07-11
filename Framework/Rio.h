@@ -1,4 +1,5 @@
 #pragma once
+#include "Enemy.h"
 #include "Sprite.h"
 #include "Animation.h"
 #include "SpriteBatch.h"
@@ -7,7 +8,7 @@
 #define MAXHITBULLETTIME 0.05
 #define MAXHITPLAYERHITTIME 0.2
 
-class Rio : public Sprite
+class Rio : public Sprite, public Enemy
 {
 private:
 	Animation rioAnimation;
@@ -71,7 +72,7 @@ public:
 
 	int GetHealth();
 
-	void OnHitPlayer();
+	void OnHitPlayer() override;
 
 	void OnHitBomb();
 

@@ -186,6 +186,9 @@
     <ClCompile Include="Samus.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -309,6 +312,9 @@
       <Filter>Object\include</Filter>
     </ClInclude>
     <ClInclude Include="Samus.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>

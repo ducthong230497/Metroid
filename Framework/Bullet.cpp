@@ -18,7 +18,7 @@ Bullet::Bullet(Texture * texture)
 	SetRegion(p.GetRegion("bullet").front());
 
 	SetSize(6, 7);
-	setVelocity(100, 0);
+	setVelocity(400, 0);
 	//body definition
 	collisionType = CollisionType::Dynamic;
 	setSize(6, 7);
@@ -30,7 +30,7 @@ Bullet::Bullet(Texture * texture)
 
 void Bullet::Render(SpriteBatch * batch)
 {
-	if (isActive)
+	if (!isDestroyed)
 	{
 		batch->Draw(*this);
 	}
