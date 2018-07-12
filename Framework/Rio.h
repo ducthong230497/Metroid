@@ -39,6 +39,8 @@ private:
 	float hitBulletTime;
 	float hitPlayerTime;
 
+	POINT previousVelocity;
+
 	POINT startVelo1;
 	POINT startVelo2;
 

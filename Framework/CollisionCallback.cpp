@@ -37,13 +37,45 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == Category::RIO)
 		{
-			if (CollisionDirection.x != NOT_COLLIDED)
+			/*if (CollisionDirection.x != NOT_COLLIDED)
 			{
 				((Rio*)gameObjectA)->setVelocity(0, gameObjectA->getVelocity().y);
 			}
 			if (CollisionDirection.y != NOT_COLLIDED)
 			{
 				((Rio*)gameObjectA)->setVelocity(gameObjectA->getVelocity().x, 0);
+			}*/
+			if (CollisionDirection.y != NOT_COLLIDED)
+			{
+				if (CollisionDirection.y > 0)
+				{
+					
+					((Rio*)gameObjectA)->OnHitGround();
+				}
+				else
+				{
+					/*POINT temp = gameObjectA->getVelocity();
+					temp *= -1;
+					gameObjectA->setVelocity(temp.x, temp.y);*/
+					((Rio*)gameObjectA)->OnHitRoof();
+				}
+			}
+			else if (CollisionDirection.x != NOT_COLLIDED)
+			{
+				if (CollisionDirection.x > 0)
+				{
+					/*POINT temp = gameObjectA->getVelocity();
+					temp.y *= -1;
+					gameObjectA->setVelocity(temp.x, temp.y);*/
+					((Rio*)gameObjectA)->OnHitLeft();
+				}
+				else
+				{
+					/*POINT temp = gameObjectA->getVelocity();
+					temp *= -1;
+					gameObjectA->setVelocity(temp.x, temp.y);*/
+					((Rio*)gameObjectA)->OnHitRight();
+				}
 			}
 		}
 		break;
@@ -56,6 +88,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			{
 				((Skree*)gameObjectA)->setVelocity(0, 0);
 			}
+		}
+		break;
+	}
+	case ZOOMER | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			((Zoomer*)gameObjectA)->OnHitGround(CollisionDirection);
 		}
 		break;
 	}
@@ -113,7 +153,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			//OnHitEnemy
 			Trace::Log("Player hit enemy");
-			gameObjectA->setVelocity(CollisionDirection.x * 3, 100);
+			//gameObjectA->setVelocity(-100* 3, 100);
 		}
 		else
 		{
@@ -121,7 +161,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			{
 				((Rio*)gameObjectA)->OnHitPlayer();
 				Trace::Log("Player hit Rio");
-				gameObjectB->setVelocity(CollisionDirection.x * 3, 100);
+				//gameObjectB->setVelocity(-100 * 3, 100);
 			}
 			else if (gameObjectA->_CategoryMask == RIPPER)
 			{

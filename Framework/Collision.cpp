@@ -299,7 +299,7 @@ void Collision::UpdateTargetPosition(GameObject * GameObject, const POINT & move
 
 void Collision::UpdateOverLayingPosition(GameObject * GameObject, const POINT & move)
 {
-	//if (targetBody->IsSensor()) return;
+	//if (targetGameObject->IsSensor()) return;
 
 	if (move.x == 0 && move.y == 0)
 		GameObject->setPosition(_CollisionPosition.x, _CollisionPosition.y);
@@ -344,6 +344,27 @@ void Collision::PerformCollision(GameObject * targetGameObject, GameObject * oth
 	}
 }
 
+int Collision::IsTouching(GameObject * targetGameObject, GameObject * otherGameObject)
+{
+	float left = otherGameObject->getPosition().x - otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x + targetGameObject->getSize().x / 2);
+	float top = otherGameObject->getPosition().y + otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y - targetGameObject->getSize().y / 2);
+	float right = otherGameObject->getPosition().x + otherGameObject->getSize().x / 2 - (targetGameObject->getPosition().x - targetGameObject->getSize().x / 2);
+	float bottom = otherGameObject->getPosition().y - otherGameObject->getSize().y / 2 - (targetGameObject->getPosition().y + targetGameObject->getSize().y / 2);
+
+	if (top == 0 || bottom == 0)
+	{
+		return 1;
+	}
+
+
+	if (left == 0 || right == 0)
+	{
+		return 2;
+	}
+
+	return 0;
+}
+
 bool Collision::IsOverlaying(GameObject * targetGameObject, GameObject * otherGameObject)
 {
 	moveX = moveY = 0.0f;
@@ -386,7 +407,7 @@ bool Collision::IsOverlaying(GameObject * targetGameObject, GameObject * otherGa
 
 void Collision::PerformOverlaying(GameObject * targetGameObject, GameObject * otherGameObject, bool & needMoveX, bool & needMoveY)
 {
-	/*if (!targetBody->_IsSensor)
+	/*if (!targetGameObject->_IsSensor)
 	{*/
 	if (moveX != 0) //nếu cần chỉnh lại toạ độ x thì không cho obj thay đổi x trong Body->Next
 		needMoveX = false;
@@ -394,19 +415,19 @@ void Collision::PerformOverlaying(GameObject * targetGameObject, GameObject * ot
 		needMoveY = false;
 	//}
 
-	//if (targetBody->_IsSensor)
+	//if (targetGameObject->_IsSensor)
 	//{
-	//	if (!IsPreviousOverlayed(targetBody, otherBody))
+	//	if (!IsPreviousOverlayed(targetGameObject, otherGameObject))
 	//	{
 	//		if (!IsSensorEntered)
 	//		{
 	//			//Console::Log("Hello");
-	//			_Listener->OnSersorEnter(targetBody, otherBody);
+	//			_Listener->OnSersorEnter(targetGameObject, otherGameObject);
 	//		}
 	//	}
 	//	else
 	//	{
-	//		_Listener->OnSersorOverlaying(targetBody, otherBody);
+	//		_Listener->OnSersorOverlaying(targetGameObject, otherGameObject);
 	//	}
 	//}
 

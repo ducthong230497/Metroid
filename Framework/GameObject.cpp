@@ -96,7 +96,7 @@ void GameObject::Next(float DeltaTime, bool moveX, bool moveY)
 	}
 	else 
 	{
-		_Velocity.y = 0;
+		//_Velocity.y = 0;
 	}
 }
 

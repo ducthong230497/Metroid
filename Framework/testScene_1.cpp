@@ -114,11 +114,12 @@ void testScene1::Update()
 	test += dt;
 	if (test > 1)
 	{
-		//Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
+		Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
 		test = 0;
 	}
 	
 	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
+		if ((*it1)->_CategoryMask == PLATFORM) continue;
 		(*it1)->UpdateVelocity(object1);
 		POINT velocity = (*it1)->getVelocity();
 		POINT position = (*it1)->getPosition();
@@ -141,6 +142,20 @@ void testScene1::Update()
 						collision->PerformCollision((*it1), (*it2), dt, 0, moveX, moveY);
 
 						
+					}
+					else
+					{
+						int touching = collision->IsTouching((*it1), (*it2)); //If istouching, it means in the next frame, two body will not collide anymore
+						if (touching == 1 && velocity.y != 0)
+						{
+							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
+							Trace::Log("Exit y axis");
+						}
+						else if (touching == 2 && velocity.x != 0)
+						{
+							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
+							Trace::Log("Exit x axis");
+						}
 					}
 				}
 				//check overlaying (sometimes two bodies are already overlaying each other 

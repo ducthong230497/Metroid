@@ -19,7 +19,8 @@ private:
 	float hitPlayerTime;
 	bool initalDirection;
 	bool outsideOfCamera;
-
+	
+	POINT prevCollisionPosition;
 	POINT prevCollisionDirection;
 	POINT curCollisionDirection;
 	POINT prevVelocity;
@@ -42,9 +43,13 @@ public:
 
 	void Render(SpriteBatch *batch);
 
+	void UpdateVelocity(GameObject *player) override;
+
 	void Update(float dt) override;
 
 	void Update(float dt, Camera *cam);
+
+	void OnHitGround(POINT collisionDirection);
 
 	void OnHitBullet();
 
