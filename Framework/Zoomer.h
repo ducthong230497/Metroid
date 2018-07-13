@@ -29,6 +29,11 @@ private:
 	int cooldownAfterCollisionChange;
 
 	// Keeps track of where the curCollisionDirection was being set from
+	int t = 0;
+	bool bx = false;
+	bool by = false;
+	bool fixedX = false;
+	bool fixedY = false;
 	// Either from OnCollisionEnter or OnColliding
 	int prevSource;
 

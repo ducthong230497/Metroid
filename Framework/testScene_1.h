@@ -29,6 +29,9 @@ private:
 	Skree * skree;
 	Rio * rio;
 	Zoomer * zoomer;
+	Zoomer * zoomer1;
+	Zoomer * zoomer2;
+	Zoomer * zoomer3;
 	Collision * collision;
 	CollisionCallback * callback;
 	MapLoader mapLoader;

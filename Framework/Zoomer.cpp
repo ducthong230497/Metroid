@@ -26,8 +26,8 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	prevCollisionDirection.y = -prevVelocity.y * 100;
 	curCollisionDirection.x = NOT_COLLIDED;
 	curCollisionDirection.y = -prevVelocity.y * 100;*/
-	prevCollisionDirection = POINT(NOT_COLLIDED, 70);
-	curCollisionDirection = POINT(NOT_COLLIDED, 70);
+	prevCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);
+	curCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);
 
 	setVelocity(70, -70);
 	//setVelocity(170, -170);
@@ -52,6 +52,13 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	cooldownAfterCollisionChange = 3;
 	health = 2;
 	hitBulletTime = -1;
+
+
+	t = 0;
+	bx = false;
+	by = false;
+	fixedX = false;
+	fixedY = true;
 }
 
 void Zoomer::Render(SpriteBatch * batch)
@@ -61,11 +68,11 @@ void Zoomer::Render(SpriteBatch * batch)
 
 	batch->Draw(*this);
 }
-int t2 = 0;
-bool bx = false;
-bool by = false;
-bool fixedX = false;
-bool fixedY = false;
+//int t = 0;
+//bool bx = false;
+//bool by = false;
+//bool fixedX = false;
+//bool fixedY = false;
 void Zoomer::UpdateVelocity(GameObject * player)
 {
 	if (prevCollisionDirection.x != NOT_COLLIDED)
@@ -78,6 +85,8 @@ void Zoomer::UpdateVelocity(GameObject * player)
 				{
 					_Velocity.y *= -1;
 					bx = false;
+					fixedX = true;
+					SetRotation(GetRotation() + 90);
 				}
 			}
 			else if (_Velocity.x < 0)
@@ -102,6 +111,8 @@ void Zoomer::UpdateVelocity(GameObject * player)
 				{
 					_Velocity.x *= -1;
 					by = false;
+					fixedY = true;
+					SetRotation(GetRotation() + 90);
 				}
 			}
 			else if (_Velocity.y > 0)
@@ -184,7 +195,7 @@ void Zoomer::Update(float dt, Camera * cam)
 	//	outsideOfCamera = true;
 	//}
 }
-int t = 0;
+
 void Zoomer::OnHitGround(POINT CollisionDirection)
 {
 	curCollisionDirection = CollisionDirection;

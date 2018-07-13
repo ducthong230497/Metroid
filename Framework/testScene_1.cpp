@@ -50,6 +50,12 @@ void testScene1::Init()
 
 	zoomer = new Zoomer();
 	zoomer->Init(&enemiesTexture, 600, 100, 1);
+	zoomer1 = new Zoomer();
+	zoomer1->Init(&enemiesTexture, 160, 272, 1);
+	zoomer2 = new Zoomer();
+	zoomer2->Init(&enemiesTexture, 160, 384, 1);
+	zoomer3 = new Zoomer();
+	zoomer3->Init(&enemiesTexture, 300, 384, 1);
 
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
@@ -58,7 +64,10 @@ void testScene1::Init()
 	GameObjects.push_back(ripper);
 	GameObjects.push_back(skree);
 	GameObjects.push_back(rio);
-	GameObjects.push_back(zoomer);
+	//GameObjects.push_back(zoomer);
+	//GameObjects.push_back(zoomer1);
+	GameObjects.push_back(zoomer2);
+	GameObjects.push_back(zoomer3);
 
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
@@ -278,6 +287,9 @@ eSceneID testScene1::Render()
 	skree->Render(batch);
 	rio->Render(batch);
 	zoomer->Render(batch);
+	zoomer1->Render(batch);
+	zoomer2->Render(batch);
+	zoomer3->Render(batch);
 	tileMap->Render(batch);
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
