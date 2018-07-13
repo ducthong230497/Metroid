@@ -7,10 +7,10 @@
 class Scene
 {
 protected:
-	std::vector<GameObject *> GameObjects;
 	GameTime *Time;
 	eSceneID nextScene;
 public:
+	std::vector<GameObject *> GameObjects;
 	Scene();
 	virtual ~Scene();
 

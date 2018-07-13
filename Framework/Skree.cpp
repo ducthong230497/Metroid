@@ -34,6 +34,31 @@ void Skree::Init(Texture * skreeTexture, float x, float y)
 	_CategoryMask = SKREE;
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOOM_EXPLOSION;
 	collisionType = CollisionType::Static;
+
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	//5 skree bullets fired when skree hits ground
+	//	Sprite skreeBullet;
+
+	//	//create body
+	//	skreeBullet.setCollisionType(CollisionType::Dynamic);
+	//	skreeBullet.setSize(6, 7);
+	//	skreeBullet.setVelocity(200 * cos(45 * i*PI / 180), 200 * sin(45 * i*Pi / 180));
+	//	skreeBullet._CategoryMask = SKREE;
+	//	skreeBullet._BitMask = PLAYER;
+	//	//sprite
+	//	skreeBullet.SetRegion(*skreeBulletAnimation.GetKeyAnimation());
+	//	skreeBullet.SetSize(6, 7);
+	//	skreeBullet.SetPosition(GetPosition().x, GetPosition().y);
+
+	//	SkreeBullets.push_back(skreeBullet);
+
+	//}
+}
+
+void Skree::SetScene(Scene * s)
+{
+	scene = s;
 }
 
 void Skree::UpdateVelocity(GameObject * player)
@@ -94,21 +119,23 @@ void Skree::Update(float dt)
 				for (int i = 0; i < 5; i++)
 				{
 					//5 skree bullets fired when skree hits ground
-					Sprite skreeBullet;
+					Sprite *skreeBullet = new Sprite();
 
 					//create body
-					skreeBullet.setCollisionType(CollisionType::Dynamic);
-					setSize(6, 7);
-					setVelocity(4 * cos(45 * i*PI / 180), 4 * sin(45 * i*Pi / 180));
-					_CategoryMask = SKREE;
-					_BitMask = PLAYER;
+					skreeBullet->setCollisionType(CollisionType::Dynamic);
+					skreeBullet->setSize(6, 7);
+					skreeBullet->setVelocity(200 * cos(45 * i*PI / 180), 200 * sin(45 * i*Pi / 180));
+					skreeBullet->_CategoryMask = SKREE;
+					skreeBullet->_BitMask = PLAYER;
 					//sprite
-					SetRegion(*skreeBulletAnimation.GetKeyAnimation());
-					SetSize(6, 7);
-					SetPosition(GetPosition().x, GetPosition().y);
+					skreeBullet->SetRegion(*skreeBulletAnimation.GetKeyAnimation());
+					skreeBullet->SetSize(6, 7);
+					skreeBullet->SetPosition(GetPosition().x, GetPosition().y);
 
 					SkreeBullets.push_back(skreeBullet);
-
+					int size = scene->GameObjects.size();
+					scene->GameObjects.push_back(skreeBullet);
+					int a = 2;
 				}
 
 				//world->DestroyBody(body);
@@ -124,9 +151,16 @@ void Skree::Update(float dt)
 		stateTime += dt;
 		if (stateTime > SKREEBULLETLIVETIME)
 		{
-			for (std::vector<Sprite>::iterator bullet = SkreeBullets.begin(); bullet != SkreeBullets.end(); ++bullet)
+			for (std::vector<Sprite*>::iterator bullet = SkreeBullets.begin(); bullet != SkreeBullets.end(); ++bullet)
 			{
 				//world->DestroyBody(bullet->body);
+				std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (*bullet));
+				if (it != scene->GameObjects.end())
+				{
+					scene->GameObjects.erase(it);
+					//delete *it;
+					*bullet = nullptr;
+				}
 			}
 			SkreeBullets.clear();
 
@@ -146,9 +180,9 @@ void Skree::Render(SpriteBatch * batch)
 		batch->Draw(*this);
 	}
 
-	for (std::vector<Sprite>::iterator bullet = SkreeBullets.begin(); bullet != SkreeBullets.end(); ++bullet)
+	for (std::vector<Sprite*>::iterator bullet = SkreeBullets.begin(); bullet != SkreeBullets.end(); ++bullet)
 	{
-		bullet->setPosition(GetPosition().x, GetPosition().y);
+		(*bullet)->setPosition((*bullet)->GetPosition().x, (*bullet)->GetPosition().y);
 		batch->Draw((*bullet));
 	}
 }

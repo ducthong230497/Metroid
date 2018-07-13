@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "TexturePacker.h"
 #include "SpriteBatch.h"
+#include "Scene.h"
 
 #define SKREELIVETIMEAFTERGROUND 0.5f
 #define SKREEBULLETLIVETIME 1
@@ -15,19 +16,21 @@ private:
 	Animation skreeAnimation;
 	Animation skreeHitAnimation;
 	Animation skreeBulletAnimation;
-	std::vector<Sprite> SkreeBullets;
+	std::vector<Sprite*> SkreeBullets;
 	float stateTime;
 	float hitBulletTime;
 	int Health;
 	bool isHitGround;
 	bool isDead;
 	friend class CollisionCallback;
+	Scene *scene;
 	//CSound *isShot = NULL;
 public:
 	Skree();
 	~Skree();
 
 	void Init(Texture * skreeTexture, float x, float y);
+	void SetScene(Scene* scene);
 	void UpdateVelocity(GameObject * Player) override;
 	void Update(float dt) override;
 

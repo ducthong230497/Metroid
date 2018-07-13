@@ -84,9 +84,10 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == Category::SKREE)
 		{
-			if (CollisionDirection.y != NOT_COLLIDED)
+			if (CollisionDirection.y > 0)
 			{
 				((Skree*)gameObjectA)->setVelocity(0, 0);
+				((Skree*)gameObjectA)->OnHitGround();
 			}
 		}
 		break;

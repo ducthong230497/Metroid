@@ -44,6 +44,7 @@ void testScene1::Init()
 
 	skree = new Skree();
 	skree->Init(&enemiesTexture, 500, 300);
+	skree->SetScene(this);
 
 	rio = new Rio();
 	rio->Init(&enemiesTexture, 600, 200);

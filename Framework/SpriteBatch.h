@@ -73,6 +73,7 @@ public:
 	void Draw(const Texture &texture, float x, float y, float rectLeft, float rectTop, float rectWidth, float rectHeight, float width, float height);
 
 	void Draw(const Sprite &sprite);
+	void Draw(Sprite *sprite);
 
 	void DrawSquare(float x, float y, float width, float height, D3DCOLOR color);
 
