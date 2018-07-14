@@ -109,7 +109,7 @@ void testScene1::Init()
 	metroidfullsheet = Texture("Resources/metroidfullsheet.png");
 	
 	bomb = new Bomb(&metroidfullsheet);
-	//GameObjects.push_back(bomb);
+	GameObjects.push_back(bomb);
 
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
@@ -286,13 +286,13 @@ eSceneID testScene1::Render()
 {
 	batch->Begin();
 	//ripper->Render(batch);
-	skree->Render(batch);
-	rio->Render(batch);
-	zoomer->Render(batch);
-	zoomer1->Render(batch);
-	zoomer2->Render(batch);
-	zoomer3->Render(batch);
-	bomb->Render(batch);
+	//skree->Render(batch);
+	//rio->Render(batch);
+	//zoomer->Render(batch);
+	//zoomer1->Render(batch);
+	//zoomer2->Render(batch);
+	//zoomer3->Render(batch);
+	//bomb->Render(batch);
 	tileMap->Render(batch);
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
@@ -313,6 +313,19 @@ void testScene1::DrawSquare()
 		{
 		case RIPPER:
 			((Ripper*)(*it))->Render(batch);
+			break;
+		case ZOOMER:
+			((Zoomer*)(*it))->Render(batch);
+			break;
+		case RIO:
+			((Rio*)(*it))->Render(batch);
+			break;
+		case SKREE:
+			((Skree*)(*it))->Render(batch);
+			break;
+		case NONE: case BOMB_EXPLOSION:
+			((Bomb*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}

@@ -32,7 +32,7 @@ void Skree::Init(Texture * skreeTexture, float x, float y)
 
 	//setup body
 	_CategoryMask = SKREE;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOOM_EXPLOSION;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION;
 	collisionType = CollisionType::Static;
 
 	//for (int i = 0; i < 5; i++)
@@ -125,7 +125,7 @@ void Skree::Update(float dt)
 					skreeBullet->setCollisionType(CollisionType::Dynamic);
 					skreeBullet->setSize(6, 7);
 					skreeBullet->setVelocity(200 * cos(45 * i*PI / 180), 200 * sin(45 * i*Pi / 180));
-					skreeBullet->_CategoryMask = SKREE;
+					skreeBullet->_CategoryMask = SKREE_BULLET;
 					skreeBullet->_BitMask = PLAYER;
 					//sprite
 					skreeBullet->SetRegion(*skreeBulletAnimation.GetKeyAnimation());

@@ -4,7 +4,7 @@
 #include "SpriteBatch.h"
 #include "Animation.h"
 #include "TexturePacker.h"
-//#include "ExplosionEffect.h"
+#include "Explosion.h"
 
 #define BOMBLIVETIME 0.6
 #define EXPLOSIONLIVETIME 0.9
@@ -15,7 +15,7 @@ private:
 	float stateTime;
 	bool isDestroyed;
 
-	//ExplosionEffect explosionEffect;
+	Explosion explosionEffect;
 
 	Animation animation;
 

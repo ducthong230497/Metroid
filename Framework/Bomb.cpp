@@ -19,7 +19,7 @@ Bomb::Bomb(Texture * texture)
 
 	this->SetRegion(*animation.GetKeyAnimation());
 	SetSize(16, 16);
-	_Position = POINT(100, -10);
+	_Position = POINT(100, -25);
 	//body definition
 	collisionType = Static;
 	//bodyDef.size.Set(16, 16);
@@ -33,47 +33,47 @@ Bomb::Bomb(Texture * texture)
 	//mainBody->PutExtra(this);
 
 	//effects
-	//explosionEffect.Create(texture);
-	//explosionEffect.SetSize(32, 32);
+	explosionEffect.Init(texture);
+	explosionEffect.SetSize(32, 32);
 }
 
 void Bomb::Render(SpriteBatch * batch)
 {
 	batch->Draw(*this);
 
-	//explosionEffect.Render(batch);
+	explosionEffect.Render(batch);
 }
 
 void Bomb::Update(float dt)
 {
-	//stateTime += dt;
+	stateTime += dt;
 
-	//if (_CategoryMask == BOOM_EXPLOSION)
-	//{
-	//	if (stateTime < EXPLOSIONLIVETIME)
-	//	{
-	//		//explosionEffect.Update(dt);
-	//		//mainBody->SetSize(mainBody->GetSize().x + 3, mainBody->GetSize().y + 3);
-	//	}
-	//	else
-	//	{
-	//		//world->DestroyBody(mainBody);
-	//		//mainBody = NULL;
-	//		//isDestroyed = true;
-	//	}
-	//}
-	//else
-	//{
-	//	//SetPosition(mainBody->GetPosition().x, mainBody->GetPosition().y);
+	if (_CategoryMask == BOMB_EXPLOSION)
+	{
+		if (stateTime < EXPLOSIONLIVETIME)
+		{
+			explosionEffect.Update(dt);
+			SetSize(GetSize().x + 3, GetSize().y + 3);
+		}
+		else
+		{
+			//world->DestroyBody(mainBody);
+			//mainBody = NULL;
+			//isDestroyed = true;
+		}
+	}
+	else
+	{
+		//SetPosition(mainBody->GetPosition().x, mainBody->GetPosition().y);
 
-	//	if (stateTime > BOMBLIVETIME)
-	//	{
-	//		_CategoryMask = BOOM_EXPLOSION;
-	//		SetTexture(NULL);
-	//		//explosionEffect.SetPosition(this->GetPosition().x, this->GetPosition().y);
-	//		//explosionEffect.Play();
-	//	}
-	//}
+		if (stateTime > BOMBLIVETIME)
+		{
+			_CategoryMask = BOMB_EXPLOSION;
+			SetTexture(NULL);
+			explosionEffect.SetPosition(this->GetPosition().x, this->GetPosition().y);
+			explosionEffect.Play();
+		}
+	}
 }
 
 bool Bomb::IsDestroyed()

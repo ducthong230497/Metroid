@@ -132,6 +132,7 @@
     <ClCompile Include="CollisionCallback.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="define_eSceneID.h" />
     <ClInclude Include="define_Category.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverScene.h" />

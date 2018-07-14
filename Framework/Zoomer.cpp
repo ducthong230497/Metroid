@@ -20,7 +20,7 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	SetPosition(x, y);
 
 	_CategoryMask = ZOOMER;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOOM_EXPLOSION;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION;
 
 	/*prevCollisionDirection.x = NOT_COLLIDED;
 	prevCollisionDirection.y = -prevVelocity.y * 100;
