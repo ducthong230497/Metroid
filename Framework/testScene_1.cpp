@@ -68,8 +68,8 @@ void testScene1::Init()
 	GameObjects.push_back(ripper);
 	GameObjects.push_back(skree);
 	GameObjects.push_back(rio);
-	//GameObjects.push_back(zoomer);
-	//GameObjects.push_back(zoomer1);
+	GameObjects.push_back(zoomer);
+	GameObjects.push_back(zoomer1);
 	GameObjects.push_back(zoomer2);
 	GameObjects.push_back(zoomer3);
 
@@ -106,16 +106,11 @@ void testScene1::Init()
 		GameObjects.push_back(platform);
 	}
 
-	bulletTexture = Texture("Resources/metroidfullsheet.png");
-
-	/*numberOfBullet = 10;
-	for (int i = 0; i < 10; i++)
-	{
-		Bullet * b = new Bullet(&bulletTexture);
-		b->SetPosition(100, 200);
-		Bullets.push_back(b);
-	}*/
+	metroidfullsheet = Texture("Resources/metroidfullsheet.png");
 	
+	bomb = new Bomb(&metroidfullsheet);
+	//GameObjects.push_back(bomb);
+
 	nextScene = TESTSCENE1;
 	Trace::Log("Init TestScene1");
 }
@@ -297,6 +292,7 @@ eSceneID testScene1::Render()
 	zoomer1->Render(batch);
 	zoomer2->Render(batch);
 	zoomer3->Render(batch);
+	bomb->Render(batch);
 	tileMap->Render(batch);
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
@@ -416,7 +412,7 @@ void testScene1::ProcessInput()
 		if (currentTime > FIRERATE +  lastShootTime)
 		{
 			lastShootTime = currentTime;
-			Bullet *b = new Bullet(&bulletTexture);
+			Bullet *b = new Bullet(&metroidfullsheet);
 			b->setPosition(object1->getPosition().x + 20, object1->getPosition().y + 28);
 			Bullets.push_back(b);
 			GameObjects.push_back(b);

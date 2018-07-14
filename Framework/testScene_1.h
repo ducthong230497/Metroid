@@ -14,6 +14,7 @@
 #include "MapLoader.h"
 #include "Rectangle.h"
 #include "Bullet.h"
+#include "Bomb.h"
 
 #define MAXJUMPTIME 0.4f
 
@@ -35,6 +36,8 @@ private:
 	Zoomer * zoomer1;
 	Zoomer * zoomer2;
 	Zoomer * zoomer3;
+	Bomb * bomb;
+
 	Collision * collision;
 	CollisionCallback * callback;
 	MapLoader mapLoader;
@@ -42,7 +45,7 @@ private:
 	//phần này bỏ trong player
 	bool canMove = true;
 	//shoot
-	Texture bulletTexture;
+	Texture metroidfullsheet;
 	std::vector<Bullet*> Bullets;
 	float FIRERATE = 0.1f;
 	float lastShootTime = 0;
