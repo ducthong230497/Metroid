@@ -157,8 +157,8 @@ void Skree::Update(float dt)
 				std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (*bullet));
 				if (it != scene->GameObjects.end())
 				{
+					delete *it;
 					scene->GameObjects.erase(it);
-					//delete *it;
 					*bullet = nullptr;
 				}
 			}

@@ -29,11 +29,12 @@ private:
 	int cooldownAfterCollisionChange;
 
 	// Keeps track of where the curCollisionDirection was being set from
-	int t = 0;
-	bool bx = false;
-	bool by = false;
-	bool fixedX = false;
-	bool fixedY = false;
+	int t = 0;	// this variable ensure the UpdateVelocity run 1 frame later than OnHitGround
+	bool bx = false; //this variable ensure the UpdateVelocity run 2 frame later than OnHitGround
+	bool by = false; //this variable ensure the UpdateVelocity run 2 frame later than OnHitGround
+	bool fixedX = false; //this variable prevent rotation and change velocity in some special cases
+	bool fixedY = false; //this variable prevent rotation and change velocity in some special cases
+
 	// Either from OnCollisionEnter or OnColliding
 	int prevSource;
 

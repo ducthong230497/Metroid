@@ -14,6 +14,9 @@
 #include "MapLoader.h"
 #include "Rectangle.h"
 #include "Bullet.h"
+
+#define MAXJUMPTIME 0.4f
+
 class testScene1 : public Scene
 {
 private:
@@ -38,11 +41,16 @@ private:
 	TileMap * tileMap;
 	//phần này bỏ trong player
 	bool canMove = true;
+	//shoot
 	Texture bulletTexture;
 	std::vector<Bullet*> Bullets;
 	float FIRERATE = 0.1f;
 	float lastShootTime = 0;
-	int numberOfBullet;
+	//jump
+	float g;
+	float jumpTime;
+	bool isGrounded;
+
 public:
 	testScene1();
 	~testScene1();

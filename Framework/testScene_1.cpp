@@ -13,9 +13,12 @@ void testScene1::Init()
 {
 	object1 = new GameObject();
 	object1->setPosition(100, 100);
+	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
 	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO);
+	isGrounded = true;
+	jumpTime = 100;
 
 	#pragma region TESTREGION
 	/*GameObject * object2 = new GameObject();
@@ -119,59 +122,62 @@ void testScene1::Init()
 float test = 0;
 void testScene1::Update()
 {
-	int i = 0, j = 0;
+	//int i = 0, j = 0;
 	float dt = Time->getDeltaTime() / 1000.0f;
 	test += dt;
 	if (test > 1)
 	{
-		Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
+		//Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
 		test = 0;
 	}
 	
-	for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
-		if ((*it1)->_CategoryMask == PLATFORM) continue;
-		(*it1)->UpdateVelocity(object1);
-		POINT velocity = (*it1)->getVelocity();
-		POINT position = (*it1)->getPosition();
+	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
+	for (int i = 0; i < GameObjects.size(); i++) {
+		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
+		(GameObjects.at(i))->UpdateVelocity(object1);
+		POINT velocity = (GameObjects.at(i))->getVelocity();
+		POINT position = (GameObjects.at(i))->getPosition();
 		position.x += velocity.x * dt;
 		position.y += velocity.y * dt;
-		RECT boardphase = collision->GetBroadphaseRect((*it1), dt);
-		RECT box1 = collision->GetRECT((*it1));
+		RECT boardphase = collision->GetBroadphaseRect((GameObjects.at(i)), dt);
+		RECT box1 = collision->GetRECT((GameObjects.at(i)));
 
 		bool moveX = true, moveY = true;
 		bool needMoveX = false, needMoveY = false;
-		for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
-			if (collision->CanMaskCollide((*it1), (*it2)))
+		//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
+		for(int j = 0; j < GameObjects.size(); ++j) {
+			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
+			if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
 			{
-				RECT box2 = collision->GetRECT((*it2));
+				RECT box2 = collision->GetRECT((GameObjects.at(j)));
 				if (collision->IsOverlayingRect(boardphase, box2))
 				{
-					if (collision->Collide((*it1), (*it2), dt))
+					if (collision->Collide((GameObjects.at(i)), (GameObjects.at(j)), dt))
 					{
-						callback->OnCollisionEnter((*it1), (*it2), collision->_CollisionDirection);
-						collision->PerformCollision((*it1), (*it2), dt, 0, moveX, moveY);
+						callback->OnCollisionEnter((GameObjects.at(i)), (GameObjects.at(j)), collision->_CollisionDirection);
+						collision->PerformCollision((GameObjects.at(i)), (GameObjects.at(j)), dt, 0, moveX, moveY);
 
 						
 					}
 					else
 					{
-						int touching = collision->IsTouching((*it1), (*it2)); //If istouching, it means in the next frame, two body will not collide anymore
+						int touching = collision->IsTouching((GameObjects.at(i)), (GameObjects.at(j))); //If istouching, it means in the next frame, two body will not collide anymore
 						if (touching == 1 && velocity.y != 0)
 						{
 							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
-							Trace::Log("Exit y axis");
+							//Trace::Log("Exit y axis");
 						}
 						else if (touching == 2 && velocity.x != 0)
 						{
 							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
-							Trace::Log("Exit x axis");
+							//Trace::Log("Exit x axis");
 						}
 					}
 				}
 				//check overlaying (sometimes two bodies are already overlaying each other 
-				if (collision->IsOverlaying((*it1), (*it2)))
+				if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
 				{
-					collision->PerformOverlaying((*it1), (*it2), moveX, moveY);
+					collision->PerformOverlaying((GameObjects.at(i)), (GameObjects.at(j)), moveX, moveY);
 				}
 			}
 		}
@@ -265,8 +271,8 @@ void testScene1::Update()
 		*/
 #pragma endregion
 
-		(*it1)->Next(dt, moveX, moveY);
-		(*it1)->Update(dt);
+		(GameObjects.at(i))->Next(dt, moveX, moveY);
+		(GameObjects.at(i))->Update(dt);
 	}
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
@@ -374,24 +380,24 @@ void testScene1::ProcessInput()
 		{
 			object1->setVelocity(0, object1->getVelocity().y);
 		}
-		if (KeyBoard->IsKeyDown(DIK_UP))
-		{
-			//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
-			object1->setVelocity(object1->getVelocity().x, 200);
-		}
-		else if (KeyBoard->IsKeyUp(DIK_UP))
-		{
-			object1->setVelocity(object1->getVelocity().x, 0);
-		}
-		if (KeyBoard->IsKeyDown(DIK_DOWN))
-		{
-			//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
-			object1->setVelocity(object1->getVelocity().x, -200);
-		}
-		else if (KeyBoard->IsKeyUp(DIK_DOWN))
-		{
-			object1->setVelocity(object1->getVelocity().x, 0);
-		}
+		//if (KeyBoard->IsKeyDown(DIK_UP))
+		//{
+		//	//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+		//	object1->setVelocity(object1->getVelocity().x, 200);
+		//}
+		//else if (KeyBoard->IsKeyUp(DIK_UP))
+		//{
+		//	object1->setVelocity(object1->getVelocity().x, 0);
+		//}
+		//if (KeyBoard->IsKeyDown(DIK_DOWN))
+		//{
+		//	//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+		//	object1->setVelocity(object1->getVelocity().x, -200);
+		//}
+		//else if (KeyBoard->IsKeyUp(DIK_DOWN))
+		//{
+		//	object1->setVelocity(object1->getVelocity().x, 0);
+		//}
 	}
 	if (KeyBoard->IsKeyDown(DIK_RETURN))
 	{
@@ -415,6 +421,32 @@ void testScene1::ProcessInput()
 			Bullets.push_back(b);
 			GameObjects.push_back(b);
 		}
+	}
+	//hold-jump 
+	if (KeyBoard->IsKeyDown(DIK_Z))
+	{
+		if (jumpTime < MAXJUMPTIME) //continue jumping if there is still jumptime
+		{
+			object1->setVelocity(object1->getVelocity().x, object1->getVelocity().y + 1.0f);
+			jumpTime += 0.02f;
+		}
+		else
+		{
+			jumpTime = 100;  //don't jump more
+		}
+	}
+	else
+	{
+		jumpTime = 100; //don't jump more
+	}
+
+	//jump only if grounded
+	if (KeyBoard->IsFirstKeyDown(DIK_Z) && isGrounded /*&& !isRolling*/)
+	{
+		//Sound::Play(jump);
+		object1->setVelocity(object1->getVelocity().x, 50);
+		isGrounded = false;
+		jumpTime = 0;
 	}
 }
 
