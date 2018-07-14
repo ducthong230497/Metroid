@@ -285,7 +285,7 @@ void testScene1::Update()
 eSceneID testScene1::Render()
 {
 	batch->Begin();
-	ripper->Render(batch);
+	//ripper->Render(batch);
 	skree->Render(batch);
 	rio->Render(batch);
 	zoomer->Render(batch);
@@ -309,47 +309,14 @@ void testScene1::DrawSquare()
 	//batch->Draw(*texture, 100, -100);
 	for (std::vector<GameObject*>::iterator it = GameObjects.begin(); it != GameObjects.end(); ++it)
 	{
-
-		//// Generate a random area (within back buffer) to draw the surface onto
-		//RECT rect;
-		///*
-		//rect.left = rand() % (SCREEN_WIDTH/2);
-		//rect.top = rand() % (SCREEN_HEIGHT/2);
-		//rect.right = rect.left + rand() % (SCREEN_WIDTH/2);
-		//rect.bottom = rect.left + rand() % (SCREEN_HEIGHT/2);
-		//*/
-
-		///*x += v * dt;
-		//if (x + 50 > SCREEN_WIDTH || x<0) v = -v;*/
-
-		////
-		//// WORLD TO VIEWPORT TRANSFORM USING MATRIX
-		////
-		//D3DXVECTOR3 position((*it)->getPosition().x, (*it)->getPosition().y, 0);
-		//D3DXMATRIX mt;
-		//D3DXMatrixIdentity(&mt);
-		//mt._22 = -1.0f;
-		//mt._41 = -0;
-		//mt._42 = 0;
-		//D3DXVECTOR4 vp_pos;
-		//D3DXVec3Transform(&vp_pos, &position, &mt);
-
-		//D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
-		//D3DXVECTOR3 center((float)100 / 2, (float)100 / 2, 0);
-
-		//rect.left = p.x;
-		//rect.top = p.y;
-		//rect.right = rect.left + (*it)->getSize().x;
-		//rect.bottom = rect.top + (*it)->getSize().y;
-
-		////Trace::Log("x : %f, y : %f", p.x, p.y);
-		//CDevice::getInstance()->getD3DDevice()->StretchRect(
-		//	surface,
-		//	NULL,
-		//	CDevice::getInstance()->getBackBuffer(),
-		//	&rect,
-		//	D3DTEXF_NONE
-		//);
+		switch ((*it)->_CategoryMask)
+		{
+		case RIPPER:
+			((Ripper*)(*it))->Render(batch);
+		default:
+			break;
+		}
+		
 		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}
 }

@@ -192,6 +192,9 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="IRenderable.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -321,6 +324,9 @@
       <Filter>Object\include</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>
