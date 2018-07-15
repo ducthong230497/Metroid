@@ -25,7 +25,7 @@ Bullet::Bullet(Texture * texture)
 
 	//create body
 	_CategoryMask = PLAYER_BULLET;
-	_BitMask = SKREE | ZOOMER | RIO | RIPPER | PLATFORM /*| MOTHERBRAIN_BIT | HEALTHPILE_BIT | BREAKABLEPLATFORM_BIT | KRAID_BIT | DOOR_BIT*/;
+	_BitMask = SKREE | ZOOMER | RIO | RIPPER | PLATFORM | BREAKABLE_PLATFORM /*| MOTHERBRAIN_BIT | HEALTHPILE_BIT | KRAID_BIT | DOOR_BIT*/;
 }
 
 void Bullet::Render(SpriteBatch * batch)

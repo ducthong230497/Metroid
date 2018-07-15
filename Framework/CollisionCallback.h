@@ -3,6 +3,7 @@
 #include "Skree.h"
 #include "Rio.h"
 #include "Zoomer.h"
+#include "BreakablePlatform.h"
 class CollisionCallback
 {
 public:
@@ -18,7 +19,7 @@ public:
 
 	void OnCollisionExit(GameObject * gameObjectA, GameObject * gameObjectB, const POINT &collisionDirection);
 
-	void OnTriggerEnter(GameObject *gameObjectA, GameObject *gameObjectB);
+	void OnTriggerEnter(GameObject *gameObjectA, GameObject *gameObjectB, bool &performOverLaying);
 
 	void OnTriggerStay(GameObject *gameObjectA, GameObject *gameObjectB);
 

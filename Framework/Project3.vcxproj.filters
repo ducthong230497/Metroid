@@ -198,6 +198,9 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="BreakablePlatform.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -333,6 +336,9 @@
       <Filter>Object\include</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakablePlatform.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>

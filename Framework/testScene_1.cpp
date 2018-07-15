@@ -16,7 +16,7 @@ void testScene1::Init()
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM);
 	isGrounded = true;
 	jumpTime = 100;
 
@@ -94,7 +94,7 @@ void testScene1::Init()
 	//load map
 	mapLoader.AddMap("map1", "Resources/maptest.tmx", 1);
 	tileMap = mapLoader.GetMap("map1");
-	std::vector<GameObject*> Platforms;
+	//std::vector<GameObject*> Platforms;
 	std::vector<Shape::Rectangle> PlatformGroup = tileMap->GetObjectGroup("Platform")->GetRects();
 	for (std::vector<Shape::Rectangle>::iterator it = PlatformGroup.begin(); it != PlatformGroup.end(); ++it)
 	{
@@ -105,10 +105,23 @@ void testScene1::Init()
 		platform->setBitMask(Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER);
 		GameObjects.push_back(platform);
 	}
+	std::vector<Shape::Rectangle> BreakablePlatformGroup = tileMap->GetObjectGroup("BreakablePlatform")->GetRects();
+	for (std::vector<Shape::Rectangle>::iterator it = BreakablePlatformGroup.begin(); it != BreakablePlatformGroup.end(); ++it)
+	{
+		BreakablePlatform * breakPlatform = new BreakablePlatform();
+		breakPlatform->setPosition((*it).x, (*it).y);
+		breakPlatform->setSize((*it).width, (*it).height);
+		breakPlatform->setCategoryMask(Category::BREAKABLE_PLATFORM);
+		breakPlatform->setBitMask(Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION);
+		breakPlatform->SetScene(this);
+		breakPlatform->SetTilemap(tileMap);
+		GameObjects.push_back(breakPlatform);
+	}
 
 	metroidfullsheet = Texture("Resources/metroidfullsheet.png");
 	
 	bomb = new Bomb(&metroidfullsheet);
+	bomb->SetScene(this);
 	GameObjects.push_back(bomb);
 
 	nextScene = TESTSCENE1;
@@ -137,11 +150,15 @@ void testScene1::Update()
 		RECT boardphase = collision->GetBroadphaseRect((GameObjects.at(i)), dt);
 		RECT box1 = collision->GetRECT((GameObjects.at(i)));
 
-		bool moveX = true, moveY = true;
+		bool moveX = true, moveY = true, performOverLaying = true;
 		bool needMoveX = false, needMoveY = false;
 		//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
 		for(int j = 0; j < GameObjects.size(); ++j) {
 			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
+			if (GameObjects[i]->_CategoryMask == BOMB_EXPLOSION && GameObjects[j]->_CategoryMask == BREAKABLE_PLATFORM)
+			{
+				int a = 2;
+			}
 			if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
 			{
 				RECT box2 = collision->GetRECT((GameObjects.at(j)));
@@ -172,7 +189,12 @@ void testScene1::Update()
 				//check overlaying (sometimes two bodies are already overlaying each other 
 				if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
 				{
-					collision->PerformOverlaying((GameObjects.at(i)), (GameObjects.at(j)), moveX, moveY);
+					callback->OnTriggerEnter((GameObjects.at(i)), (GameObjects.at(j)), performOverLaying);
+					if (performOverLaying)
+					{
+						collision->PerformOverlaying((GameObjects.at(i)), (GameObjects.at(j)), moveX, moveY);
+					}
+					performOverLaying = true;
 				}
 			}
 		}

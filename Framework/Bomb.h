@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Scene.h"
 #include "Sprite.h"
 #include "SpriteBatch.h"
 #include "Animation.h"
@@ -19,15 +20,16 @@ private:
 
 	Animation animation;
 
+	Scene *scene;
 public:
 	Bomb();
 	~Bomb();
 
 	Bomb(Texture* texture);
+	void SetScene(Scene * scene);
 
 	void Render(SpriteBatch *batch);
 	void Update(float dt) override;
-	//void Release();
 
 	bool IsDestroyed();
 

@@ -15,6 +15,7 @@
 #include "Rectangle.h"
 #include "Bullet.h"
 #include "Bomb.h"
+#include "BreakablePlatform.h"
 
 #define MAXJUMPTIME 0.4f
 
@@ -53,7 +54,7 @@ private:
 	float g;
 	float jumpTime;
 	bool isGrounded;
-
+	//
 public:
 	testScene1();
 	~testScene1();

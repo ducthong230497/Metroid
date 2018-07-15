@@ -19,22 +19,27 @@ Bomb::Bomb(Texture * texture)
 
 	this->SetRegion(*animation.GetKeyAnimation());
 	SetSize(16, 16);
-	_Position = POINT(100, -25);
+	_Position = POINT(110, 100);
 	//body definition
-	collisionType = Static;
+	collisionType = None;
 	//bodyDef.size.Set(16, 16);
 	//bodyDef.isSensor = true;
 
 	//create body
 	//mainBody = world->CreateBody(bodyDef);
 	_CategoryMask = NONE; //not collide with anything		
-	_BitMask = SKREE | ZOOMER | PLAYER | PLATFORM | RIO;
+	_BitMask = SKREE | ZOOMER | PLAYER | PLATFORM | RIO | BREAKABLE_PLATFORM;
 	//_Bi = SKREE | ZOOMER_BIT | PLAYER_BIT | BREAKABLEPLATFORM_BIT | HEALTHPILE_BIT | KRAID_BIT;
 	//mainBody->PutExtra(this);
 
 	//effects
 	explosionEffect.Init(texture);
 	explosionEffect.SetSize(32, 32);
+}
+
+void Bomb::SetScene(Scene * s)
+{
+	scene = s;
 }
 
 void Bomb::Render(SpriteBatch * batch)
@@ -59,7 +64,13 @@ void Bomb::Update(float dt)
 		{
 			//world->DestroyBody(mainBody);
 			//mainBody = NULL;
-			//isDestroyed = true;
+			std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (this));
+			if (it != scene->GameObjects.end())
+			{
+				//delete *it;
+				scene->GameObjects.erase(it);
+			}
+			isDestroyed = true;
 		}
 	}
 	else

@@ -172,8 +172,19 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
-	default:
+	case PLAYER_BULLET | BREAKABLE_PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == BREAKABLE_PLATFORM)
+		{
+			((BreakablePlatform*)gameObjectA)->OnHitBullet();
+		}
+		else
+		{
+			((BreakablePlatform*)gameObjectB)->OnHitBullet();
+		}
 		break;
+	}
+	default: break;
 	}
 }
 
@@ -185,8 +196,26 @@ void CollisionCallback::OnCollisionExit(GameObject * gameObjectA, GameObject * g
 {
 }
 
-void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * gameObjectB)
+void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * gameObjectB, bool &performOverlaying)
 {
+	switch (gameObjectA->_CategoryMask | gameObjectB->_CategoryMask)
+	{
+	case BOMB_EXPLOSION | BREAKABLE_PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == BREAKABLE_PLATFORM)
+		{
+			((BreakablePlatform*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((BreakablePlatform*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+		break;
+	}
+	default: break;
+	}
+	
 }
 
 void CollisionCallback::OnTriggerStay(GameObject * gameObjectA, GameObject * gameObjectB)
