@@ -16,7 +16,7 @@ private:
 
 
 	friend class MapLoader;
-	friend class SpaceDivisionQuadTree;
+	friend class QuadTree;
 
 public:
 	TileLayer();

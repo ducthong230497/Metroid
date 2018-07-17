@@ -143,6 +143,7 @@
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Rio.cpp" />
     <ClCompile Include="Ripper.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="ObjectGroup.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rio.h" />
     <ClInclude Include="Ripper.h" />

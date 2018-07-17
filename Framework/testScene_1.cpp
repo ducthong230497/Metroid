@@ -302,6 +302,7 @@ void testScene1::Update()
 			Bullets.erase(Bullets.begin() + i--);
 		}
 	}
+	cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
 }
 
 eSceneID testScene1::Render()
@@ -378,24 +379,24 @@ void testScene1::ProcessInput()
 		{
 			object1->setVelocity(0, object1->getVelocity().y);
 		}
-		//if (KeyBoard->IsKeyDown(DIK_UP))
-		//{
-		//	//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
-		//	object1->setVelocity(object1->getVelocity().x, 200);
-		//}
-		//else if (KeyBoard->IsKeyUp(DIK_UP))
-		//{
-		//	object1->setVelocity(object1->getVelocity().x, 0);
-		//}
-		//if (KeyBoard->IsKeyDown(DIK_DOWN))
-		//{
-		//	//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
-		//	object1->setVelocity(object1->getVelocity().x, -200);
-		//}
-		//else if (KeyBoard->IsKeyUp(DIK_DOWN))
-		//{
-		//	object1->setVelocity(object1->getVelocity().x, 0);
-		//}
+		if (KeyBoard->IsKeyDown(DIK_UP))
+		{
+			//object1->setPosition(object1->getPosition().x, object1->getPosition().y + 1);
+			object1->setVelocity(object1->getVelocity().x, 200);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_UP))
+		{
+			object1->setVelocity(object1->getVelocity().x, 0);
+		}
+		if (KeyBoard->IsKeyDown(DIK_DOWN))
+		{
+			//object1->setPosition(object1->getPosition().x, object1->getPosition().y - 1);
+			object1->setVelocity(object1->getVelocity().x, -200);
+		}
+		else if (KeyBoard->IsKeyUp(DIK_DOWN))
+		{
+			object1->setVelocity(object1->getVelocity().x, 0);
+		}
 	}
 	if (KeyBoard->IsKeyDown(DIK_RETURN))
 	{

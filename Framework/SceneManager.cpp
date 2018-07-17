@@ -71,7 +71,7 @@ void SceneManager::Init()
 	//BlackScreen->setOpacity(0.4f);
 
 	// First scene change here.
-	CurrentID = NextID = TESTSCENE1;
+	CurrentID = NextID = TESTSCENE2;
 	//CurrentID = NextID = INTROSCENE;
 	CurrentScene = get(CurrentID);
 

@@ -6,7 +6,7 @@
 #include "ObjectGroup.h"
 #include "SpriteBatch.h"
 #include <unordered_map>
-//#include "..\spacedivisionquadtree\SpaceDivisionQuadTree.h"
+#include "QuadTree.h"
 
 class TileMap
 {
@@ -24,7 +24,7 @@ private:
 
 	float _ScaleFactor;
 
-	//SpaceDivisionQuadTree* _SDQuadTree;
+	QuadTree* _SDQuadTree;
 
 	void SetAttributes(unsigned int width, unsigned int height, unsigned int tileWidth, unsigned int tileHeight);
 	void SetTileSet(const TileSet &tileSet);
