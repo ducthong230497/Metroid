@@ -1,4 +1,4 @@
-#pragma onceMapMapLoader
+#pragma once
 
 #include <unordered_map>
 #include "..\rapidxml\rapidxml.hpp"

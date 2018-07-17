@@ -365,13 +365,17 @@ void SpriteBatch::Draw(const Sprite & sprite)
 
 
 	//draw sprite
-	_SpriteHandler->Draw(
+	HRESULT result = _SpriteHandler->Draw(
 		sprite.GetTexture()->GetImage(),
 		&_Rect,
 		&_Center,
 		&_Position,
 		sprite.GetTexture()->GetTranscolor()
 	);
+	if (result == D3D_OK)
+	{
+		int a = 2;
+	}
 }
 
 void SpriteBatch::Draw(Sprite * sprite)

@@ -4,7 +4,7 @@
 
 QuadTree::QuadTree()
 {
-	//minSquareSize = screenHeight;
+	minSquareSize = SCREEN_HEIGHT;
 	//world = NULL;
 }
 
@@ -682,10 +682,10 @@ const std::map<unsigned int, GameObject*>& QuadTree::GetMapObject()
 void QuadTree::LoadObjectsInViewport(Camera* camera, bool loadGameObject, bool loadTileRect)
 {
 	RECT viewportRect;
-	/*viewportRect.top = camera->getPosition().y + screenHeight / 2;
-	viewportRect.left = camera->getPosition().x - screenWidth / 2;
-	viewportRect.bottom = camera->getPosition().y - screenHeight / 2;
-	viewportRect.right = camera->getPosition().x + screenWidth / 2;*/
+	viewportRect.top = camera->getPosition().y + SCREEN_HEIGHT / 2;
+	viewportRect.left = camera->getPosition().x - SCREEN_WIDTH / 2;
+	viewportRect.bottom = camera->getPosition().y - SCREEN_HEIGHT / 2;
+	viewportRect.right = camera->getPosition().x + SCREEN_WIDTH / 2;
 
 	this->loadGameObject = loadGameObject;
 	this->loadTileRect = loadTileRect;

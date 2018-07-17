@@ -54,7 +54,7 @@ private:
 	float g;
 	float jumpTime;
 	bool isGrounded;
-	//
+	
 public:
 	testScene1();
 	~testScene1();
@@ -65,8 +65,6 @@ public:
 	void DrawSquare();
 	void ProcessInput();
 	void End() override;
-
-	void OnCollisionEnter();
 
 	DEFINE_SCENE_UID(TESTSCENE1)
 };

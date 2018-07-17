@@ -17,6 +17,9 @@ void TestGame::Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, 
 	Device->Init(*Window);
 	Keyboard->Init(Window->gethWnd(), Window->gethInstance());
 	sceneManager->Init();
+
+	QuadTree quadtree;
+	quadtree.BuildTreeNodesFromTMX("Resources/mapQuadTree.xml", "Resources/metroid.tmx");
 }
 
 void TestGame::RenderFrame()

@@ -3,6 +3,9 @@
  <tileset firstgid="1" name="metroidTileMap2" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="metroidTileMap2.png" width="258" height="193"/>
  </tileset>
+ <tileset firstgid="49" name="metroidTileMap" tilewidth="32" tileheight="32" tilecount="48" columns="8">
+  <image source="metroidTileMap2.png" width="258" height="193"/>
+ </tileset>
  <layer name="Background" width="80" height="15">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,

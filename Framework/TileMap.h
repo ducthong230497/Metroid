@@ -60,7 +60,7 @@ public:
 	float GetScale();
 
 	//set this to reduce the amount of tile have to render
-	//void SetSpaceDivisionQuadTree(SpaceDivisionQuadTree *sdquadtree);
+	void SetSpaceDivisionQuadTree(QuadTree *sdquadtree);
 
 	void SetTileData(int row, int column, int value);
 

@@ -142,11 +142,11 @@ const std::unordered_map<std::string, ObjectGroup*>& TileMap::GetObjectGroups() 
 	return _ObjectGroups;
 }
 
-//void TileMap::SetSpaceDivisionQuadTree(SpaceDivisionQuadTree *sdquadtree)
-//{
-//	_SDQuadTree = sdquadtree;
-//
-//}
+void TileMap::SetSpaceDivisionQuadTree(QuadTree *sdquadtree)
+{
+	_SDQuadTree = sdquadtree;
+
+}
 
 void TileMap::SetTileData(int row, int column, int value)
 {
@@ -162,7 +162,8 @@ void TileMap::SetTileData(int row, int column, int value)
 //Render this TileMap
 void TileMap::Render(SpriteBatch *batch)
 {
-	if (/*_SDQuadTree == NULL*/true)
+	//if (true)
+	if (_SDQuadTree == NULL)
 	{
 
 		//get necessary variables
@@ -185,6 +186,7 @@ void TileMap::Render(SpriteBatch *batch)
 
 		for (unsigned int row = 0; row < layerHeight; row++)
 		{
+			int a = 2;
 			for (unsigned int column = 0; column < layerWidth; column++)
 			{
 				if (data[row][column] == 0) continue;
@@ -215,30 +217,28 @@ void TileMap::Render(SpriteBatch *batch)
 	else
 	{
 
-		//Texture* texture = _TileSet->GetTexture();
-		///*std::vector<Shape::Rectangle*> tileRectsInViewport = _SDQuadTree->GetTileRectsInViewport();*/
-		//for (std::vector<Shape::Rectangle*>::const_iterator it = _SDQuadTree->tileRectsInViewport.begin(); it != _SDQuadTree->tileRectsInViewport.end(); ++it)
-		//{
-		//	float x = (*it)->x;
-		//	float y = (*it)->y;
-		//	float width = (*it)->width;
-		//	float height = (*it)->height;
-		//	float rectImageLeft = (*it)->extraX;
-		//	float rectImageTop = (*it)->extraY;
+		Texture* texture = _TileSet->GetTexture();
+		/*std::vector<Shape::Rectangle*> tileRectsInViewport = _SDQuadTree->GetTileRectsInViewport();*/
+		for (std::vector<Shape::Rectangle*>::const_iterator it = _SDQuadTree->tileRectsInViewport.begin(); it != _SDQuadTree->tileRectsInViewport.end(); ++it)
+		{
+			float x = (*it)->x;
+			float y = (*it)->y;
+			float width = (*it)->width;
+			float height = (*it)->height;
+			float rectImageLeft = (*it)->extraX;
+			float rectImageTop = (*it)->extraY;
 
-		//	////check to see if this tile is out of the scope of the camera
-		//	//if (x + width / 2 < camPostion.x - screenWidth / 2 ||
-		//	//	x - width / 2 > camPostion.x + screenWidth / 2 ||
-		//	//	y + height / 2 < camPostion.y - screenHeight / 2 ||
-		//	//	y - height / 2 > camPostion.y + screenHeight / 2)
-		//	//	continue;
+			////check to see if this tile is out of the scope of the camera
+			//if (x + width / 2 < camPostion.x - screenWidth / 2 ||
+			//	x - width / 2 > camPostion.x + screenWidth / 2 ||
+			//	y + height / 2 < camPostion.y - screenHeight / 2 ||
+			//	y - height / 2 > camPostion.y + screenHeight / 2)
+			//	continue;
 
 
-		//	batch->Draw(*texture, x, y, rectImageLeft, rectImageTop, width, height, width, height);
-		//}
+			batch->Draw(*texture, x, y, rectImageLeft, rectImageTop, width, height, width, height);
+		}
 	}
-
-
 }
 
 void TileMap::SetScale(float scale)

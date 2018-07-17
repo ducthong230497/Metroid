@@ -13,6 +13,7 @@
 #include "Camera.h"
 #include "Rectangle.h"
 #include "TileLayer.h"
+#include "define.h"
 //#include "..\world\World.h"
 
 class QObject;
@@ -144,7 +145,7 @@ private:
 private:
 
 	friend class World;
-	friend class TMXMap;
+	friend class TileMap;
 
 
 	void StartBuildingTreeNodes(const std::string &outpath, const std::string &tmxFilePath);
