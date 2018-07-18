@@ -4,7 +4,7 @@
 
 QuadTree::QuadTree()
 {
-	minSquareSize = SCREEN_HEIGHT;
+	minSquareSize = SCREEN_WIDTH;
 	//world = NULL;
 }
 
@@ -441,12 +441,14 @@ void QuadTree::Load(const std::string &quadtreeFilePath, const std::string &tmxF
 				Shape::Rectangle rect(x + width / 2, mapheight*maptileHeight - y - height / 2, width, height);
 				rect.id = id;
 
-				GameObject* gameObject = new GameObject();
+				/*GameObject* gameObject = new GameObject();
 				gameObject->setPosition(rect.x, rect.y);
 				gameObject->setSize(rect.width, rect.height);
 				gameObject->_CategoryMask = 0;
 				gameObject->_BitMask = 0;
-				gameObject->id = id;
+				gameObject->id = id;*/
+
+				GameObject* gameObject = InitGameObject(groupName, id, x, y, width, height, rect);
 
 				//if (world != NULL)
 				//{
@@ -568,6 +570,31 @@ void QuadTree::Load(const std::string &quadtreeFilePath, const std::string &tmxF
 
 
 
+}
+
+GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float y, float w, float h, Shape::Rectangle rect)
+{
+	if (str._Equal("Platform"))
+	{
+		GameObject* gameObject = new GameObject();
+		gameObject->setPosition(rect.x, rect.y);
+		gameObject->setSize(rect.width, rect.height);
+		gameObject->_CategoryMask = 0;
+		gameObject->_BitMask = 0;
+		gameObject->id = id;
+		return gameObject;
+	}
+	else if(str._Equal("Zoomer"))
+	{
+		Zoomer* zoomer = new Zoomer();
+		zoomer->setPosition(rect.x, rect.y);
+		zoomer->setSize(rect.width, rect.height);
+		zoomer->_CategoryMask = 0;
+		zoomer->_BitMask = 0;
+		zoomer->id = id;
+		return zoomer;
+	}
+	return nullptr;
 }
 
 void QuadTree::Load(rapidxml::xml_node<>* xmlnode)

@@ -10,6 +10,11 @@
 #include "Texture.h"
 #include "CKeyboard.h"
 
+#include "Zoomer.h"
+#include "Rio.h"
+#include "Skree.h"
+#include "Bomb.h"
+
 #define SPEED 1
 
 class MainScene : public Scene
@@ -25,6 +30,7 @@ private:
 	CKeyboard * KeyBoard;
 
 	Texture enemiesTexture;
+	std::vector<Zoomer*> Zoomers;
 	Ripper * ripper;
 public:
 	MainScene();

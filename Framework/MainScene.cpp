@@ -30,6 +30,17 @@ void MainScene::Init()
 		(*it)->_CategoryMask = PLATFORM;
 		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER;
 	}
+
+
+	//Initialize Enemy
+	enemiesTexture = Texture("Resources/enemies.png");
+
+	//Zoomer
+	std::vector<GameObject*> zoomers = quadTree->GetObjectsGroup("Zoomer");
+	for (std::vector<GameObject*>::iterator it = zoomers.begin(); it != zoomers.end(); ++it)
+	{
+		((Zoomer*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y, 1);
+	}
 	nextScene = MAINSCENE;
 	Trace::Log("Init MainScene");
 }
@@ -44,7 +55,6 @@ eSceneID MainScene::Render()
 {
 	batch->Begin();
 	tileMap->Render(batch);
-	//ripper->Render(batch);
 	DrawSquare();
 	batch->End();
 	return nextScene;
@@ -56,7 +66,7 @@ void MainScene::DrawSquare()
 	objects.insert(objects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	for (std::vector<GameObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
 	{
-		/*switch ((*it)->_CategoryMask)
+		switch ((*it)->_CategoryMask)
 		{
 		case RIPPER:
 			((Ripper*)(*it))->Render(batch);
@@ -75,7 +85,7 @@ void MainScene::DrawSquare()
 			break;
 		default:
 			break;
-		}*/
+		}
 
 		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}

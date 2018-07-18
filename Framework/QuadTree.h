@@ -14,6 +14,7 @@
 #include "Rectangle.h"
 #include "TileLayer.h"
 #include "define.h"
+#include "Zoomer.h"
 //#include "..\world\World.h"
 
 class QObject;
@@ -177,6 +178,8 @@ public:
 
 	//Load tileRects and bodies from quadtreefile and tmxmapfile
 	void Load(const std::string &quadtreeFilePath, const std::string &tmxFilePath);
+
+	GameObject* InitGameObject(std::string str, float id, float x, float y, float w, float h, Shape::Rectangle rect);
 
 	const std::map<unsigned int, QuadTreeNode*>& GetMapQuadTree();
 
