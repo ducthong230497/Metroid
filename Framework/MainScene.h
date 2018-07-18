@@ -9,31 +9,33 @@
 #include "SpriteBatch.h"
 #include "Texture.h"
 #include "CKeyboard.h"
-class testScene2 : public Scene
+
+#define SPEED 1
+
+class MainScene : public Scene
 {
 private:
-	Camera *cam;
+	Camera * cam;
 	//load map
 	//quadtree
 	MapLoader mapLoader;
-	TileMap* map;
-	QuadTree quadTree;
+	TileMap* tileMap;
+	QuadTree * quadTree;
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
 
 	Texture enemiesTexture;
 	Ripper * ripper;
-
-	LPDIRECT3DSURFACE9 surface;
 public:
-	testScene2();
-	~testScene2();
+	MainScene();
+	~MainScene();
 
 	void Init() override;
 	void Update() override;
 	eSceneID Render() override;
+	void DrawSquare();
 	void ProcessInput();
 	void End() override;
 
-	DEFINE_SCENE_UID(TESTSCENE2)
+	DEFINE_SCENE_UID(MAINSCENE)
 };

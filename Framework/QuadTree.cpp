@@ -682,10 +682,15 @@ const std::map<unsigned int, GameObject*>& QuadTree::GetMapObject()
 void QuadTree::LoadObjectsInViewport(Camera* camera, bool loadGameObject, bool loadTileRect)
 {
 	RECT viewportRect;
-	viewportRect.top = camera->getPosition().y + SCREEN_HEIGHT / 2;
+	/*viewportRect.top = camera->getPosition().y + SCREEN_HEIGHT / 2;
 	viewportRect.left = camera->getPosition().x - SCREEN_WIDTH / 2;
 	viewportRect.bottom = camera->getPosition().y - SCREEN_HEIGHT / 2;
-	viewportRect.right = camera->getPosition().x + SCREEN_WIDTH / 2;
+	viewportRect.right = camera->getPosition().x + SCREEN_WIDTH / 2;*/
+
+	viewportRect.top = camera->getPosition().y;
+	viewportRect.left = camera->getPosition().x;
+	viewportRect.bottom = camera->getPosition().y - SCREEN_HEIGHT;
+	viewportRect.right = camera->getPosition().x + SCREEN_WIDTH;
 
 	this->loadGameObject = loadGameObject;
 	this->loadTileRect = loadTileRect;

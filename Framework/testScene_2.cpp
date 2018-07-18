@@ -20,6 +20,7 @@ void testScene2::Init()
 	cam->setPosition(0, 32 * 90);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
+	KeyBoard = CKeyboard::getInstance();
 
 	enemiesTexture = Texture("Resources/enemies.png");
 
@@ -27,13 +28,12 @@ void testScene2::Init()
 	ripper->Init(&enemiesTexture, 100, 100);
 
 	nextScene = TESTSCENE2;
-	Trace::Log("Init testScene2");
+	Trace::Log("Init testScene2.");
 }
 
 void testScene2::Update()
 {
 	quadTree.LoadObjectsInViewport(cam, true, true);
-	Trace::Log("x: %f, y: %f", ripper->GetPosition().x, ripper->GetPosition().y);
 }
 
 eSceneID testScene2::Render()
@@ -43,6 +43,34 @@ eSceneID testScene2::Render()
 	ripper->Render(batch);
 	batch->End();
 	return nextScene;
+}
+int speed = 1;
+void testScene2::ProcessInput()
+{
+	if (KeyBoard->IsKeyDown(DIK_RIGHT))
+	{
+		POINT pos = cam->getPosition();
+		pos.x += speed;
+		cam->setPosition(pos);
+	}
+	if (KeyBoard->IsKeyDown(DIK_LEFT))
+	{
+		POINT pos = cam->getPosition();
+		pos.x -= speed;
+		cam->setPosition(pos);
+	}
+	if (KeyBoard->IsKeyDown(DIK_UP))
+	{
+		POINT pos = cam->getPosition();
+		pos.y += speed;
+		cam->setPosition(pos);
+	}
+	if (KeyBoard->IsKeyDown(DIK_DOWN))
+	{
+		POINT pos = cam->getPosition();
+		pos.y -= speed;
+		cam->setPosition(pos);
+	}
 }
 
 void testScene2::End()

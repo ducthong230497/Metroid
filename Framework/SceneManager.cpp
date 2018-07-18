@@ -35,11 +35,7 @@ Scene* SceneManager::get(eSceneID uid)
 	case INTROSCENE: scene = new IntroScene(); break;
 	case MENUSCENE: scene = new MenuScene(); break;
 	case GAMEOVERSCENE: scene = new GameOverScene(); break;
-		/*case INSTRUCTIONSCENE: scene = new InstructionScene(); break;
-	case AGRABAHMARKETSCENE: scene = new AgrabahMarket(); break;
-	case JAFARPALACESCENE: scene = new JafarPalace(); break;
-	case LEVELCOMPLETESCENE: scene = new LevelCompleteScene(); break;
-	case RETIRESCENE: scene = new RetireScene(); break;*/
+	case MAINSCENE: scene = new MainScene(); break;
 	case TESTSCENE1: scene = new testScene1(); break;
 	case TESTSCENE2: scene = new testScene2(); break;
 	}
@@ -71,7 +67,7 @@ void SceneManager::Init()
 	//BlackScreen->setOpacity(0.4f);
 
 	// First scene change here.
-	CurrentID = NextID = TESTSCENE2;
+	CurrentID = NextID = MAINSCENE;
 	//CurrentID = NextID = INTROSCENE;
 	CurrentScene = get(CurrentID);
 

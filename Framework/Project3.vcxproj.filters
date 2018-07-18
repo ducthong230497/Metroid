@@ -204,6 +204,9 @@
     <ClCompile Include="MapLoader.cpp">
       <Filter>Manager\MapManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="MapLoader.h">
       <Filter>Manager\MapManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -140,6 +140,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="MainScene.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="QuadTree.h" />
