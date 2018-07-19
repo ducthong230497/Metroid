@@ -70,6 +70,12 @@
     <Filter Include="Manager\MapManager\src">
       <UniqueIdentifier>{ca41f103-e529-4ad9-8f5e-b32b586305e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\include\Enemy">
+      <UniqueIdentifier>{b26a9f19-f307-45ba-80d9-f49c19e3ded0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\src\Enemy">
+      <UniqueIdentifier>{9d3b78af-f2ab-435a-b68e-215d528e3153}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,18 +153,6 @@
     <ClCompile Include="GameOverScene.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
-    <ClCompile Include="Ripper.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
-    <ClCompile Include="Skree.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
-    <ClCompile Include="Rio.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
-    <ClCompile Include="Zoomer.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
     <ClCompile Include="TileSet.cpp">
       <Filter>Manager\MapManager\src</Filter>
     </ClCompile>
@@ -206,6 +200,24 @@
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>Manager\SneneManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Marunari.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Rio.cpp">
+      <Filter>Object\src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ripper.cpp">
+      <Filter>Object\src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Skree.cpp">
+      <Filter>Object\src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Zoomer.cpp">
+      <Filter>Object\src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BombItem.cpp">
+      <Filter>Object\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,18 +305,6 @@
     <ClInclude Include="GameOverScene.h">
       <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
-    <ClInclude Include="Ripper.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
-    <ClInclude Include="Skree.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
-    <ClInclude Include="Rio.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
-    <ClInclude Include="Zoomer.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
     <ClInclude Include="TileSet.h">
       <Filter>Manager\MapManager\include</Filter>
     </ClInclude>
@@ -352,6 +352,24 @@
     </ClInclude>
     <ClInclude Include="MainScene.h">
       <Filter>Manager\SneneManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Marunari.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Rio.h">
+      <Filter>Object\include\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ripper.h">
+      <Filter>Object\include\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Skree.h">
+      <Filter>Object\include\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Zoomer.h">
+      <Filter>Object\include\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BombItem.h">
+      <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

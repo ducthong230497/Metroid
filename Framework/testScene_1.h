@@ -16,6 +16,8 @@
 #include "Bullet.h"
 #include "Bomb.h"
 #include "BreakablePlatform.h"
+#include "Marunari.h"
+#include "BombItem.h"
 
 #define MAXJUMPTIME 0.4f
 
@@ -38,6 +40,9 @@ private:
 	Zoomer * zoomer2;
 	Zoomer * zoomer3;
 	Bomb * bomb;
+	Texture itemsTexture;
+	Marunari * marunari;
+	BombItem * bombItem;
 
 	Collision * collision;
 	CollisionCallback * callback;

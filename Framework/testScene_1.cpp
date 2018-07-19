@@ -16,7 +16,7 @@ void testScene1::Init()
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM);
 	isGrounded = true;
 	jumpTime = 100;
 
@@ -61,6 +61,15 @@ void testScene1::Init()
 	zoomer3 = new Zoomer();
 	zoomer3->Init(&enemiesTexture, 300, 384, 1);
 
+	itemsTexture = Texture("Resources/items.png");
+	marunari = new Marunari();
+	marunari->Init(&itemsTexture, 300, 120);
+	marunari->SetScene(this);
+
+	bombItem = new BombItem();
+	bombItem->Init(&itemsTexture, 350, 120);
+	bombItem->SetScene(this);
+
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
 	GameObjects.push_back(object4);*/
@@ -72,6 +81,8 @@ void testScene1::Init()
 	GameObjects.push_back(zoomer1);
 	GameObjects.push_back(zoomer2);
 	GameObjects.push_back(zoomer3);
+	GameObjects.push_back(marunari);
+	GameObjects.push_back(bombItem);
 
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
@@ -349,6 +360,8 @@ void testScene1::DrawSquare()
 		case NONE: case BOMB_EXPLOSION:
 			((Bomb*)(*it))->Render(batch);
 			break;
+		case MARUNARI:
+			((Marunari*)(*it))->Render(batch);
 		default:
 			break;
 		}

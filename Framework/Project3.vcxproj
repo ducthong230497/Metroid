@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="BombItem.cpp" />
     <ClCompile Include="BreakablePlatform.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Marunari.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
@@ -171,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="BombItem.h" />
     <ClInclude Include="BreakablePlatform.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="MapLoader.h" />
+    <ClInclude Include="Marunari.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
