@@ -47,7 +47,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
 	collisionType = CollisionType::Dynamic;
 
-	_Velocity.x = -150;
+	_Velocity.x = 150;
 	_Velocity.y = -400;
 
 	//sound when Ripper is shot

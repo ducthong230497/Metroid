@@ -43,6 +43,7 @@ private:
 	std::vector<CollisionInfo> _Collided_Objects;
 
 	friend class testScene1;
+	friend class MainScene;
 
 private: //private function
 

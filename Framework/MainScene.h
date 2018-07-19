@@ -9,13 +9,15 @@
 #include "SpriteBatch.h"
 #include "Texture.h"
 #include "CKeyboard.h"
+#include "Collision.h"
+#include "CollisionCallback.h"
 
 #include "Zoomer.h"
 #include "Rio.h"
 #include "Skree.h"
 #include "Bomb.h"
 
-#define SPEED 1
+#define SPEED 2
 
 class MainScene : public Scene
 {
@@ -28,6 +30,12 @@ private:
 	QuadTree * quadTree;
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
+
+	float test = 0;
+	GameObject *object1;
+
+	Collision *collision;
+	CollisionCallback *callback;
 
 	Texture enemiesTexture;
 	std::vector<Zoomer*> Zoomers;

@@ -15,6 +15,10 @@
 #include "TileLayer.h"
 #include "define.h"
 #include "Zoomer.h"
+#include "Skree.h"
+#include "Rio.h"
+#include "Ripper.h"
+#include "Bomb.h"
 //#include "..\world\World.h"
 
 class QObject;

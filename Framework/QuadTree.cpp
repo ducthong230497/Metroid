@@ -594,6 +594,46 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		zoomer->id = id;
 		return zoomer;
 	}
+	else if (str._Equal("InverseZoomer"))
+	{
+		Zoomer* zoomer = new Zoomer();
+		zoomer->setPosition(rect.x, rect.y);
+		zoomer->setSize(rect.width, rect.height);
+		zoomer->_CategoryMask = 0;
+		zoomer->_BitMask = 0;
+		zoomer->id = id;
+		return zoomer;
+	}
+	else if (str._Equal("Skree"))
+	{
+		Skree* skree = new Skree();
+		skree->setPosition(rect.x, rect.y);
+		skree->setSize(rect.width, rect.height);
+		skree->_CategoryMask = 0;
+		skree->_BitMask = 0;
+		skree->id = id;
+		return skree;
+	}
+	else if (str._Equal("Ripper"))
+	{
+		Ripper* ripper = new Ripper();
+		ripper->setPosition(rect.x, rect.y);
+		ripper->setSize(rect.width, rect.height);
+		ripper->_CategoryMask = 0;
+		ripper->_BitMask = 0;
+		ripper->id = id;
+		return ripper;
+	}
+	else if (str._Equal("Rio"))
+	{
+		Rio* rio = new Rio();
+		rio->setPosition(rect.x, rect.y);
+		rio->setSize(rect.width, rect.height);
+		rio->_CategoryMask = 0;
+		rio->_BitMask = 0;
+		rio->id = id;
+		return rio;
+	}
 	return nullptr;
 }
 
