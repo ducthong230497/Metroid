@@ -6,6 +6,7 @@
 #include "TileMap.h"
 #include "QuadTree.h"
 #include "Ripper.h"
+#include "Samus.h"
 #include "SpriteBatch.h"
 #include "Texture.h"
 #include "CKeyboard.h"
@@ -32,7 +33,10 @@ class MainScene : public Scene
 {
 private:
 	float apprearanceTime;
+	Texture samusTexture;
+	Samus * samus;
 	Camera * cam;
+	float cameraOffsetX;
 	//load map
 	//quadtree
 	MapLoader mapLoader;
@@ -41,8 +45,7 @@ private:
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
 
-	float test = 0;
-	GameObject *object1;
+	//GameObject *object1;
 
 	Collision *collision;
 	CollisionCallback *callback;

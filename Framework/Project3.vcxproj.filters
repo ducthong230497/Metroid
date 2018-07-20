@@ -85,12 +85,6 @@
     <Filter Include="Manager\SoundManager\src">
       <UniqueIdentifier>{2432c775-8fd1-4d94-b26f-2c949a4317f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\SpriteManager\include\ASM">
-      <UniqueIdentifier>{dfaa157e-e95e-4c89-a09d-03313353d9f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\SpriteManager\src\ASM">
-      <UniqueIdentifier>{051b9fca-5b70-4fd1-9d9d-d33c4dbe62e2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -240,17 +234,17 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Manager\SoundManager\src</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Manager\SpriteManager\src\ASM</Filter>
-    </ClCompile>
     <ClCompile Include="Animation_.cpp">
-      <Filter>Manager\SpriteManager\src\ASM</Filter>
+      <Filter>Manager\SpriteManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
     <ClCompile Include="Condition_.cpp">
-      <Filter>Manager\SpriteManager\src\ASM</Filter>
+      <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
     <ClCompile Include="Transition_.cpp">
-      <Filter>Manager\SpriteManager\src\ASM</Filter>
+      <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,17 +404,20 @@
     <ClInclude Include="Sound.h">
       <Filter>Manager\SoundManager\include</Filter>
     </ClInclude>
+    <ClInclude Include="Kraid.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
     <ClInclude Include="Animation_.h">
-      <Filter>Manager\SpriteManager\include\ASM</Filter>
+      <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>Manager\SpriteManager\include\ASM</Filter>
+      <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
     <ClInclude Include="Condition_.h">
-      <Filter>Manager\SpriteManager\include\ASM</Filter>
+      <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
     <ClInclude Include="Transition_.h">
-      <Filter>Manager\SpriteManager\include\ASM</Filter>
+      <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

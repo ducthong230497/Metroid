@@ -13,7 +13,7 @@ void MainScene::Init()
 {
 #pragma region set up settings
 	cam = Camera::Instance();
-	cam->setPosition(32 * 25, 32 * 90);
+	cam->setPosition(32 * 27, 32 * 92);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -30,13 +30,17 @@ void MainScene::Init()
 	tileMap->SetSpaceDivisionQuadTree(quadTree);
 #pragma endregion
 
+	samusTexture = Texture("Resources/metroidfullsheet.png");
+	samus = new Samus();
+	samus->Init(&samusTexture, 32*40, 32*80);
+	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 
-	object1 = new GameObject();
+	/*object1 = new GameObject();
 	object1->setPosition(100, 100);
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM);*/
 
 	std::vector<GameObject*> platforms = quadTree->GetObjectsGroup("Platform");
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
@@ -60,6 +64,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = inversezoomers.begin(); it != inversezoomers.end(); ++it)
 	{
 		((Zoomer*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y, 1);
+		((Zoomer*)(*it))->startVelocityX *= -1;
 		POINT temp = (*it)->getVelocity();
 		temp.x *= -1;
 		(*it)->setVelocity(temp.x, temp.y);
@@ -111,26 +116,25 @@ void MainScene::Update()
 {
 	quadTree->LoadObjectsInViewport(cam, true, true);
 
+	GameObjects.clear();
+	GameObjects.insert(GameObjects.begin(), samus);
+
 	float dt = Time->getDeltaTime() / 1000.0f;
 	if (apprearanceTime < APPEARANCETIME)
 	{
 		apprearanceTime += dt;
 		Sound::Play(Appearance);
 		Render();
+		samus->Update(dt);
+		/*samus->Render(batch);*/
 		return;
 	}
-	test += dt;
-	if (test > 1)
-	{
-		//Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
-		test = 0;
-	}
-	GameObjects.clear();
+
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
-		(GameObjects.at(i))->UpdateVelocity(object1);
+		(GameObjects.at(i))->UpdateVelocity(samus);
 		POINT velocity = (GameObjects.at(i))->getVelocity();
 		POINT position = (GameObjects.at(i))->getPosition();
 		position.x += velocity.x * dt;
@@ -279,18 +283,8 @@ void MainScene::Update()
 		(GameObjects.at(i))->Next(dt, moveX, moveY);
 		(GameObjects.at(i))->Update(dt);
 	}
-	/*for (int i = 0; i < Bullets.size(); ++i)
-	{
-		Bullet* currentBullet = Bullets[i];
-		if (currentBullet->IsDestroyed())
-		{
-			std::vector<GameObject*>::iterator it = std::find(GameObjects.begin(), GameObjects.end(), currentBullet);
-			GameObjects.erase(it);
-			delete currentBullet;
-			Bullets.erase(Bullets.begin() + i--);
-		}
-	}*/
-	//cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
+
+	cam->setPosition(samus->getPosition().x - cameraOffsetX, cam->getPosition().y);
 
 	PlaySoundTheme();
 }
@@ -312,6 +306,9 @@ void MainScene::DrawSquare()
 	{
 		switch ((*it)->_CategoryMask)
 		{
+		case PLAYER:
+			((Samus*)(*it))->Render(batch);
+			break;
 		case RIPPER:
 			((Ripper*)(*it))->Render(batch);
 			break;
@@ -343,7 +340,8 @@ void MainScene::DrawSquare()
 
 void MainScene::ProcessInput()
 {
-	if (KeyBoard->IsKeyDown(DIK_RIGHT))
+	samus->ProcessInput(KeyBoard);
+	/*if (KeyBoard->IsKeyDown(DIK_RIGHT))
 	{
 		POINT pos = cam->getPosition();
 		pos.x += SPEED;
@@ -366,7 +364,7 @@ void MainScene::ProcessInput()
 		POINT pos = cam->getPosition();
 		pos.y -= SPEED;
 		cam->setPosition(pos);
-	}
+	}*/
 }
 
 void MainScene::End()
