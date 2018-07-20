@@ -18,7 +18,7 @@
 #include "BreakablePlatform.h"
 #include "Marunari.h"
 #include "BombItem.h"
-
+#include "Samus.h"
 #define MAXJUMPTIME 0.4f
 
 class testScene1 : public Scene
@@ -43,7 +43,7 @@ private:
 	Texture itemsTexture;
 	Marunari * marunari;
 	BombItem * bombItem;
-
+	Samus* samus;
 	Collision * collision;
 	CollisionCallback * callback;
 	MapLoader mapLoader;
@@ -51,7 +51,7 @@ private:
 	//phần này bỏ trong player
 	bool canMove = true;
 	//shoot
-	Texture metroidfullsheet;
+	Texture metroidfullsheet, samusTexture;
 	std::vector<Bullet*> Bullets;
 	float FIRERATE = 0.1f;
 	float lastShootTime = 0;

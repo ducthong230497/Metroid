@@ -1,5 +1,5 @@
 #include "CollisionCallback.h"
-
+#include "Samus.h"
 CollisionCallback::CollisionCallback()
 {
 }
@@ -200,6 +200,15 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			((BombItem*)gameObjectB)->OnHitPlayer();
 		}
 	}
+	case PLAYER | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER) {
+			static_cast<Samus*>(gameObjectA)->OnHitGround(CollisionDirection);
+		}
+		else {
+			static_cast<Samus*>(gameObjectB)->OnHitGround(CollisionDirection);
+		}
+	}
 	default: break;
 	}
 }
@@ -210,6 +219,19 @@ void CollisionCallback::OnColliding(GameObject * gameObjectA, GameObject * gameO
 
 void CollisionCallback::OnCollisionExit(GameObject * gameObjectA, GameObject * gameObjectB, const POINT & collisionDirection)
 {
+	switch (gameObjectA->_CategoryMask | gameObjectB->_CategoryMask)
+	{
+	case PLAYER | PLATFORM: // PLAYER * RIO:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER) {
+			static_cast<Samus*>(gameObjectA)->OnExitGround();
+		}
+		else {
+			static_cast<Samus*>(gameObjectB)->OnExitGround();
+		}
+	}
+	break;
+	}
 }
 
 void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * gameObjectB, bool &performOverlaying)

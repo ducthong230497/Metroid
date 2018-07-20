@@ -11,6 +11,11 @@ testScene1::~testScene1()
 
 void testScene1::Init()
 {
+
+	samusTexture = Texture("Resources/metroidfullsheet.png");
+	samus = new Samus();
+	samus->Init(&samusTexture, 600, 100);
+
 	object1 = new GameObject();
 	object1->setPosition(100, 100);
 	object1->setVelocity(0, -100);
@@ -90,7 +95,7 @@ void testScene1::Init()
 	GameObjects.push_back(zoomer3);
 	GameObjects.push_back(marunari);
 	GameObjects.push_back(bombItem);
-
+	GameObjects.push_back(samus);
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
 		object1->getSize().y,					// height
@@ -194,12 +199,12 @@ void testScene1::Update()
 						int touching = collision->IsTouching((GameObjects.at(i)), (GameObjects.at(j))); //If istouching, it means in the next frame, two body will not collide anymore
 						if (touching == 1 && velocity.y != 0)
 						{
-							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
+							callback->OnCollisionExit(GameObjects.at(i), GameObjects.at(j), collision->_CollisionDirection);
 							//Trace::Log("Exit y axis");
 						}
 						else if (touching == 2 && velocity.x != 0)
 						{
-							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
+							callback->OnCollisionExit(GameObjects.at(i), GameObjects.at(j), collision->_CollisionDirection);
 							//Trace::Log("Exit x axis");
 						}
 					}
@@ -334,6 +339,7 @@ eSceneID testScene1::Render()
 	//zoomer2->Render(batch);
 	//zoomer3->Render(batch);
 	//bomb->Render(batch);
+	samus->Render(batch);
 	tileMap->Render(batch);
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
@@ -383,6 +389,7 @@ void testScene1::DrawSquare()
 
 void testScene1::ProcessInput()
 {
+	samus->ProcessInput(KeyBoard);
 	if (canMove)
 	{
 		if (KeyBoard->IsKeyDown(DIK_RIGHT))
