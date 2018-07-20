@@ -10,6 +10,7 @@ BombItem::~BombItem()
 
 void BombItem::SetScene(Scene * s)
 {
+	scene = s;
 }
 
 void BombItem::Init(Texture * itemsTexture, int x, int y)
@@ -61,4 +62,5 @@ void BombItem::Render(SpriteBatch * batch)
 
 void BombItem::OnHitPlayer()
 {
+	isHitPlayer = true;
 }

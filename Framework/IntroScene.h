@@ -7,6 +7,7 @@
 #include "TexturePacker.h"
 #include "Sprite.h"
 #include "CWindow.h"
+#include "Sound.h"
 class IntroScene : public Scene
 {
 private:
@@ -19,6 +20,7 @@ private:
 	CKeyboard * KeyBoard;
 	CWindow * Window;
 	//thiếu sound
+	CSound * TitleTheme;
 public:
 	IntroScene();
 	~IntroScene();

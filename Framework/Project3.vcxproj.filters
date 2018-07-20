@@ -76,6 +76,15 @@
     <Filter Include="Object\src\Enemy">
       <UniqueIdentifier>{9d3b78af-f2ab-435a-b68e-215d528e3153}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{f70f5470-7a0f-486c-b24f-f901c492e654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager\include">
+      <UniqueIdentifier>{d081e2f1-b44f-4c00-94f1-b80662c5929b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager\src">
+      <UniqueIdentifier>{2432c775-8fd1-4d94-b26f-2c949a4317f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -218,6 +227,12 @@
     </ClCompile>
     <ClCompile Include="BombItem.cpp">
       <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Manager\SoundManager\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Manager\SoundManager\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +385,12 @@
     </ClInclude>
     <ClInclude Include="BombItem.h">
       <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Manager\SoundManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Manager\SoundManager\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

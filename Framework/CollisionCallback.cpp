@@ -192,6 +192,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			((Marunari*)gameObjectB)->OnHitPlayer();
 		}
 	}
+	case PLAYER | BOMBITEM:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			Trace::Log("Hit BombItem");
+			((BombItem*)gameObjectB)->OnHitPlayer();
+		}
+	}
 	default: break;
 	}
 }

@@ -16,6 +16,7 @@ void TestGame::Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, 
 
 	Device->Init(*Window);
 	Keyboard->Init(Window->gethWnd(), Window->gethInstance());
+	Sound::Init(Window->gethWnd());
 	sceneManager->Init();
 
 	QuadTree quadtree;

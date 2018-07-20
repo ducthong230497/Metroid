@@ -5,6 +5,7 @@
 #include "Zoomer.h"
 #include "BreakablePlatform.h"
 #include "Marunari.h"
+#include "BombItem.h"
 class CollisionCallback
 {
 public:

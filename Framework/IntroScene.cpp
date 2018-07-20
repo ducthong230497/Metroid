@@ -48,7 +48,7 @@ void IntroScene::Init()
 	batch->SetCamera(cam);
 
 	nextScene = INTROSCENE;
-	//TitleTheme = Sound::LoadSound("Resources/SoundEffect/TitleTheme.wav");
+	TitleTheme = Sound::LoadSound("Resources/Audio/TitleTheme.wav");
 
 	Trace::Log("Init IntroScene");
 }
@@ -61,7 +61,7 @@ eSceneID IntroScene::Render()
 	batch->Draw(background);
 	//end drawing
 	batch->End();
-	//Sound::Loop(TitleTheme);
+	Sound::Loop(TitleTheme);
 	return nextScene;
 }
 
