@@ -54,12 +54,19 @@ void testScene1::Init()
 
 	zoomer = new Zoomer();
 	zoomer->Init(&enemiesTexture, 600, 100, 1);
+
 	zoomer1 = new Zoomer();
-	zoomer1->Init(&enemiesTexture, 160, 272, 1);
+	zoomer1->Init(&enemiesTexture, 170, 260, 1);
+	zoomer1->setVelocity(-zoomer1->getVelocity().x, zoomer1->getVelocity().y);
+	zoomer1->startVelocityX *= -1;
+
 	zoomer2 = new Zoomer();
 	zoomer2->Init(&enemiesTexture, 160, 384, 1);
+
 	zoomer3 = new Zoomer();
-	zoomer3->Init(&enemiesTexture, 300, 384, 1);
+	zoomer3->Init(&enemiesTexture, 345, 345, 1);
+	zoomer3->setVelocity(-zoomer3->getVelocity().x, zoomer3->getVelocity().y);
+	zoomer3->startVelocityX *= -1;
 
 	itemsTexture = Texture("Resources/items.png");
 	marunari = new Marunari();

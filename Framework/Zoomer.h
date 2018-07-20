@@ -39,6 +39,7 @@ private:
 	int prevSource;
 
 public:
+	float startVelocityX;
 
 	Zoomer();
 	~Zoomer();
