@@ -19,7 +19,8 @@
 #include "Rio.h"
 #include "Ripper.h"
 #include "Bomb.h"
-//#include "..\world\World.h"
+#include "Marunari.h"
+#include "BombItem.h"
 
 class QObject;
 class QuadTreeNode;

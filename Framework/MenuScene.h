@@ -17,7 +17,6 @@ private:
 
 	CKeyboard * KeyBoard;
 	CWindow * Window;
-	//thiếu sound
 public:
 	MenuScene();
 	~MenuScene();

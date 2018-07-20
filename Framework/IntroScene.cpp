@@ -1,5 +1,7 @@
 #include "IntroScene.h"
 
+CSound* IntroScene::TitleTheme = NULL;
+
 IntroScene::IntroScene()
 {
 	Time = GameTime::getInstance();
@@ -11,6 +13,11 @@ IntroScene::~IntroScene()
 	batch = nullptr;
 	KeyBoard = nullptr;
 	Window = nullptr;
+}
+
+CSound * IntroScene::getSound()
+{
+	return TitleTheme;
 }
 
 void IntroScene::Init()

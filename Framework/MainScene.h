@@ -16,12 +16,22 @@
 #include "Rio.h"
 #include "Skree.h"
 #include "Bomb.h"
+#include "Sound.h"
 
 #define SPEED 2
+#define APPEARANCETIME 3
+
+enum Section
+{
+	Brinstar,
+	Kraid,
+	MotherBrain
+};
 
 class MainScene : public Scene
 {
 private:
+	float apprearanceTime;
 	Camera * cam;
 	//load map
 	//quadtree
@@ -38,8 +48,14 @@ private:
 	CollisionCallback *callback;
 
 	Texture enemiesTexture;
-	std::vector<Zoomer*> Zoomers;
-	Ripper * ripper;
+	Texture itemsTexture;
+
+	//Sound
+	CSound * Appearance;
+	CSound * Brinstar;
+	CSound * Kraid;
+	CSound * MotherBrain;
+	int flagsound;
 public:
 	MainScene();
 	~MainScene();
@@ -50,6 +66,7 @@ public:
 	void DrawSquare();
 	void ProcessInput();
 	void End() override;
+	void PlaySoundTheme();
 
 	DEFINE_SCENE_UID(MAINSCENE)
 };

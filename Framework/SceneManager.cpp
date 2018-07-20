@@ -117,6 +117,10 @@ void SceneManager::Render()
 		}
 		else
 		{
+			if (NextID == MAINSCENE)
+			{
+				Sound::Stop(IntroScene::getSound());
+			}
 			CurrentID = NextID;
 			CurrentScene = nextscene;
 			nextscene = nullptr;

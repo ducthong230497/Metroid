@@ -51,7 +51,7 @@ void MenuScene::ProcessInput()
 	}
 	if (KeyBoard->IsKeyDown(DIK_RETURN))
 	{
-		nextScene = TESTSCENE1;
+		nextScene = MAINSCENE;
 	}
 }
 

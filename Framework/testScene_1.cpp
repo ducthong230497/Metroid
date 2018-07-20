@@ -362,8 +362,10 @@ void testScene1::DrawSquare()
 			break;
 		case MARUNARI:
 			((Marunari*)(*it))->Render(batch);
+			break;
 		case BOMBITEM:
 			((BombItem*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}

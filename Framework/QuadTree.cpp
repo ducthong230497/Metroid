@@ -634,6 +634,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		rio->id = id;
 		return rio;
 	}
+	else if (str._Equal("Marunari"))
+	{
+		Marunari* marunari = new Marunari();
+		marunari->setPosition(rect.x, rect.y);
+		marunari->setSize(rect.width, rect.height);
+		marunari->_CategoryMask = 0;
+		marunari->_BitMask = 0;
+		marunari->id = id;
+		return marunari;
+	}
 	return nullptr;
 }
 

@@ -11,20 +11,25 @@ MainScene::~MainScene()
 
 void MainScene::Init()
 {
+#pragma region set up settings
 	cam = Camera::Instance();
-	cam->setPosition(0, 32 * 90);
+	cam->setPosition(32 * 25, 32 * 90);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
 	collision = new Collision();
 	callback = new CollisionCallback();
+#pragma endregion
 
-	//load quadtree
+
+#pragma region load quadtree
 	quadTree = new QuadTree();
 	quadTree->Load("Resources/mapQuadTree.xml", "Resources/metroid.tmx");
 	mapLoader.AddMap("map1", "Resources/metroid.tmx", 1);
 	tileMap = mapLoader.GetMap("map1");
 	tileMap->SetSpaceDivisionQuadTree(quadTree);
+#pragma endregion
+
 
 	object1 = new GameObject();
 	object1->setPosition(100, 100);
@@ -41,7 +46,7 @@ void MainScene::Init()
 	}
 
 
-	//Initialize Enemy
+#pragma region Initialize Enemy
 	enemiesTexture = Texture("Resources/enemies.png");
 
 	//Zoomer
@@ -78,8 +83,26 @@ void MainScene::Init()
 	{
 		((Rio*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
 	}
+#pragma endregion
 
+#pragma region Initialize Items
+	itemsTexture = Texture("Resources/items.png");
 
+	std::vector<GameObject*> marunari = quadTree->GetObjectsGroup("Marunari");
+	for (std::vector<GameObject*>::iterator it = marunari.begin(); it != marunari.end(); ++it)
+	{
+		((Marunari*)(*it))->Init(&itemsTexture, (*it)->getPosition().x, (*it)->getPosition().y);
+		((Marunari*)(*it))->SetScene(this);
+	}
+#pragma endregion
+
+#pragma region Load Sounds
+	flagsound = Section::Brinstar;
+	Appearance = Sound::LoadSound("Resources/Audio/Appearance.wav");
+	Brinstar = Sound::LoadSound("Resources/Audio/BrinstarTheme.wav");
+	Kraid = Sound::LoadSound("Resources/Audio/BossKraid.wav");
+	MotherBrain = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
+#pragma endregion
 	nextScene = MAINSCENE;
 	Trace::Log("Init MainScene");
 }
@@ -87,9 +110,15 @@ void MainScene::Init()
 void MainScene::Update()
 {
 	quadTree->LoadObjectsInViewport(cam, true, true);
-	int a = 2;
 
 	float dt = Time->getDeltaTime() / 1000.0f;
+	if (apprearanceTime < APPEARANCETIME)
+	{
+		apprearanceTime += dt;
+		Sound::Play(Appearance);
+		Render();
+		return;
+	}
 	test += dt;
 	if (test > 1)
 	{
@@ -262,6 +291,8 @@ void MainScene::Update()
 		}
 	}*/
 	//cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
+
+	PlaySoundTheme();
 }
 
 eSceneID MainScene::Render()
@@ -295,6 +326,12 @@ void MainScene::DrawSquare()
 			break;
 		case NONE: case BOMB_EXPLOSION:
 			((Bomb*)(*it))->Render(batch);
+			break;
+		case MARUNARI:
+			((Marunari*)(*it))->Render(batch);
+			break;
+		case BOMBITEM:
+			((BombItem*)(*it))->Render(batch);
 			break;
 		default:
 			break;
@@ -334,5 +371,15 @@ void MainScene::ProcessInput()
 
 void MainScene::End()
 {
+}
+
+void MainScene::PlaySoundTheme()
+{
+	if (flagsound == Section::Brinstar)
+	{
+		Sound::Play(Brinstar);
+		Sound::Stop(Kraid);
+		Sound::Stop(MotherBrain);
+	}
 }
 

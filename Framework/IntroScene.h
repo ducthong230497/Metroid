@@ -20,10 +20,12 @@ private:
 	CKeyboard * KeyBoard;
 	CWindow * Window;
 	//thiếu sound
-	CSound * TitleTheme;
+	static CSound * TitleTheme;
 public:
 	IntroScene();
 	~IntroScene();
+
+	static CSound* getSound();
 
 	void Init() override;
 	//void Update() override;
