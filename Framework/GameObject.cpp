@@ -5,6 +5,7 @@ GameObject::GameObject()
 	_Position.x = _Position.y = 0;
 	_Size.x = _Size.y = 0;
 	_Velocity.x = _Velocity.y = 0;
+	isActive = true;
 }
 
 GameObject::~GameObject()

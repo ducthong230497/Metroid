@@ -131,6 +131,7 @@ void MainScene::Update()
 	}
 
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
+	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -378,6 +379,29 @@ void MainScene::PlaySoundTheme()
 		Sound::Play(Brinstar);
 		Sound::Stop(Kraid);
 		Sound::Stop(MotherBrain);
+	}
+}
+
+void MainScene::RemoveObject(GameObject * object)
+{
+	std::vector<GameObject*>::iterator it = std::find(GameObjects.begin(), GameObjects.end(), object);
+	if (it != GameObjects.end())
+	{
+		GameObjects.erase(it);
+	}
+
+	if (quadTree != NULL)
+	{
+		// Attempt to find and return a body using provided name, else return nullptr
+		std::map<unsigned int, GameObject*>::iterator it = quadTree->mapObject.find(object->id);
+
+		if (it != quadTree->mapObject.end())
+		{
+			//delete it->second;
+			//it->second = NULL;
+			//body = NULL;
+			quadTree->mapObject.erase(it);
+		}
 	}
 }
 

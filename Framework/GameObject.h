@@ -15,6 +15,7 @@ public:
 	uint16_t _CategoryMask;
 	CollisionType collisionType;
 public:
+	bool isActive;
 	GameObject();
 	~GameObject();
 	POINT getPosition() const;

@@ -39,14 +39,17 @@ private:
 	float cameraOffsetX;
 	//load map
 	//quadtree
+	QuadTree * quadTree;
 	MapLoader mapLoader;
 	TileMap* tileMap;
-	QuadTree * quadTree;
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
 
+public:
+	//Enemy
+	std::vector<GameObject*> skreeBullet;
 	//GameObject *object1;
-
+private:
 	Collision *collision;
 	CollisionCallback *callback;
 
@@ -59,9 +62,12 @@ private:
 	CSound * Kraid;
 	CSound * MotherBrain;
 	int flagsound;
+
 public:
 	MainScene();
 	~MainScene();
+
+	std::vector<GameObject*> getSkreeBullet() { return skreeBullet; }
 
 	void Init() override;
 	void Update() override;
@@ -70,6 +76,6 @@ public:
 	void ProcessInput();
 	void End() override;
 	void PlaySoundTheme();
-
+	void RemoveObject(GameObject* object);
 	DEFINE_SCENE_UID(MAINSCENE)
 };

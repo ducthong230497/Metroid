@@ -147,7 +147,7 @@ private:
 
 	std::map<std::string, std::vector<GameObject*>> objectGroups;
 
-
+	friend class MainScene;
 private:
 
 	friend class World;

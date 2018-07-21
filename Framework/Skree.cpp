@@ -1,5 +1,5 @@
 #include "Skree.h"
-
+#include "MainScene.h"
 Skree::Skree()
 {
 }
@@ -134,8 +134,9 @@ void Skree::Update(float dt)
 
 					SkreeBullets.push_back(skreeBullet);
 					int size = scene->GameObjects.size();
-					scene->GameObjects.push_back(skreeBullet);
-					int a = 2;
+					//scene->GameObjects.push_back(skreeBullet);
+					((MainScene*)scene)->skreeBullet.push_back(skreeBullet);
+					((MainScene*)scene)->RemoveObject(this);
 				}
 
 				//world->DestroyBody(body);
@@ -151,19 +152,20 @@ void Skree::Update(float dt)
 		stateTime += dt;
 		if (stateTime > SKREEBULLETLIVETIME)
 		{
-			for (std::vector<Sprite*>::iterator bullet = SkreeBullets.begin(); bullet != SkreeBullets.end(); ++bullet)
+			for (int i = 0; i < ((MainScene*)scene)->skreeBullet.size(); ++i)
 			{
 				//world->DestroyBody(bullet->body);
-				std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (*bullet));
-				if (it != scene->GameObjects.end())
+				std::vector<GameObject*>::iterator it = std::find(((MainScene*)scene)->skreeBullet.begin(), ((MainScene*)scene)->skreeBullet.end(), ((MainScene*)scene)->skreeBullet[i]);
+				if (it != ((MainScene*)scene)->skreeBullet.end())
 				{
+					((MainScene*)scene)->RemoveObject(*it);
 					delete *it;
-					scene->GameObjects.erase(it);
-					*bullet = nullptr;
+					((MainScene*)scene)->skreeBullet.erase(it);
+					i--;
 				}
 			}
 			SkreeBullets.clear();
-
+			isActive = false;
 			isDead = true;
 		}
 	}

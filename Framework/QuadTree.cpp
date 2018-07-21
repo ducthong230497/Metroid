@@ -794,7 +794,7 @@ void QuadTree::LoadObjectsInViewport(const RECT &viewport, QuadTreeNode* QNode)
 			for (std::vector<QObject>::iterator it = QNode->QObjects.begin(); it != QNode->QObjects.end(); ++it)
 			{
 				GameObject *gameObject = it->gameObject;
-				if (it->gameObject != NULL && it->gameObject->_CategoryMask != 0)
+				if (it->gameObject != NULL && it->gameObject->_CategoryMask != 0 && it->gameObject->isActive)
 				{
 					if (!loadGameObject) continue;
 
