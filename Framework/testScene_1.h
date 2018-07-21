@@ -19,6 +19,7 @@
 #include "Marunari.h"
 #include "BombItem.h"
 #include "Samus.h"
+#include "Kraid.h"
 #define MAXJUMPTIME 0.4f
 
 class testScene1 : public Scene
@@ -44,6 +45,8 @@ private:
 	Marunari * marunari;
 	BombItem * bombItem;
 	Samus* samus;
+	Texture bossesTexture;
+	Kraid * kraid;
 	Collision * collision;
 	CollisionCallback * callback;
 	MapLoader mapLoader;

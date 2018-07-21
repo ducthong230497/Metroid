@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<motherbrain>
+<rect left="123" top = "109" width = "80" height="65" />
+ <rect left="205" top = "109" width = "80" height="65" />
+ <rect left="287" top = "109" width = "80" height="65" />
+ <rect left="369" top = "109" width = "80" height="65" />
+ <rect left="123" top = "180" width = "80" height="65" />
+ <rect left="205" top = "180" width = "80" height="65" />
+  <rect left="287" top = "180" width = "80" height="65" />
+ <rect left="369" top = "180" width = "80" height="65" />
+</motherbrain>
+
+<weakmotherbrain>
+<rect left="123" top = "250" width = "80" height="65" />
+ <rect left="205" top = "250" width = "80" height="65" />
+ <rect left="287" top = "250" width = "80" height="65" />
+ <rect left="369" top = "250" width = "80" height="65" />
+ <rect left="123" top = "321" width = "80" height="65" />
+ <rect left="205" top = "321" width = "80" height="65" />
+  <rect left="287" top = "321" width = "80" height="65" />
+ <rect left="369" top = "321" width = "80" height="65" />
+</weakmotherbrain>
+
+<healthpile>
+<rect left="38" top = "170" width = "15" height="32" />
+<rect left="55" top = "170" width = "12" height="32" />
+<rect left="69" top = "170" width = "8" height="32" />
+<rect left="79" top = "170" width = "4" height="32" />
+</healthpile>
+
+<cannon>
+<rect left="15" top = "208" width = "14" height="21" />
+ <rect left="31" top = "212" width = "17" height="17" />
+ <rect left="50" top = "215" width = "20" height="14" />
+ <rect left="72" top = "212" width = "17" height="17" />
+ <rect left="15" top = "232" width = "14" height="21" />
+ <rect left="72" top = "212" width = "17" height="17" />
+ <rect left="50" top = "215" width = "20" height="14" />
+ <rect left="31" top = "212" width = "17" height="17" />
+</cannon>
+
+<cannonbullet>
+<rect left="16" top = "263" width = "5" height="8" />
+ <rect left="23" top = "264" width = "7" height="7" />
+ <rect left="32" top = "266" width = "8" height="5" />
+ <rect left="42" top = "264" width = "7" height="7" />
+ <rect left="51" top = "263" width = "5" height="8" />
+ <rect left="42" top = "264" width = "7" height="7" />
+ <rect left="32" top = "266" width = "8" height="5" />
+ <rect left="23" top = "264" width = "7" height="7" />
+</cannonbullet>
+
+<cannonbulletexplosion>
+<rect left="86" top = "263" width = "8" height="8" />
+<rect left="96" top = "259" width = "14" height="12" />
+</cannonbulletexplosion>
+
+<kraid>
+<rect left="172" top = "9" width = "24" height="32" />
+<rect left="198" top = "10" width = "24" height="31" />
+</kraid>
+
+<beinghitkraid>
+<rect left="224" top = "9" width = "24" height="32" />
+<rect left="250" top = "10" width = "24" height="31" />
+</beinghitkraid>
+
+<kraidbullet>
+<rect left="404" top = "38" width = "8" height="3" />
+</kraidbullet>
+
+<kraidboomerang>
+<rect left="328" top = "34" width = "8" height="7" />
+<rect left="338" top = "33" width = "7" height="8" />
+<rect left="347" top = "34" width = "8" height="7" />
+<rect left="357" top = "33" width = "7" height="8" />
+</kraidboomerang>
+
+

@@ -21,7 +21,7 @@ void testScene1::Init()
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::KRAID);
 	isGrounded = true;
 	jumpTime = 100;
 
@@ -82,12 +82,16 @@ void testScene1::Init()
 	bombItem->Init(&itemsTexture, 350, 120);
 	bombItem->SetScene(this);
 
+	bossesTexture = Texture("Resources/bosses.png");
+	kraid = new Kraid();
+	kraid->Init(&bossesTexture, 600, 100);
+
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
 	GameObjects.push_back(object4);*/
 	GameObjects.push_back(object1);
 	GameObjects.push_back(ripper);
-	GameObjects.push_back(skree);
+	//GameObjects.push_back(skree);
 	GameObjects.push_back(rio);
 	GameObjects.push_back(zoomer);
 	GameObjects.push_back(zoomer1);
@@ -96,6 +100,7 @@ void testScene1::Init()
 	GameObjects.push_back(marunari);
 	GameObjects.push_back(bombItem);
 	GameObjects.push_back(samus);
+	GameObjects.push_back(kraid);
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
 		object1->getSize().y,					// height
@@ -378,6 +383,9 @@ void testScene1::DrawSquare()
 			break;
 		case BOMBITEM:
 			((BombItem*)(*it))->Render(batch);
+			break;
+		case KRAID:
+			((Kraid*)(*it))->Render(batch);
 			break;
 		default:
 			break;

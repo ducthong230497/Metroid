@@ -85,6 +85,12 @@
     <Filter Include="Manager\SoundManager\src">
       <UniqueIdentifier>{2432c775-8fd1-4d94-b26f-2c949a4317f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\include\Boss">
+      <UniqueIdentifier>{5e95ad11-e8c8-4385-95ad-ca727a2b4d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\src\Boss">
+      <UniqueIdentifier>{5ffec33e-a809-4620-ae55-6376d6a25a60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -246,6 +252,9 @@
     <ClCompile Include="Transition_.cpp">
       <Filter>Manager\SpriteManager\src</Filter>
     </ClCompile>
+    <ClCompile Include="Kraid.cpp">
+      <Filter>Object\src\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -404,9 +413,6 @@
     <ClInclude Include="Sound.h">
       <Filter>Manager\SoundManager\include</Filter>
     </ClInclude>
-    <ClInclude Include="Kraid.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
     <ClInclude Include="Animation_.h">
       <Filter>Manager\SpriteManager\include</Filter>
     </ClInclude>
@@ -418,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="Transition_.h">
       <Filter>Manager\SpriteManager\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Kraid.h">
+      <Filter>Object\include\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
