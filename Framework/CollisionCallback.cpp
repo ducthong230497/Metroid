@@ -238,10 +238,10 @@ void CollisionCallback::OnCollisionExit(GameObject * gameObjectA, GameObject * g
 	case PLAYER | PLATFORM: // PLAYER * RIO:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER) {
-			static_cast<Samus*>(gameObjectA)->OnExitGround();
+			static_cast<Samus*>(gameObjectA)->OnExitGround(collisionDirection);
 		}
 		else {
-			static_cast<Samus*>(gameObjectB)->OnExitGround();
+			static_cast<Samus*>(gameObjectB)->OnExitGround(collisionDirection);
 		}
 	}
 	break;

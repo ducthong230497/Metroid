@@ -21,8 +21,8 @@ private:
 	Texture samusTexture;
 	std::vector<Bullet*> bullets;
 	float lastShootTime;
-	float nextPosition = 0;
-	float maxPosition = 0;
+	float jump1 = 0;
+	float jump2 = 0;
 	int count = 0;
 	bool isAppear;
 	void InitSamusAnimation(Texture * samusTexture);
@@ -48,7 +48,7 @@ public:
 	void Update(float dt) override;
 	void ProcessInput(CKeyboard * KeyBoard);
 	void OnHitGround(POINT direction);
-	void OnExitGround();
+	void OnExitGround(POINT direction);
 	
 };
 

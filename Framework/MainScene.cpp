@@ -176,11 +176,13 @@ void MainScene::Update()
 						int touching = collision->IsTouching((GameObjects.at(i)), (GameObjects.at(j))); //If istouching, it means in the next frame, two body will not collide anymore
 						if (touching == 1 && velocity.y != 0)
 						{
+							callback->OnCollisionExit(GameObjects.at(i), GameObjects.at(j), collision->_CollisionDirection);
 							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
 							//Trace::Log("Exit y axis");
 						}
 						else if (touching == 2 && velocity.x != 0)
 						{
+							callback->OnCollisionExit(GameObjects.at(i), GameObjects.at(j), collision->_CollisionDirection);
 							//_Listener->OnCollisionExit(body1, body2, collision._CollisionDirection);
 							//Trace::Log("Exit x axis");
 						}

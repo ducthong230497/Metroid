@@ -16,6 +16,7 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	animator.parameters.Add("Move", false);
 	animator.parameters.Add("MoveUp", false);
 	animator.parameters.Add("Ground", false);
+	animator.parameters.Add("Falling", false);
 
 	// Animation states
 	Appear = Animation_("Appear", NULL, NULL, NULL, true);
@@ -25,7 +26,7 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Move = Animation_("Move", NULL, NULL, NULL, true);
 	MoveShoot = Animation_("MoveShoot", NULL, NULL, NULL, true);
 	MoveUp = Animation_("MoveUp", [=] {animator.SetBool("MoveUp", true); }, NULL, NULL, true);
-	Jump = Animation_("Jump", [=] { if (animator.previousAnimation.name != "MoveUp") animator.SetBool("MoveUp", false); }, NULL, NULL, true);
+	Jump = Animation_("Jump", [=] { setSize(34, 45);  if (animator.previousAnimation.name != "MoveUp") animator.SetBool("MoveUp", false); }, NULL, [=] {setSize(34, 60); }, true);
 	JumpShoot = Animation_("JumpShoot", NULL, NULL, NULL, true);
 	JumpUp = Animation_("JumpUp", NULL, NULL, NULL, true);
 	JumpRoll = Animation_("JumpRoll", NULL, NULL, NULL, true);
@@ -50,7 +51,6 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Roll.AddRegion(p.GetRegion("rolling"));
 	JumpRoll.AddRegion(p.GetRegion("jumpandroll"));
 	Hit.AddRegion(p.GetRegion("beinghit"));
-
 	Appear.AddTransition("Stand", { new Condition_("Stand", true) });
 	Stand.AddTransition("Roll", { new Condition_("Roll",true) });
 	Stand.AddTransition("StandUp", { new Condition_("LookUp",true) });
@@ -63,7 +63,8 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Jump.AddTransition("JumpShoot", { new Condition_("Shoot",true),new Condition_("Ground",false) });
 	Jump.AddTransition("JumpUp", { new Condition_("LookUp",true),new Condition_("Ground",false),new Condition_("MoveUp",false) });
 	JumpShoot.AddTransition("Stand", { new Condition_("Ground",true) });
-	Move.AddTransition("Stand", { new Condition_("Move",false) });
+	Move.AddTransition("Stand", { new Condition_("Move",false),new Condition_("Ground",true) });
+	Move.AddTransition("Jump", { new Condition_("Move",true),new Condition_("Falling",true) });
 	Move.AddTransition("MoveUp", { new Condition_("LookUp",true), new Condition_("Move",true) });
 	MoveUp.AddTransition("Move", { new Condition_("LookUp",false) });
 	MoveUp.AddTransition("StandUp", { new Condition_("Move",false),new Condition_("LookUp",true) });
@@ -177,35 +178,6 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		roll = true;
 	}
 
-
-	// jump
-	if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
-		setVelocity(getVelocity().x, 450);
-		nextPosition = _Position.y + JUMP_1;
-		maxPosition = _Position.y + JUMP_2;
-		jumpTime += 0.02f;
-		count = 1;
-	}
-
-	if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll)
-	{
-		jumpTime += 0.02f;
-		count = 1;
-	}
-
-	else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll) {
-		count = 2;
-		down = true;
-		if (jumpTime >= 0.7f) {
-			if ((_Position.y >= nextPosition && _Position.y <= maxPosition) || _Position.y >= maxPosition)
-				setVelocity(getVelocity().x, -450);
-		}
-		else {
-			if (_Position.y >= nextPosition)
-				setVelocity(getVelocity().x, -450);
-		}
-	}
-
 	if (KeyBoard->IsKeyDown(DIK_Z))
 	{
 		float currentTime = GetTickCount() / 1000.0f;
@@ -243,26 +215,38 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 	}
 
-	if (_Position.y >= maxPosition)
-		setVelocity(getVelocity().x, -450);
 
-	//if (count == 0) {
-	if (jumpTime < 0.7f && _Position.y >= nextPosition && count != 1)
-		setVelocity(getVelocity().x, -450);
-	else if (count == 2 && _Position.y >= nextPosition)
-		setVelocity(getVelocity().x, -450);
-	else if (jumpTime >= 0.7f) {
-		if (down && _Position.y >= nextPosition && _Position.y <= maxPosition)
-			setVelocity(getVelocity().x, -450);
-		/*else if (_Position.y >= maxPosition) {
-			if (down) setVelocity(getVelocity().x, -350);
-			else down = true;
-		}*/
-
-		//	count = 1;
-	//	}
+#pragma region Jump way 2
+	if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
+		setVelocity(getVelocity().x, 400);
+		jump1 = _Position.y + JUMP_1;
+		jump2 = _Position.y + JUMP_2;
+		count = 1;
 	}
 
+	if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
+		count = -1;
+		setVelocity(getVelocity().x, -400);
+	}
+
+	// set new velocity when it pass jump 1
+	if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
+		setVelocity(getVelocity().x, 350);
+
+	if (_Position.y > jump2 && !onGround) {
+		count = -1;
+		setVelocity(getVelocity().x, -400);
+	}
+
+	if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
+		jumpTime += 0.02;
+	else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
+		count = 2;
+
+#pragma endregion
+
+	if (KeyBoard->IsKeyDown(DIK_X) && roll)
+		roll = false;
 
 
 	if (KeyBoard->IsKeyDown(DIK_UP)) {
@@ -286,7 +270,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 void Samus::OnHitGround(POINT direction)
 {
-	if (direction.y != 10000.0f)
+	/*if (direction.y != 10000.0f)
 	{
 		if (direction.y > 0)
 		{
@@ -295,10 +279,27 @@ void Samus::OnHitGround(POINT direction)
 			jumpTime = 0;
 			down = false;
 		}
+	}*/
+	if (direction.y != 10000.0f)
+	{
+		if (direction.y > 0)
+		{
+			count = 0;
+			//setVelocity(getVelocity().x, -450);
+			//nextPosition = maxPosition = _Position.y;
+			onGround = true;
+			jumpTime = 0;
+			down = false;
+		}
+		else if (direction.y < 0) {
+			setVelocity(getVelocity().x, 0);
+			jump1 = jump2 = _Position.y;
+		}
+
 	}
 }
 
-void Samus::OnExitGround()
+void Samus::OnExitGround(POINT direction)
 {
 	onGround = false;
 	Trace::Log("Exit ground");
@@ -312,29 +313,15 @@ void Samus::HandleAnimation()
 	}
 
 	if (start) {
+		if (!onGround && animator.currentAnimation.name == "Move") {
+			int a = 1;
+		}
 		//	if(animator.previousAnimation.name != "MoveUp" && animator.currentAnimation.name != "Jump")
 		//		animator.SetBool("MoveUp", false);
-		if (lookUp)
-			animator.SetBool("LookUp", true);
-		else
-			animator.SetBool("LookUp", false);
-		if (roll)
-			animator.SetBool("Roll", true);
-		else
-			animator.SetBool("Roll", false);
-		if (move) {
-			animator.SetBool("Move", true);
-		}
-		else {
-			animator.SetBool("Move", false);
-		}
-		if (!onGround)
-			animator.SetBool("Ground", false);
-		else
-			animator.SetBool("Ground", true);
-		if (shoot)
-			animator.SetBool("Shoot", true);
-		else
-			animator.SetBool("Shoot", false);
+		animator.SetBool("LookUp", lookUp);
+		animator.SetBool("Roll", roll);
+		animator.SetBool("Move", move);
+		animator.SetBool("Ground", onGround);
+		animator.SetBool("Shoot", shoot);
 	}
 }
