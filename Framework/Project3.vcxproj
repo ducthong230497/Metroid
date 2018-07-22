@@ -143,6 +143,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="HealthItem.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Kraid.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="HealthItem.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="Kraid.h" />

@@ -98,7 +98,7 @@ void Samus::Init(Texture * texture, float x, float y)
 {
 	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
-	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM);
+	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET | Category::HEALTHITEM);
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;

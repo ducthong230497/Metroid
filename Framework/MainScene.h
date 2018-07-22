@@ -18,6 +18,8 @@
 #include "Skree.h"
 #include "Bomb.h"
 #include "Sound.h"
+#include "Explosion.h"
+#include "HealthItem.h"
 
 #define SPEED 2
 #define APPEARANCETIME 3
@@ -46,10 +48,12 @@ private:
 	CKeyboard * KeyBoard;
 
 public:
+	Explosion explosionEffect;
 	std::vector<GameObject*> playerBullets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
 	//GameObject *object1;
+	std::vector<GameObject*> healthItems;
 private:
 	Collision *collision;
 	CollisionCallback *callback;

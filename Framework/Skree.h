@@ -38,6 +38,7 @@ public:
 	void OnHitGround();
 	void OnHitBullet();
 	void OnDie();
+	void OnHitPlayer() override;
 	bool IsHitGround();
 	bool IsDead();
 	int GetHealth();

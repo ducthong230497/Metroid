@@ -21,6 +21,7 @@ void Explosion::Init(Texture* explosionTexture)
 
 	SetRegion(*explosionAnimation.GetKeyAnimation());
 
+	defaultPosition = POINT(0, 0);
 }
 
 void Explosion::Render(SpriteBatch* batch)
@@ -41,6 +42,7 @@ void Explosion::Update(float dt)
 	else
 	{
 		stateTime = -1;
+		_Position = defaultPosition;
 	}
 
 }

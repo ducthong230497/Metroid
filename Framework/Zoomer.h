@@ -4,11 +4,12 @@
 #include "SpriteBatch.h"
 #include "TexturePacker.h"
 #include "Enemy.h"
+#include "Scene.h"
 
 #define NOT_COLLIDED 10000.0f
 #define MAXHITBULLETTIME 0.2
 #define MAXHITPLAYERHITTIME 0.3
-#define DAMAGE 50;
+#define DAMAGE 25;
 #define BOMBDAMAGE 100;
 
 class Zoomer : public Sprite, public Enemy
@@ -40,15 +41,16 @@ private:
 	// Either from OnCollisionEnter or OnColliding
 	int prevSource;
 
+	Scene * scene;
 public:
 	float startVelocityX;
 
 	Zoomer();
 	~Zoomer();
 
-	void Init(Texture *zoomerTexture, float x, float y, bool Direction);
+	void SetScene(Scene* s);
 
-	/*void HandlePhysics();*/
+	void Init(Texture *zoomerTexture, float x, float y, bool Direction);
 
 	void Render(SpriteBatch *batch);
 
@@ -66,7 +68,7 @@ public:
 
 	void OnHitPlayer() override;
 
-	void StickToGround();
+	void OnDie() override;
 
 	void SetCurCollisionDirection(POINT collisionDirection, int source);
 

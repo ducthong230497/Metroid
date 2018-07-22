@@ -6,6 +6,8 @@ GameObject::GameObject()
 	_Size.x = _Size.y = 0;
 	_Velocity.x = _Velocity.y = 0;
 	isActive = true;
+	_CategoryMask = NONE;
+	_BitMask = NONE;
 }
 
 GameObject::~GameObject()

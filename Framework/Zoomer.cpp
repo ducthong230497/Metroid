@@ -1,4 +1,5 @@
 #include "Zoomer.h"
+#include "MainScene.h"
 
 Zoomer::Zoomer()
 {
@@ -6,6 +7,11 @@ Zoomer::Zoomer()
 
 Zoomer::~Zoomer()
 {
+}
+
+void Zoomer::SetScene(Scene * s)
+{
+	scene = s;
 }
 
 void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
@@ -166,6 +172,7 @@ void Zoomer::Update(float dt)
 	if (health <= 0)
 	{
 		isActive = false;
+		OnDie();
 	}
 	SetRegion(*zoomerAnimation.Next(dt));
 }
@@ -275,14 +282,24 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 
 void Zoomer::OnHitBullet()
 {
-	health -= DAMAGE;
+	health -= takeDamage;
 }
 
 void Zoomer::OnHitBomb()
 {
-	health -= BOMBDAMAGE;
+	health -= takeBombDamage;
 }
 
 void Zoomer::OnHitPlayer()
 {
+	Trace::Log("asdasdasdasd");
+}
+
+void Zoomer::OnDie()
+{
+	((MainScene*)scene)->explosionEffect.setPosition(_Position);
+	((MainScene*)scene)->explosionEffect.Play();
+	healthItem->setPosition(_Position);
+	healthItem->SetScene(scene);
+	((MainScene*)scene)->healthItems.push_back(healthItem);
 }

@@ -12,6 +12,8 @@ private:
 
 	float stateTime;
 
+	POINT defaultPosition;
+
 public:
 	Explosion();
 	~Explosion();

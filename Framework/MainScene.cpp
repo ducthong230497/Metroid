@@ -35,7 +35,8 @@ void MainScene::Init()
 	samus->Init(&samusTexture, 32*40, 32*80);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
-
+	explosionEffect.Init(&samusTexture);
+	explosionEffect.SetSize(32, 32);
 	/*object1 = new GameObject();
 	object1->setPosition(100, 100);
 	object1->setVelocity(0, -100);
@@ -59,6 +60,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = zoomers.begin(); it != zoomers.end(); ++it)
 	{
 		((Zoomer*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y, 1);
+		((Zoomer*)(*it))->SetScene(this);
 	}
 	//InverseZoomer
 	std::vector<GameObject*> inversezoomers = quadTree->GetObjectsGroup("InverseZoomer");
@@ -134,6 +136,9 @@ void MainScene::Update()
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
+	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
+	GameObjects.push_back(&explosionEffect);
+
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -344,6 +349,8 @@ void MainScene::DrawSquare()
 		case BOMBITEM:
 			((BombItem*)(*it))->Render(batch);
 			break;
+		case HEALTHITEM:
+			((HealthItem*)(*it))->Render(batch);
 		default:
 			break;
 		}

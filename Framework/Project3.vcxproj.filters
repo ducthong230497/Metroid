@@ -255,6 +255,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Object\src\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="HealthItem.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -427,6 +430,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Object\include\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthItem.h">
+      <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

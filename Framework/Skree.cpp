@@ -168,6 +168,11 @@ void Skree::Update(float dt)
 			isDead = true;
 		}
 	}
+	if (health <= 0)
+	{
+		OnDie();
+		isActive = false;
+	}
 }
 
 void Skree::Render(SpriteBatch * batch)
@@ -195,14 +200,23 @@ void Skree::OnHitGround()
 
 void Skree::OnHitBullet()
 {
-	if (hitBulletTime != -1) return;
-	health--;
-	hitBulletTime = 0;
+	//if (hitBulletTime != -1) return;
+	health -= takeDamage;
+	//hitBulletTime = 0;
 	//stop this body a little bit 
 	setVelocity(0, 0);
 }
 
 void Skree::OnDie()
+{
+	((MainScene*)scene)->explosionEffect.setPosition(_Position);
+	((MainScene*)scene)->explosionEffect.Play();
+	healthItem->setPosition(_Position);
+	healthItem->SetScene(scene);
+	((MainScene*)scene)->healthItems.push_back(healthItem);
+}
+
+void Skree::OnHitPlayer()
 {
 }
 

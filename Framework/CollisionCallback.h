@@ -7,6 +7,7 @@
 #include "Marunari.h"
 #include "BombItem.h"
 #include "Bullet.h"
+#include "HealthItem.h"
 class CollisionCallback
 {
 public:

@@ -129,10 +129,13 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == SKREE)
 		{
 			Trace::Log("Bullet hit Skree");
+			((Skree*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
 		}
 		else if(gameObjectA->_CategoryMask == PLAYER_BULLET)
 		{
-
+			((Bullet*)gameObjectA)->OnHit();
+			((Skree*)gameObjectB)->OnHitBullet();
 		}
 		break;
 	}
@@ -158,7 +161,6 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			//OnHitEnemy
 			Trace::Log("Player hit enemy");
-			//gameObjectA->setVelocity(-100* 3, 100);
 		}
 		else
 		{
@@ -202,6 +204,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			Trace::Log("Hit BombItem");
 			((BombItem*)gameObjectB)->OnHitPlayer();
+		}
+	}
+	case PLAYER | HEALTHITEM:
+	{
+		Trace::Log("Player eat health");
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((HealthItem*)gameObjectB)->OnHitPlayer();
 		}
 	}
 	case PLAYER | PLATFORM:

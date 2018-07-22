@@ -1,8 +1,18 @@
 #include "Enemy.h"
 
+void Enemy::InitHealthItem()
+{
+	healthTextTure = Texture("Resources/items.png");
+	healthItem = new HealthItem();
+	healthItem->Init(&healthTextTure, 0, 0);
+}
+
 Enemy::Enemy()
 {
 	health = 100;
+	takeDamage = 25;
+	takeBombDamage = 100;
+	InitHealthItem();
 }
 
 Enemy::~Enemy()
@@ -10,5 +20,9 @@ Enemy::~Enemy()
 }
 
 void Enemy::OnHitPlayer()
+{
+}
+
+void Enemy::OnDie()
 {
 }
