@@ -56,7 +56,6 @@ private:
 	//shoot
 	Texture metroidfullsheet, samusTexture;
 	std::vector<Bullet*> Bullets;
-	float FIRERATE = 0.1f;
 	float lastShootTime = 0;
 	//jump
 	float g;

@@ -35,7 +35,6 @@ private:
 	float delayTimeDuringGame;
 
 	bool isDead;
-	int health;
 	float hitBulletTime;
 	float hitPlayerTime;
 

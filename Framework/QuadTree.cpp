@@ -759,10 +759,10 @@ const std::map<unsigned int, GameObject*>& QuadTree::GetMapObject()
 void QuadTree::LoadObjectsInViewport(Camera* camera, bool loadGameObject, bool loadTileRect)
 {
 	RECT viewportRect;
-	/*viewportRect.top = camera->getPosition().y + SCREEN_HEIGHT / 2;
-	viewportRect.left = camera->getPosition().x - SCREEN_WIDTH / 2;
-	viewportRect.bottom = camera->getPosition().y - SCREEN_HEIGHT / 2;
-	viewportRect.right = camera->getPosition().x + SCREEN_WIDTH / 2;*/
+	//viewportRect.top = camera->getPosition().y + SCREEN_HEIGHT / 2;
+	//viewportRect.left = camera->getPosition().x - SCREEN_WIDTH / 2;
+	//viewportRect.bottom = camera->getPosition().y - SCREEN_HEIGHT / 2;
+	//viewportRect.right = camera->getPosition().x + SCREEN_WIDTH / 2;
 
 	viewportRect.top = camera->getPosition().y;
 	viewportRect.left = camera->getPosition().x;
@@ -791,10 +791,11 @@ void QuadTree::LoadObjectsInViewport(const RECT &viewport, QuadTreeNode* QNode)
 	{
 		if (collision.IsOverlayingRect(QNode->rect, viewport))
 		{
+			int a = 2;
 			for (std::vector<QObject>::iterator it = QNode->QObjects.begin(); it != QNode->QObjects.end(); ++it)
 			{
 				GameObject *gameObject = it->gameObject;
-				if (it->gameObject != NULL && it->gameObject->_CategoryMask != 0 && it->gameObject->isActive)
+				if (it->gameObject != NULL && /*it->gameObject->_CategoryMask != 0 &&*/ it->gameObject->isActive)
 				{
 					if (!loadGameObject) continue;
 

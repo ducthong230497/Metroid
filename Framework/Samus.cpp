@@ -1,5 +1,8 @@
 #include "Samus.h"
 #include "CKeyboard.h"
+#include "MainScene.h"
+
+#define BULLET_VELOCITY 400
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -86,8 +89,14 @@ Samus::Samus()
 	isAppear = true;
 }
 
-void Samus::Init(Texture * samusTexture, float x, float y)
+void Samus::SetScene(Scene * s)
 {
+	scene = s;
+}
+
+void Samus::Init(Texture * texture, float x, float y)
+{
+	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM);
 	setVelocity(0, -200);
@@ -99,7 +108,7 @@ void Samus::Init(Texture * samusTexture, float x, float y)
 	lookUp = false;
 	canStand = true;
 	jumpTime = 0.0f;
-	InitSamusAnimation(samusTexture);
+	InitSamusAnimation(&samusTexture);
 	SetRegion(*animator.GetKeyAnimation());
 	SetSize(34, 60);
 	SetPosition(x, y);
@@ -108,6 +117,11 @@ void Samus::Init(Texture * samusTexture, float x, float y)
 void Samus::Render(SpriteBatch * batch)
 {
 	batch->Draw(*this);
+
+	for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+	{
+		batch->Draw(*it);
+	}
 }
 
 void Samus::Update(float dt)
@@ -139,6 +153,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 	{
 		setVelocity(200, getVelocity().y);
 		move = true;
+		facingRight = true;
 	}
 	else if (KeyBoard->IsKeyUp(DIK_RIGHT))
 	{
@@ -150,7 +165,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 	{
 		setVelocity(-200, getVelocity().y);
 		move = true;
-
+		facingRight = false;
 	}
 	else if (KeyBoard->IsKeyUp(DIK_LEFT))
 	{
@@ -191,6 +206,42 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 	}
 
+	if (KeyBoard->IsKeyDown(DIK_Z))
+	{
+		float currentTime = GetTickCount() / 1000.0f;
+		if (currentTime > FIRERATE + lastShootTime)
+		{
+			lastShootTime = currentTime;
+			Bullet *b = new Bullet(&samusTexture);
+			if (!lookUp)
+			{
+				if (facingRight)
+				{
+					b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
+					b->setVelocity(BULLET_VELOCITY, 0);
+				}
+				else
+				{
+					b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
+					b->setVelocity(-BULLET_VELOCITY, 0);
+				}
+			}
+			else 
+			{
+				if (facingRight)
+				{
+					b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+				}
+				else
+				{
+					b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+				}
+					b->setVelocity(0, BULLET_VELOCITY);
+			}
+			bullets.push_back(b);
+			((MainScene*)scene)->playerBullets.push_back(b);
+		}
+	}
 
 	if (_Position.y >= maxPosition)
 		setVelocity(getVelocity().x, -450);

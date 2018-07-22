@@ -4,13 +4,14 @@
 #include "TexturePacker.h"
 #include "SpriteBatch.h"
 #include "Scene.h"
+#include "Enemy.h"
 
 #define SKREELIVETIMEAFTERGROUND 0.5f
 #define SKREEBULLETLIVETIME 1
 #define MAXHITBULLETTIME 0.2
 #define PI 3.14159265
 
-class Skree : public Sprite
+class Skree : public Sprite, public Enemy
 {
 private:
 	Animation skreeAnimation;
@@ -19,7 +20,6 @@ private:
 	std::vector<Sprite*> SkreeBullets;
 	float stateTime;
 	float hitBulletTime;
-	int Health;
 	bool isHitGround;
 	bool isDead;
 	friend class CollisionCallback;

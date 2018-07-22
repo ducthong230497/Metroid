@@ -12,7 +12,6 @@ void Skree::Init(Texture * skreeTexture, float x, float y)
 {
 	stateTime = 0;
 	//hitBulletTime = -1;
-	Health = 2;
 
 	TexturePacker p = TexturePacker(skreeTexture, "Resources/enemies_packer.xml");
 
@@ -197,7 +196,7 @@ void Skree::OnHitGround()
 void Skree::OnHitBullet()
 {
 	if (hitBulletTime != -1) return;
-	Health--;
+	health--;
 	hitBulletTime = 0;
 	//stop this body a little bit 
 	setVelocity(0, 0);
@@ -219,5 +218,5 @@ bool Skree::IsDead()
 
 int Skree::GetHealth()
 {
-	return Health;
+	return health;
 }

@@ -6,6 +6,7 @@
 #include "BreakablePlatform.h"
 #include "Marunari.h"
 #include "BombItem.h"
+#include "Bullet.h"
 class CollisionCallback
 {
 public:

@@ -25,5 +25,5 @@ public:
 
 	float GetBulletSpeed();
 
-	void OnHitEnemy();
+	void OnHit();
 };

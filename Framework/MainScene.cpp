@@ -33,6 +33,7 @@ void MainScene::Init()
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
 	samus->Init(&samusTexture, 32*40, 32*80);
+	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 
 	/*object1 = new GameObject();
@@ -132,6 +133,7 @@ void MainScene::Update()
 
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
+	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -283,6 +285,17 @@ void MainScene::Update()
 
 		(GameObjects.at(i))->Next(dt, moveX, moveY);
 		(GameObjects.at(i))->Update(dt);
+	}
+
+	for (int i = 0; i < playerBullets.size(); ++i)
+	{
+		if (((Bullet*)playerBullets[i])->IsDestroyed())
+		{
+			std::vector<GameObject*>::iterator it = std::find(GameObjects.begin(), GameObjects.end(), playerBullets[i]);
+			delete *it;
+			GameObjects.erase(it);
+			playerBullets.erase(playerBullets.begin() + i--);
+		}
 	}
 
 	cam->setPosition(samus->getPosition().x - cameraOffsetX, cam->getPosition().y);

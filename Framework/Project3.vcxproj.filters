@@ -192,9 +192,6 @@
     <ClCompile Include="Samus.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
@@ -254,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="Kraid.cpp">
       <Filter>Object\src\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Object\src\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +365,6 @@
     <ClInclude Include="Samus.h">
       <Filter>Object\include</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Object\include</Filter>
     </ClInclude>
@@ -427,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="Kraid.h">
       <Filter>Object\include\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Object\include\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

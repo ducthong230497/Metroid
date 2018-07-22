@@ -46,6 +46,7 @@ private:
 	CKeyboard * KeyBoard;
 
 public:
+	std::vector<GameObject*> playerBullets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
 	//GameObject *object1;

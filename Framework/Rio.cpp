@@ -15,7 +15,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 	isHitLeft = false;
 	isHitRight = false;
 	jumpCheck = true;
-	health = 4;
+	//health = 4;
 	phase1 = true;
 	phase2 = true;
 	right = true;

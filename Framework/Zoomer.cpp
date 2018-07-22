@@ -29,7 +29,6 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	startVelocityX = _Velocity.x;
 	initalDirection = Direction;
 	cooldownAfterCollisionChange = 3;
-	health = 2;
 	hitBulletTime = -1;
 
 
@@ -164,6 +163,10 @@ void Zoomer::UpdateVelocity(GameObject * player)
 
 void Zoomer::Update(float dt)
 {
+	if (health <= 0)
+	{
+		isActive = false;
+	}
 	SetRegion(*zoomerAnimation.Next(dt));
 }
 
@@ -268,4 +271,18 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 		}
 	}
 	prevCollisionDirection = curCollisionDirection;
+}
+
+void Zoomer::OnHitBullet()
+{
+	health -= DAMAGE;
+}
+
+void Zoomer::OnHitBomb()
+{
+	health -= BOMBDAMAGE;
+}
+
+void Zoomer::OnHitPlayer()
+{
 }

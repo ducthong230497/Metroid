@@ -59,7 +59,7 @@ float Bullet::GetBulletSpeed()
 	return BULLETSPEED;
 }
 
-void Bullet::OnHitEnemy()
+void Bullet::OnHit()
 {
 	stateTime = 100; //force to be dead
 }

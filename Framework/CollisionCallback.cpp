@@ -141,10 +141,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == ZOOMER)
 		{
 			Trace::Log("Bullet hit Zoomer");
+			((Zoomer*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
 		}
 		else if(gameObjectA->_CategoryMask == PLAYER_BULLET)
 		{
 			Trace::Log("Bullet hit Zoomer");
+			((Bullet*)gameObjectA)->OnHit();
+			((Zoomer*)gameObjectB)->OnHitBullet();
 		}
 		break;
 	}

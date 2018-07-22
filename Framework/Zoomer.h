@@ -3,18 +3,20 @@
 #include "Animation.h"
 #include "SpriteBatch.h"
 #include "TexturePacker.h"
+#include "Enemy.h"
 
 #define NOT_COLLIDED 10000.0f
 #define MAXHITBULLETTIME 0.2
 #define MAXHITPLAYERHITTIME 0.3
+#define DAMAGE 50;
+#define BOMBDAMAGE 100;
 
-class Zoomer : public Sprite
+class Zoomer : public Sprite, public Enemy
 {
 private:
 	Animation zoomerAnimation;
 
 	bool isDead;
-	int health;
 	float hitBulletTime;
 	float hitPlayerTime;
 	bool initalDirection;
@@ -62,7 +64,7 @@ public:
 
 	void OnHitBomb();
 
-	void OnHitPlayer();
+	void OnHitPlayer() override;
 
 	void StickToGround();
 
