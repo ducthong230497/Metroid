@@ -313,8 +313,8 @@ void MainScene::Update()
 eSceneID MainScene::Render()
 {
 	batch->Begin();
-	tileMap->Render(batch);
 	DrawSquare();
+	tileMap->Render(batch);
 	batch->End();
 	return nextScene;
 }

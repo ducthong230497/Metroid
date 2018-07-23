@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\LeXuanTien\Documents\GitHub\Metroid\Directx\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\LeXuanTien\Documents\GitHub\Metroid\Directx\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Directx\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)\Directx\Lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Users\LeXuanTien\Documents\GitHub\Metroid\Directx\Include;$(IncludePath)</IncludePath>
@@ -86,7 +86,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>legacy_stdio_definitions.lib;winmm.lib;comctl32.lib;dxerr.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;dsound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;dsound.lib;winmm.lib;comctl32.lib;dxerr.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

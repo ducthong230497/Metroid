@@ -48,6 +48,7 @@ void Marunari::Update(float dt)
 			scene->GameObjects.erase(it);
 		}
 		SetTexture(NULL);
+		isActive = false;
 		//body = NULL;
 		return;
 	}
