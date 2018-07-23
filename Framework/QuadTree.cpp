@@ -1,5 +1,5 @@
 #include "QuadTree.h"
-
+#include "BreakablePlatform.h"
 
 
 QuadTree::QuadTree()
@@ -583,6 +583,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		gameObject->_BitMask = 0;
 		gameObject->id = id;
 		return gameObject;
+	}
+	else if (str._Equal("BreakablePlatform"))
+	{
+		BreakablePlatform * breakablePlatform = new BreakablePlatform();
+		breakablePlatform->setPosition(rect.x, rect.y);
+		breakablePlatform->setSize(rect.width, rect.height);
+		breakablePlatform->_CategoryMask = 0;
+		breakablePlatform->_BitMask = 0;
+		breakablePlatform->id = id;
+		return breakablePlatform;
 	}
 	else if(str._Equal("Zoomer"))
 	{

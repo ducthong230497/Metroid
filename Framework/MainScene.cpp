@@ -13,7 +13,7 @@ void MainScene::Init()
 {
 #pragma region set up settings
 	cam = Camera::Instance();
-	cam->setPosition(32 * 27, 32 * 92);
+	cam->setPosition(32 * 31, 32 * 89);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -50,7 +50,13 @@ void MainScene::Init()
 		(*it)->_CategoryMask = PLATFORM;
 		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER;
 	}
-
+	
+	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
+	for (std::vector<GameObject*>::iterator it = breakablePlatforms.begin(); it != breakablePlatforms.end(); ++it)
+	{
+		(*it)->_CategoryMask = BREAKABLE_PLATFORM;
+		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
+	}
 
 #pragma region Initialize Enemy
 	enemiesTexture = Texture("Resources/enemies.png");
