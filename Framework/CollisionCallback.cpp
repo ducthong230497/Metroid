@@ -155,6 +155,19 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER_BULLET | KRAID:
+	{
+		if (gameObjectA->_CategoryMask == KRAID)
+		{
+			((Kraid*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Bullet*)gameObjectA)->OnHit();
+			((Kraid*)gameObjectB)->OnHitBullet();
+		}
+	}
 	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)

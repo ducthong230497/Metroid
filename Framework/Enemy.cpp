@@ -2,9 +2,9 @@
 
 void Enemy::InitHealthItem()
 {
-	healthTextTure = Texture("Resources/items.png");
+	itemTexture = Texture("Resources/items.png");
 	healthItem = new HealthItem();
-	healthItem->Init(&healthTextTure, 0, 0);
+	healthItem->Init(&itemTexture, 0, 0);
 }
 
 Enemy::Enemy()

@@ -3,9 +3,9 @@
 class Enemy
 {
 private:
-	Texture healthTextTure;
 	void InitHealthItem();
 protected:
+	Texture itemTexture;
 	int health;
 	int takeDamage;
 	int takeBombDamage;

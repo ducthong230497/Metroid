@@ -4,17 +4,30 @@
 #include "Animation.h"
 #include "TexturePacker.h"
 #include "Enemy.h"
+#include "BombItem.h"
 #include "Scene.h"
+
+#define MAXHITBULLETTIME 0.2f
+#define TURNINGDELAYTIME 1.5f
+#define KRAIDBULLETLIVETIME 1.5f
+#define KRAIDBOOMERANGLIVETIME 1.0f
+#define GRAVITY -1000.0f
+class KraidBoomerang : public Sprite
+{
+public:
+	void UpdateVelocity(GameObject* object) override
+	{
+		_Velocity.y += GRAVITY * 2 * 0.016f;
+	}
+};
 
 class Kraid : public Sprite, public Enemy
 {
 private:
 	Animation animation;
 	Animation behingHitAnimation;
-
+	GameObject * player;
 	Scene * scene;
-
-	int health;
 
 	//Player* player;
 
@@ -36,6 +49,10 @@ public:
 	Kraid();
 	~Kraid();
 
+	void SetScene(Scene *s);
+
+	void SetPlayer(GameObject* p);
+
 	void Init(Texture *texture, int x, int y);
 
 	void UpdateVelocity(GameObject* player) override;
@@ -47,6 +64,8 @@ public:
 	void OnHitBullet();
 
 	void OnHitBomb();
+
+	void OnDie();
 
 	bool IsDead();
 };

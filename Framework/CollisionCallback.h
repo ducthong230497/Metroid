@@ -8,6 +8,7 @@
 #include "BombItem.h"
 #include "Bullet.h"
 #include "HealthItem.h"
+#include "Kraid.h"
 class CollisionCallback
 {
 public:

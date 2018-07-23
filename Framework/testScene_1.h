@@ -56,6 +56,7 @@ private:
 	//shoot
 	Texture metroidfullsheet, samusTexture;
 	std::vector<Bullet*> Bullets;
+	std::vector<GameObject*> kraidBullets;
 	float lastShootTime = 0;
 	//jump
 	float g;

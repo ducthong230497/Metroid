@@ -17,7 +17,7 @@ void testScene1::Init()
 	samus->Init(&samusTexture, 600, 100);
 
 	object1 = new GameObject();
-	object1->setPosition(100, 100);
+	object1->setPosition(1450, 100);
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
@@ -84,7 +84,9 @@ void testScene1::Init()
 
 	bossesTexture = Texture("Resources/bosses.png");
 	kraid = new Kraid();
-	kraid->Init(&bossesTexture, 600, 100);
+	kraid->SetScene(this);
+	kraid->Init(&bossesTexture, 1800, 100);
+	kraid->SetPlayer(object1);
 
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
@@ -92,14 +94,14 @@ void testScene1::Init()
 	GameObjects.push_back(object1);
 	GameObjects.push_back(ripper);
 	//GameObjects.push_back(skree);
-	GameObjects.push_back(rio);
+	//GameObjects.push_back(rio);
 	GameObjects.push_back(zoomer);
 	GameObjects.push_back(zoomer1);
 	GameObjects.push_back(zoomer2);
 	GameObjects.push_back(zoomer3);
 	GameObjects.push_back(marunari);
 	GameObjects.push_back(bombItem);
-	GameObjects.push_back(samus);
+	//GameObjects.push_back(samus);
 	GameObjects.push_back(kraid);
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
@@ -130,7 +132,7 @@ void testScene1::Init()
 		platform->setPosition((*it).x, (*it).y);
 		platform->setSize((*it).width, (*it).height);
 		platform->setCategoryMask(Category::PLATFORM);
-		platform->setBitMask(Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER);
+		platform->setBitMask(Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID);
 		GameObjects.push_back(platform);
 	}
 	std::vector<Shape::Rectangle> BreakablePlatformGroup = tileMap->GetObjectGroup("BreakablePlatform")->GetRects();
@@ -168,6 +170,7 @@ void testScene1::Update()
 	}
 	
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
+	GameObjects.insert(GameObjects.end(), kraidBullets.begin(), kraidBullets.end());
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
 		(GameObjects.at(i))->UpdateVelocity(object1);
@@ -330,6 +333,10 @@ void testScene1::Update()
 			Bullets.erase(Bullets.begin() + i--);
 		}
 	}
+	if (!kraid->isActive)
+	{
+		//remove bullets
+	}
 	cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
 }
 
@@ -344,7 +351,7 @@ eSceneID testScene1::Render()
 	//zoomer2->Render(batch);
 	//zoomer3->Render(batch);
 	//bomb->Render(batch);
-	samus->Render(batch);
+	//samus->Render(batch);
 	tileMap->Render(batch);
 	for (int i = 0; i < Bullets.size(); ++i)
 	{
@@ -397,7 +404,7 @@ void testScene1::DrawSquare()
 
 void testScene1::ProcessInput()
 {
-	samus->ProcessInput(KeyBoard);
+	//samus->ProcessInput(KeyBoard);
 	if (canMove)
 	{
 		if (KeyBoard->IsKeyDown(DIK_RIGHT))
