@@ -13,6 +13,7 @@ private:
 	Texture * doorTexture;
 	float hitBulletTime;
 public: 
+	bool open;
 	OuterDoor();
 	~OuterDoor();
 	void SetScene(Scene * s);

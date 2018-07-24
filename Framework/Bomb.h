@@ -15,6 +15,7 @@ class Bomb : public Sprite
 private:
 	float stateTime;
 	bool isDestroyed;
+	long default_bitMask;
 
 	Explosion explosionEffect;
 

@@ -157,6 +157,7 @@ void testScene1::Init()
 		door->Init(&doorTexture, (*it).x, (*it).y);
 		door->SetScene(this);
 		door->SetCam(cam);
+		door->SetPlayer(object1);
 		GameObjects.push_back(door);
 		GameObjects.push_back(door->leftDoor);
 		GameObjects.push_back(door->rightDoor);
@@ -351,12 +352,18 @@ void testScene1::Update()
 	{
 		//remove bullets
 	}
-	
+	UpdateCamera();
 }
 
 void testScene1::UpdateCamera()
 {
-	//cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
+	if(cam->followPlayer)
+		cam->setPosition(object1->getPosition().x - SCREEN_WIDTH / 2, cam->getPosition().y);
+	else if(cam->canFollow)
+	{
+		if (abs(cam->getPosition().x - object1->getPosition().x) > SCREEN_WIDTH / 2)
+			cam->followPlayer = true;
+	}
 }
 
 eSceneID testScene1::Render()
@@ -401,7 +408,7 @@ void testScene1::DrawSquare()
 		case SKREE:
 			((Skree*)(*it))->Render(batch);
 			break;
-		case NONE: case BOMB_EXPLOSION:
+		case BOMB_EXPLOSION:
 			((Bomb*)(*it))->Render(batch);
 			break;
 		case MARUNARI:
@@ -422,7 +429,7 @@ void testScene1::DrawSquare()
 		batch->DrawSquare((*it)->getPosition().x, (*it)->getPosition().y, (*it)->getSize().x, (*it)->getSize().y, D3DCOLOR_ARGB(255, 0, 128, 0));
 	}
 }
-
+bool testScene1::canMove = true;
 void testScene1::ProcessInput()
 {
 	//samus->ProcessInput(KeyBoard);

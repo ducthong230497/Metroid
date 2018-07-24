@@ -27,8 +27,9 @@ Bomb::Bomb(Texture * texture)
 
 	//create body
 	//mainBody = world->CreateBody(bodyDef);
-	_CategoryMask = NONE; //not collide with anything		
-	_BitMask = SKREE | ZOOMER | PLAYER | PLATFORM | RIO | BREAKABLE_PLATFORM;
+	_CategoryMask = BOMB_EXPLOSION; //not collide with anything		
+	_BitMask = NONE;
+	default_bitMask = SKREE | ZOOMER | PLAYER | PLATFORM | RIO | BREAKABLE_PLATFORM;
 	//_Bi = SKREE | ZOOMER_BIT | PLAYER_BIT | BREAKABLEPLATFORM_BIT | HEALTHPILE_BIT | KRAID_BIT;
 	//mainBody->PutExtra(this);
 
@@ -53,7 +54,7 @@ void Bomb::Update(float dt)
 {
 	stateTime += dt;
 
-	if (_CategoryMask == BOMB_EXPLOSION)
+	if (_BitMask == default_bitMask)
 	{
 		if (stateTime < EXPLOSIONLIVETIME)
 		{
@@ -79,7 +80,7 @@ void Bomb::Update(float dt)
 
 		if (stateTime > BOMBLIVETIME)
 		{
-			_CategoryMask = BOMB_EXPLOSION;
+			_BitMask = default_bitMask;
 			SetTexture(NULL);
 			explosionEffect.SetPosition(this->GetPosition().x, this->GetPosition().y);
 			explosionEffect.Play();

@@ -35,12 +35,15 @@ void OuterDoor::Update(float dt)
 
 void OuterDoor::Render(SpriteBatch * batch)
 {
-	batch->Draw(*this);
+	if (_CategoryMask == OUTER_DOOR)
+	{
+		batch->Draw(*this);
+	}
 }
 
 void OuterDoor::OnHitBullet()
 {
 	hitBulletTime = 0;
 	_CategoryMask = 0;
-	SetTexture(NULL);
+	open = true;
 }

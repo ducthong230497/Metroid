@@ -54,7 +54,6 @@ private:
 	MapLoader mapLoader;
 	TileMap * tileMap;
 	//phần này bỏ trong player
-	bool canMove = true;
 	//shoot
 	Texture metroidfullsheet, samusTexture;
 	std::vector<Bullet*> Bullets;
@@ -66,6 +65,7 @@ private:
 	bool isGrounded;
 	
 public:
+	static bool canMove;
 	testScene1();
 	~testScene1();
 

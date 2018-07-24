@@ -4,7 +4,9 @@
 class Door : public GameObject
 {
 	Camera * cam;
+	GameObject * player;
 	bool moveCam;
+	bool movePlayer;
 public:
 	OuterDoor * leftDoor;
 	OuterDoor * rightDoor;
@@ -12,6 +14,7 @@ public:
 	~Door();
 	void SetScene(Scene * s);
 	void SetCam(Camera * c);
+	void SetPlayer(GameObject * p);
 	void Init(Texture * texture, float x, float y);
 	void Update(float dt) override;
 	void Render(SpriteBatch * batch);
