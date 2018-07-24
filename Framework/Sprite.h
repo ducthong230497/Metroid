@@ -20,7 +20,7 @@ private:
 					   //if you do want to allocate a new memory for this texture, consider use _CreateNewTexture variable
 
 					   //bool _CreateNewTexture; //if true, allocate a new memory for the texture
-
+protected:
 	bool _FlipX;
 	bool _FlipY;
 

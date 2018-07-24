@@ -13,7 +13,7 @@ void MainScene::Init()
 {
 #pragma region set up settings
 	cam = Camera::Instance();
-	cam->setPosition(32 * 31, 32 * 89);
+	cam->setPosition(32 * 32, 32 * 89);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -56,6 +56,8 @@ void MainScene::Init()
 	{
 		(*it)->_CategoryMask = BREAKABLE_PLATFORM;
 		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
+		((BreakablePlatform*)(*it))->SetScene(this);
+		((BreakablePlatform*)(*it))->SetTilemap(tileMap);
 	}
 
 #pragma region Initialize Enemy

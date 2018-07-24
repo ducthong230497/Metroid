@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<outer_door>
+ <rect left="219" top = "125" width = "8" height="48" />
+</outer_door>
+
+<inner_door>
+ <rect left="196" top = "124" width = "17" height="49" />
+</inner_door>
+

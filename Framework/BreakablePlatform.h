@@ -18,5 +18,5 @@ public:
 	void Render(SpriteBatch* batch);
 	void OnHitBomb();
 	void OnHitBullet();
-
+	void EraseFromScene();
 };

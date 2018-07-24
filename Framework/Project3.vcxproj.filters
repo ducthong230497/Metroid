@@ -91,6 +91,12 @@
     <Filter Include="Object\src\Boss">
       <UniqueIdentifier>{5ffec33e-a809-4620-ae55-6376d6a25a60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\include\Item">
+      <UniqueIdentifier>{760dc048-068b-43f1-ae56-75704ca2fda4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\src\Item">
+      <UniqueIdentifier>{69857a9c-472a-47d0-8ab8-3d1c88e70c63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,9 +219,6 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
-    <ClCompile Include="Marunari.cpp">
-      <Filter>Object\src</Filter>
-    </ClCompile>
     <ClCompile Include="Rio.cpp">
       <Filter>Object\src\Enemy</Filter>
     </ClCompile>
@@ -227,9 +230,6 @@
     </ClCompile>
     <ClCompile Include="Zoomer.cpp">
       <Filter>Object\src\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="BombItem.cpp">
-      <Filter>Object\src</Filter>
     </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Manager\SoundManager\src</Filter>
@@ -255,7 +255,19 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Object\src\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Marunari.cpp">
+      <Filter>Object\src\Item</Filter>
+    </ClCompile>
     <ClCompile Include="HealthItem.cpp">
+      <Filter>Object\src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BombItem.cpp">
+      <Filter>Object\src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Outer_Door.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -389,9 +401,6 @@
     <ClInclude Include="MainScene.h">
       <Filter>Manager\SneneManager\include</Filter>
     </ClInclude>
-    <ClInclude Include="Marunari.h">
-      <Filter>Object\include</Filter>
-    </ClInclude>
     <ClInclude Include="Rio.h">
       <Filter>Object\include\Enemy</Filter>
     </ClInclude>
@@ -403,9 +412,6 @@
     </ClInclude>
     <ClInclude Include="Zoomer.h">
       <Filter>Object\include\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="BombItem.h">
-      <Filter>Object\include</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Manager\SoundManager\include</Filter>
@@ -432,6 +438,18 @@
       <Filter>Object\include\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="HealthItem.h">
+      <Filter>Object\include\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BombItem.h">
+      <Filter>Object\include\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Marunari.h">
+      <Filter>Object\include\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Outer_Door.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>

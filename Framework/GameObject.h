@@ -11,8 +11,8 @@ protected:
 	POINT _Velocity;
 public:
 	unsigned int id;
-	uint16_t _BitMask;
-	uint16_t _CategoryMask;
+	unsigned long _BitMask;
+	unsigned long _CategoryMask;
 	CollisionType collisionType;
 public:
 	bool isActive;
@@ -21,8 +21,8 @@ public:
 	POINT getPosition() const;
 	POINT getSize() const;
 	POINT getVelocity() const;
-	uint16_t getBitMask();
-	uint16_t getCategoryMask();
+	unsigned long getBitMask();
+	unsigned long getCategoryMask();
 	CollisionType getCollisionType();
 	void setPosition(const POINT& p);
 	void setSize(const POINT &p);
@@ -30,8 +30,8 @@ public:
 	void setPosition(const float& x, const float& y);
 	void setSize(const float& w, const float& h);
 	void setCollisionType(CollisionType ct);
-	void setBitMask(uint16_t bitmask);
-	void setCategoryMask(uint16_t categorymask);
+	void setBitMask(unsigned long bitmask);
+	void setCategoryMask(unsigned long categorymask);
 	void Next(float DeltaTime, bool moveX, bool moveY);
 	virtual void Update(float );
 	virtual void UpdateVelocity(GameObject * Player);

@@ -167,6 +167,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			((Bullet*)gameObjectA)->OnHit();
 			((Kraid*)gameObjectB)->OnHitBullet();
 		}
+		break;
 	}
 	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
 	{
@@ -203,6 +204,20 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER_BULLET | OUTER_DOOR:
+	{
+		if (gameObjectA->_CategoryMask == OUTER_DOOR)
+		{
+			((OuterDoor*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Bullet*)gameObjectA)->OnHit();
+			((OuterDoor*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
 	case PLAYER | MARUNARI:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
@@ -210,6 +225,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			Trace::Log("Hit Marunari");
 			((Marunari*)gameObjectB)->OnHitPlayer();
 		}
+		break;
 	}
 	case PLAYER | BOMBITEM:
 	{
@@ -218,6 +234,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			Trace::Log("Hit BombItem");
 			((BombItem*)gameObjectB)->OnHitPlayer();
 		}
+		break;
 	}
 	case PLAYER | HEALTHITEM:
 	{
@@ -226,6 +243,19 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			((HealthItem*)gameObjectB)->OnHitPlayer();
 		}
+		break;
+	}
+	case PLAYER | DOOR:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((Door*)gameObjectB)->OnHitPlayer();
+		}
+		else
+		{
+			((Door*)gameObjectA)->OnHitPlayer();
+		}
+		break;
 	}
 	case PLAYER | PLATFORM:
 	{
@@ -235,6 +265,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		else {
 			static_cast<Samus*>(gameObjectB)->OnHitGround(CollisionDirection);
 		}
+		break;
 	}
 	default: break;
 	}

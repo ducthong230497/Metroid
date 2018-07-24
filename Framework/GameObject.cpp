@@ -29,12 +29,12 @@ POINT GameObject::getVelocity() const
 	return _Velocity;
 }
 
-uint16_t GameObject::getBitMask()
+unsigned long GameObject::getBitMask()
 {
 	return _BitMask;
 }
 
-uint16_t GameObject::getCategoryMask()
+unsigned long GameObject::getCategoryMask()
 {
 	return _CategoryMask;
 }
@@ -77,12 +77,12 @@ void GameObject::setCollisionType(CollisionType ct)
 	collisionType = ct;
 }
 
-void GameObject::setBitMask(uint16_t bitmask)
+void GameObject::setBitMask(unsigned long bitmask)
 {
 	_BitMask = bitmask;
 }
 
-void GameObject::setCategoryMask(uint16_t categorymask)
+void GameObject::setCategoryMask(unsigned long categorymask)
 {
 	_CategoryMask = categorymask;
 }

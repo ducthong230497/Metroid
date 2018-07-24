@@ -27,7 +27,7 @@
 enum Section
 {
 	Brinstar,
-	Kraid,
+	KraidTheme,
 	MotherBrain
 };
 

@@ -32,6 +32,16 @@ void BreakablePlatform::Render(SpriteBatch * batch)
 
 void BreakablePlatform::OnHitBomb()
 {
+	EraseFromScene();
+}
+
+void BreakablePlatform::OnHitBullet()
+{
+	//EraseFromScene();
+}
+
+void BreakablePlatform::EraseFromScene()
+{
 	std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), this);
 	if (it != scene->GameObjects.end())
 	{
@@ -41,8 +51,4 @@ void BreakablePlatform::OnHitBomb()
 		int row = tileMap->GetHeight() - (int)(GetPosition().y / tileMap->GetTileHeight()) - 1;
 		tileMap->SetTileData(row, column, 0);
 	}
-}
-
-void BreakablePlatform::OnHitBullet()
-{
 }

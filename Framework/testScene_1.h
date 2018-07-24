@@ -20,6 +20,7 @@
 #include "BombItem.h"
 #include "Samus.h"
 #include "Kraid.h"
+#include "Door.h"
 #define MAXJUMPTIME 0.4f
 
 class testScene1 : public Scene
@@ -46,6 +47,7 @@ private:
 	BombItem * bombItem;
 	Samus* samus;
 	Texture bossesTexture;
+	Texture doorTexture;
 	Kraid * kraid;
 	Collision * collision;
 	CollisionCallback * callback;
@@ -69,6 +71,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void UpdateCamera();
 	eSceneID Render() override;
 	void DrawSquare();
 	void ProcessInput();

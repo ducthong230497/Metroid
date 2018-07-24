@@ -144,6 +144,7 @@
     <ClCompile Include="CollisionCallback.cpp" />
     <ClCompile Include="Condition_.cpp" />
     <ClCompile Include="CWindow.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marunari.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="Outer_Door.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Rio.cpp" />
@@ -205,6 +207,7 @@
     <ClInclude Include="define_CollisionType.h" />
     <ClInclude Include="define_eSceneID.h" />
     <ClInclude Include="define_Category.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Game.h" />
@@ -219,6 +222,7 @@
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Marunari.h" />
     <ClInclude Include="ObjectGroup.h" />
+    <ClInclude Include="Outer_Door.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Rio.h" />

@@ -21,7 +21,9 @@ void testScene1::Init()
 	object1->setVelocity(0, -100);
 	object1->setSize(32, 64);
 	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::KRAID);
+	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | 
+						Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::KRAID | 
+						Category::DOOR | Category::OUTER_DOOR);
 	isGrounded = true;
 	jumpTime = 100;
 
@@ -113,7 +115,7 @@ void testScene1::Init()
 	CDevice::getInstance()->getD3DDevice()->ColorFill(surface, NULL, D3DCOLOR_XRGB(155, 155, 155));
 
 	cam = Camera::Instance();
-	cam->setPosition(0, 32*15);
+	cam->setPosition(/*0*/1250, 32*15);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	texture = new Texture("Resources/metroidTileMap2.png");
@@ -147,6 +149,19 @@ void testScene1::Init()
 		breakPlatform->SetTilemap(tileMap);
 		GameObjects.push_back(breakPlatform);
 	}
+	doorTexture = Texture("Resources/spriteobjects.PNG");
+	std::vector<Shape::Rectangle> door = tileMap->GetObjectGroup("Door")->GetRects();
+	for (std::vector<Shape::Rectangle>::iterator it = door.begin(); it != door.end(); ++it)
+	{
+		Door * door = new Door();
+		door->Init(&doorTexture, (*it).x, (*it).y);
+		door->SetScene(this);
+		door->SetCam(cam);
+		GameObjects.push_back(door);
+		GameObjects.push_back(door->leftDoor);
+		GameObjects.push_back(door->rightDoor);
+	}
+
 
 	metroidfullsheet = Texture("Resources/metroidfullsheet.png");
 	
@@ -186,7 +201,7 @@ void testScene1::Update()
 		//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
 		for(int j = 0; j < GameObjects.size(); ++j) {
 			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
-			if (GameObjects[i]->_CategoryMask == BOMB_EXPLOSION && GameObjects[j]->_CategoryMask == BREAKABLE_PLATFORM)
+			if (GameObjects[i]->_CategoryMask == PLAYER && GameObjects[j]->_CategoryMask == DOOR)
 			{
 				int a = 2;
 			}
@@ -199,8 +214,6 @@ void testScene1::Update()
 					{
 						callback->OnCollisionEnter((GameObjects.at(i)), (GameObjects.at(j)), collision->_CollisionDirection);
 						collision->PerformCollision((GameObjects.at(i)), (GameObjects.at(j)), dt, 0, moveX, moveY);
-
-						
 					}
 					else
 					{
@@ -217,6 +230,7 @@ void testScene1::Update()
 						}
 					}
 				}
+				
 				//check overlaying (sometimes two bodies are already overlaying each other 
 				if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
 				{
@@ -337,7 +351,12 @@ void testScene1::Update()
 	{
 		//remove bullets
 	}
-	cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
+	
+}
+
+void testScene1::UpdateCamera()
+{
+	//cam->setPosition(object1->getPosition().x - 200, cam->getPosition().y);
 }
 
 eSceneID testScene1::Render()
@@ -394,6 +413,8 @@ void testScene1::DrawSquare()
 		case KRAID:
 			((Kraid*)(*it))->Render(batch);
 			break;
+		case DOOR:
+			((Door*)(*it))->Render(batch);
 		default:
 			break;
 		}
