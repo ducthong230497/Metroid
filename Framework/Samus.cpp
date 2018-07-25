@@ -6,6 +6,7 @@
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
+	canControl = true;
 	animator = Animator();
 
 	// PARAMETERS [variable]
@@ -99,7 +100,9 @@ void Samus::Init(Texture * texture, float x, float y)
 {
 	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
-	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET | Category::HEALTHITEM);
+	setBitMask(	Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | 
+				Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET | 
+				Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR);
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;
@@ -127,7 +130,7 @@ void Samus::Render(SpriteBatch * batch)
 
 void Samus::Update(float dt)
 {
-
+	if (moveThroughDoor) return;
 
 	if (getVelocity().x > 0)
 	{
@@ -149,123 +152,125 @@ void Samus::Update(float dt)
 
 void Samus::ProcessInput(CKeyboard * KeyBoard)
 {
-
-	if (KeyBoard->IsKeyDown(DIK_RIGHT))
+	if (canControl)
 	{
-		setVelocity(200, getVelocity().y);
-		move = true;
-		facingRight = true;
-	}
-	else if (KeyBoard->IsKeyUp(DIK_RIGHT))
-	{
-		setVelocity(0, getVelocity().y);
-		move = false;
-	}
-
-	if (KeyBoard->IsKeyDown(DIK_LEFT))
-	{
-		setVelocity(-200, getVelocity().y);
-		move = true;
-		facingRight = false;
-	}
-	else if (KeyBoard->IsKeyUp(DIK_LEFT))
-	{
-		setVelocity(0, getVelocity().y);
-		move = false;
-	}
-
-	if (KeyBoard->IsKeyDown(DIK_DOWN) && canRoll && onGround) {
-		roll = true;
-	}
-
-	if (KeyBoard->IsKeyDown(DIK_Z))
-	{
-		float currentTime = GetTickCount() / 1000.0f;
-		if (currentTime > FIRERATE + lastShootTime)
+		if (KeyBoard->IsKeyDown(DIK_RIGHT))
 		{
-			lastShootTime = currentTime;
-			Bullet *b = new Bullet(&samusTexture);
-			if (!lookUp)
-			{
-				if (facingRight)
-				{
-					b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
-					b->setVelocity(BULLET_VELOCITY, 0);
-				}
-				else
-				{
-					b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
-					b->setVelocity(-BULLET_VELOCITY, 0);
-				}
-			}
-			else 
-			{
-				if (facingRight)
-				{
-					b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
-				}
-				else
-				{
-					b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
-				}
-					b->setVelocity(0, BULLET_VELOCITY);
-			}
-			bullets.push_back(b);
-			((MainScene*)scene)->playerBullets.push_back(b);
+			setVelocity(200, getVelocity().y);
+			move = true;
+			facingRight = true;
 		}
-	}
+		else if (KeyBoard->IsKeyUp(DIK_RIGHT))
+		{
+			setVelocity(0, getVelocity().y);
+			move = false;
+		}
+
+		if (KeyBoard->IsKeyDown(DIK_LEFT))
+		{
+			setVelocity(-200, getVelocity().y);
+			move = true;
+			facingRight = false;
+		}
+		else if (KeyBoard->IsKeyUp(DIK_LEFT))
+		{
+			setVelocity(0, getVelocity().y);
+			move = false;
+		}
+
+		if (KeyBoard->IsKeyDown(DIK_DOWN) && canRoll && onGround) {
+			roll = true;
+		}
+
+		if (KeyBoard->IsKeyDown(DIK_Z))
+		{
+			float currentTime = GetTickCount() / 1000.0f;
+			if (currentTime > FIRERATE + lastShootTime)
+			{
+				lastShootTime = currentTime;
+				Bullet *b = new Bullet(&samusTexture);
+				if (!lookUp)
+				{
+					if (facingRight)
+					{
+						b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
+						b->setVelocity(BULLET_VELOCITY, 0);
+					}
+					else
+					{
+						b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
+						b->setVelocity(-BULLET_VELOCITY, 0);
+					}
+				}
+				else
+				{
+					if (facingRight)
+					{
+						b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+					}
+					else
+					{
+						b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+					}
+					b->setVelocity(0, BULLET_VELOCITY);
+				}
+				bullets.push_back(b);
+				((MainScene*)scene)->playerBullets.push_back(b);
+			}
+		}
 
 
 #pragma region Jump way 2
-	if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
-		setVelocity(getVelocity().x, 400);
-		jump1 = _Position.y + JUMP_1;
-		jump2 = _Position.y + JUMP_2;
-		count = 1;
-	}
+		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
+			setVelocity(getVelocity().x, 400);
+			jump1 = _Position.y + JUMP_1;
+			jump2 = _Position.y + JUMP_2;
+			count = 1;
+		}
 
-	if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
-		count = -1;
-		setVelocity(getVelocity().x, -400);
-	}
+		if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
+			count = -1;
+			setVelocity(getVelocity().x, -400);
+		}
 
-	// set new velocity when it pass jump 1
-	if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
-		setVelocity(getVelocity().x, 350);
+		// set new velocity when it pass jump 1
+		if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
+			setVelocity(getVelocity().x, 350);
 
-	if (_Position.y > jump2 && !onGround) {
-		count = -1;
-		setVelocity(getVelocity().x, -400);
-	}
+		if (_Position.y > jump2 && !onGround) {
+			count = -1;
+			setVelocity(getVelocity().x, -400);
+		}
 
-	if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
-		jumpTime += 0.02;
-	else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
-		count = 2;
+		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
+			jumpTime += 0.02;
+		else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
+			count = 2;
 
 #pragma endregion
 
-	if (KeyBoard->IsKeyDown(DIK_X) && roll)
-		roll = false;
-
-
-	if (KeyBoard->IsKeyDown(DIK_UP)) {
-		lookUp = true;
-		if (roll)
+		if (KeyBoard->IsKeyDown(DIK_X) && roll)
 			roll = false;
-	}
-	else if (KeyBoard->IsKeyUp(DIK_UP)) {
-		lookUp = false;
-	}
 
-	if (KeyBoard->IsKeyDown(DIK_Z)) {
-		shoot = true;
-	}
-	else if (KeyBoard->IsKeyUp(DIK_Z)) {
-		shoot = false;
-	}
 
-	HandleAnimation();
+		if (KeyBoard->IsKeyDown(DIK_UP)) {
+			lookUp = true;
+			if (roll)
+				roll = false;
+		}
+		else if (KeyBoard->IsKeyUp(DIK_UP)) {
+			lookUp = false;
+		}
+
+		if (KeyBoard->IsKeyDown(DIK_Z)) {
+			shoot = true;
+		}
+		else if (KeyBoard->IsKeyUp(DIK_Z)) {
+			shoot = false;
+		}
+
+		HandleAnimation();
+	}
 }
 
 void Samus::OnHitGround(POINT direction)

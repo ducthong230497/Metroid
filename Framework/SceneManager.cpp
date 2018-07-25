@@ -67,7 +67,7 @@ void SceneManager::Init()
 	//BlackScreen->setOpacity(0.4f);
 
 	// First scene change here.
-	CurrentID = NextID = TESTSCENE1;
+	CurrentID = NextID = MAINSCENE;
 	//CurrentID = NextID = INTROSCENE;
 	CurrentScene = get(CurrentID);
 
@@ -92,9 +92,9 @@ void SceneManager::Render()
 		NextID = MAINSCENE;
 	else if (Keyboard->IsKeyDown(DIK_F4))
 		NextID = GAMEOVERSCENE;
-	else if (Keyboard->IsKeyDown(DIK_F5))
-		NextID = TESTSCENE1;
 	else if (Keyboard->IsKeyDown(DIK_F6))
+		NextID = TESTSCENE1;
+	else if (Keyboard->IsKeyDown(DIK_F7))
 		NextID = TESTSCENE2;
 #endif
 

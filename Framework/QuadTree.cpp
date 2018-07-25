@@ -654,6 +654,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		marunari->id = id;
 		return marunari;
 	}
+	else if (str._Equal("Door"))
+	{
+		Door* door = new Door();
+		door->setPosition(rect.x, rect.y);
+		door->setSize(rect.width, rect.height);
+		door->_CategoryMask = 0;
+		door->_BitMask = 0;
+		door->id = id;
+		return door;
+	}
 	return nullptr;
 }
 
@@ -818,6 +828,11 @@ void QuadTree::LoadObjectsInViewport(const RECT &viewport, QuadTreeNode* QNode)
 					else
 					{
 						objectsInViewport.push_back(gameObject);
+						if (gameObject->_CategoryMask == DOOR)
+						{
+							objectsInViewport.push_back(((Door*)gameObject)->leftDoor);
+							objectsInViewport.push_back(((Door*)gameObject)->rightDoor);
+						}
 					}
 				}
 				else

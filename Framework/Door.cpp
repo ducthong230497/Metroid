@@ -1,5 +1,7 @@
 #include "Door.h"
 #include "testScene_1.h"
+#include "MainScene.h"
+#include "Samus.h"
 #define CAMSPEED 300
 #define PLAYERSPEED 200
 Door::Door()
@@ -12,6 +14,7 @@ Door::~Door()
 
 void Door::SetScene(Scene * s)
 {
+	scene = s;
 	leftDoor->SetScene(s);
 	rightDoor->SetScene(s);
 }
@@ -77,11 +80,14 @@ void Door::Update(float dt)
 				temp.x = _Position.x + _Size.x;
 				movePlayer = false;
 				testScene1::canMove = true;
+				((Samus*)player)->canControl = true;
+				((Samus*)player)->moveThroughDoor = false;
+				((MainScene*)scene)->moveThroughDoor = false;
 				_CategoryMask = DOOR;
 				leftDoor->open = false;
 				leftDoor->_CategoryMask = OUTER_DOOR;
 				rightDoor->open = false;
-				//rightDoor->_CategoryMask = OUTER_DOOR;
+				rightDoor->_CategoryMask = OUTER_DOOR;
 				cam->canFollowRight = true;
 			}
 		}
@@ -93,9 +99,12 @@ void Door::Update(float dt)
 				temp.x = _Position.x - _Size.x;
 				movePlayer = false;
 				testScene1::canMove = true;
+				((Samus*)player)->canControl = true;
+				((Samus*)player)->moveThroughDoor = false;
+				((MainScene*)scene)->moveThroughDoor = false;
 				_CategoryMask = DOOR;
 				rightDoor->open = false;
-				//rightDoor->_CategoryMask = OUTER_DOOR;
+				rightDoor->_CategoryMask = OUTER_DOOR;
 				leftDoor->open = false;
 				leftDoor->_CategoryMask = OUTER_DOOR;
 				cam->canFollowLeft = true;
@@ -116,7 +125,11 @@ void Door::OnHitPlayer()
 	moveCam = true;
 	_CategoryMask = NONE;
 	testScene1::canMove = false;
-	player->setVelocity(0, 0);
+	player->setVelocity(0, player->getVelocity().y);
+	((Samus*)player)->move = false;
+	((Samus*)player)->canControl = false;
+	((Samus*)player)->moveThroughDoor = true;
+	((MainScene*)scene)->moveThroughDoor = true;
 	leftDoor->_CategoryMask = NONE;
 	rightDoor->_CategoryMask = NONE;
 	cam->followPlayer = false;

@@ -3,6 +3,7 @@
 #include "Camera.h"
 class Door : public GameObject
 {
+	Scene * scene;
 	Camera * cam;
 	GameObject * player;
 	bool moveCam;

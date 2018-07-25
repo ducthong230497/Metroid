@@ -60,6 +60,16 @@ void MainScene::Init()
 		((BreakablePlatform*)(*it))->SetTilemap(tileMap);
 	}
 
+	doorTexture = Texture("Resources/spriteobjects.PNG");
+	doors = quadTree->GetObjectsGroup("Door");
+	for (std::vector<GameObject*>::iterator it = doors.begin(); it != doors.end(); ++it)
+	{
+		((Door*)(*it))->Init(&doorTexture, (*it)->getPosition().x, (*it)->getPosition().y);
+		((Door*)(*it))->SetScene(this);
+		((Door*)(*it))->SetCam(cam);
+		((Door*)(*it))->SetPlayer(samus);
+	}
+
 #pragma region Initialize Enemy
 	enemiesTexture = Texture("Resources/enemies.png");
 
@@ -140,7 +150,18 @@ void MainScene::Update()
 		/*samus->Render(batch);*/
 		return;
 	}
+	UpdateCamera();
+	if (moveThroughDoor)
+	{
+		for (std::vector<GameObject*>::iterator it = doors.begin(); it != doors.end(); ++it)
+		{
+			(*it)->Update(dt);
+		}
+		Render();
 
+		//samus->Update(dt);
+		return;
+	}
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
@@ -313,9 +334,25 @@ void MainScene::Update()
 		}
 	}
 
-	cam->setPosition(samus->getPosition().x - cameraOffsetX, cam->getPosition().y);
-
+	//cam->setPosition(samus->getPosition().x - cameraOffsetX, cam->getPosition().y);
+	//UpdateCamera();
 	PlaySoundTheme();
+}
+
+void MainScene::UpdateCamera()
+{
+	if (cam->followPlayer)
+		cam->setPosition(samus->getPosition().x - SCREEN_WIDTH / 2, cam->getPosition().y);
+	else if (cam->canFollowRight)
+	{
+		if (abs(cam->getPosition().x - samus->getPosition().x) > SCREEN_WIDTH / 2)
+			cam->followPlayer = true;
+	}
+	else if (cam->canFollowLeft)
+	{
+		if (abs(cam->getPosition().x + SCREEN_WIDTH - samus->getPosition().x) > SCREEN_WIDTH / 2)
+			cam->followPlayer = true;
+	}
 }
 
 eSceneID MainScene::Render()
@@ -350,7 +387,7 @@ void MainScene::DrawSquare()
 		case SKREE:
 			((Skree*)(*it))->Render(batch);
 			break;
-		case NONE: case BOMB_EXPLOSION:
+		case BOMB_EXPLOSION:
 			((Bomb*)(*it))->Render(batch);
 			break;
 		case MARUNARI:
@@ -361,6 +398,10 @@ void MainScene::DrawSquare()
 			break;
 		case HEALTHITEM:
 			((HealthItem*)(*it))->Render(batch);
+			break;
+		case DOOR:
+			((Door*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}

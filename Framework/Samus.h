@@ -39,7 +39,7 @@ public:
 		Roll,
 		Hit;
 
-	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down;
+	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor;
 	float jumpTime = 0.f;
 	Samus();
 	void SetScene(Scene *s);

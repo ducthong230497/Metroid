@@ -21,6 +21,7 @@
 #include "Bomb.h"
 #include "Marunari.h"
 #include "BombItem.h"
+#include "Door.h"
 
 class QObject;
 class QuadTreeNode;

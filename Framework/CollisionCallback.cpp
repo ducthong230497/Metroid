@@ -92,7 +92,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
-	case ZOOMER | PLATFORM:
+	case ZOOMER | PLATFORM: case ZOOMER | OUTER_DOOR:
 	{
 		if (gameObjectA->_CategoryMask == ZOOMER)
 		{

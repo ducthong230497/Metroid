@@ -26,7 +26,7 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	SetPosition(x, y);
 
 	_CategoryMask = ZOOMER;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION | OUTER_DOOR;
 
 	prevCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);
 	curCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);

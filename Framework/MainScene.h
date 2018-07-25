@@ -20,6 +20,7 @@
 #include "Sound.h"
 #include "Explosion.h"
 #include "HealthItem.h"
+#include "Door.h"
 
 #define SPEED 2
 #define APPEARANCETIME 3
@@ -48,18 +49,22 @@ private:
 	CKeyboard * KeyBoard;
 
 public:
+	bool moveThroughDoor;
 	Explosion explosionEffect;
 	std::vector<GameObject*> playerBullets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
 	//GameObject *object1;
 	std::vector<GameObject*> healthItems;
+	
+	std::vector<GameObject*> doors;
 private:
 	Collision *collision;
 	CollisionCallback *callback;
 
 	Texture enemiesTexture;
 	Texture itemsTexture;
+	Texture doorTexture;
 
 	//Sound
 	CSound * Appearance;
@@ -76,6 +81,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void UpdateCamera();
 	eSceneID Render() override;
 	void DrawSquare();
 	void ProcessInput();
