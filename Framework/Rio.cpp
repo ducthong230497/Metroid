@@ -1,5 +1,5 @@
 #include "Rio.h"
-
+#include "Samus.h"
 Rio::Rio()
 {
 }
@@ -56,6 +56,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 
 void Rio::UpdateVelocity(GameObject * player)
 {
+	float distance = _Position.x - player->getPosition().x;
 	if (isHitRoof)
 	{
 		if (delayTimeDuringGame > delayTime)
@@ -67,8 +68,7 @@ void Rio::UpdateVelocity(GameObject * player)
 	}
 	else if(isHitGround)
 	{
-		float distance = _Position.x - player->getPosition().x;
-		if (abs(distance) <= 200 && player->getPosition().y <= 120)
+		if (abs(distance) <= 200 && ((Samus*)player)->onGround)
 		{
 			setVelocity(previousVelocity.x, 0);
 		}

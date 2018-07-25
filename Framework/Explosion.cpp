@@ -22,6 +22,8 @@ void Explosion::Init(Texture* explosionTexture)
 	SetRegion(*explosionAnimation.GetKeyAnimation());
 
 	defaultPosition = POINT(0, 0);
+
+	_CategoryMask = BOMB_EXPLOSION;
 }
 
 void Explosion::Render(SpriteBatch* batch)
