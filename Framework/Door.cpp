@@ -82,7 +82,7 @@ void Door::Update(float dt)
 				leftDoor->_CategoryMask = OUTER_DOOR;
 				rightDoor->open = false;
 				//rightDoor->_CategoryMask = OUTER_DOOR;
-				cam->canFollow = true;
+				cam->canFollowRight = true;
 			}
 		}
 		else
@@ -98,7 +98,7 @@ void Door::Update(float dt)
 				//rightDoor->_CategoryMask = OUTER_DOOR;
 				leftDoor->open = false;
 				leftDoor->_CategoryMask = OUTER_DOOR;
-				cam->canFollow = true;
+				cam->canFollowLeft = true;
 			}
 		}
 		player->setPosition(temp);
@@ -120,5 +120,6 @@ void Door::OnHitPlayer()
 	leftDoor->_CategoryMask = NONE;
 	rightDoor->_CategoryMask = NONE;
 	cam->followPlayer = false;
-	cam->canFollow = false;
+	cam->canFollowLeft = false;
+	cam->canFollowRight = false;
 }

@@ -359,9 +359,14 @@ void testScene1::UpdateCamera()
 {
 	if(cam->followPlayer)
 		cam->setPosition(object1->getPosition().x - SCREEN_WIDTH / 2, cam->getPosition().y);
-	else if(cam->canFollow)
+	else if(cam->canFollowRight)
 	{
 		if (abs(cam->getPosition().x - object1->getPosition().x) > SCREEN_WIDTH / 2)
+			cam->followPlayer = true;
+	}
+	else if (cam->canFollowLeft)
+	{
+		if (abs(cam->getPosition().x + SCREEN_WIDTH - object1->getPosition().x) > SCREEN_WIDTH / 2)
 			cam->followPlayer = true;
 	}
 }

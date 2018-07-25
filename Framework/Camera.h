@@ -9,7 +9,8 @@ private:
 	Camera();
 public:
 	bool followPlayer;
-	bool canFollow;
+	bool canFollowLeft;
+	bool canFollowRight;
 	~Camera();
 	/*POINT getPosition() const;
 	POINT getSize() const;
