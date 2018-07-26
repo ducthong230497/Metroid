@@ -8,9 +8,12 @@ private:
 	POINT _Size;*/
 	Camera();
 public:
-	bool followPlayer;
+	bool followPlayerX;
+	bool followPlayerY;
 	bool canFollowLeft;
 	bool canFollowRight;
+	bool canFollowUp;
+	bool canFollowDown;
 	~Camera();
 	/*POINT getPosition() const;
 	POINT getSize() const;

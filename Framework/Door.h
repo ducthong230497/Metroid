@@ -16,6 +16,7 @@ public:
 	void SetScene(Scene * s);
 	void SetCam(Camera * c);
 	void SetPlayer(GameObject * p);
+	void SetCamDirection(FollowDirection fd);
 	void Init(Texture * texture, float x, float y);
 	void Update(float dt) override;
 	void Render(SpriteBatch * batch);

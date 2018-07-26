@@ -14,6 +14,7 @@ void MainScene::Init()
 #pragma region set up settings
 	cam = Camera::Instance();
 	cam->setPosition(32 * 32, 32 * 89);
+	//cam->setPosition(32 * (155), 32 * 145);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -33,6 +34,7 @@ void MainScene::Init()
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
 	samus->Init(&samusTexture, 32*40, 32*80);
+	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
@@ -69,6 +71,14 @@ void MainScene::Init()
 		((Door*)(*it))->SetCam(cam);
 		((Door*)(*it))->SetPlayer(samus);
 	}
+	((Door*)doors[0])->leftDoor->followDirection = DOWN;
+	((Door*)doors[0])->rightDoor->followDirection = LEFT;
+	((Door*)doors[1])->leftDoor->followDirection = RIGHT;
+	((Door*)doors[1])->rightDoor->followDirection = DOWN;
+	((Door*)doors[2])->leftDoor->followDirection = UP;
+	((Door*)doors[2])->rightDoor->followDirection = LEFT;
+	((Door*)doors[3])->leftDoor->followDirection = DOWN;
+	((Door*)doors[3])->rightDoor->followDirection = LEFT;
 
 #pragma region Initialize Enemy
 	enemiesTexture = Texture("Resources/enemies.png");
@@ -334,24 +344,36 @@ void MainScene::Update()
 		}
 	}
 
-	//cam->setPosition(samus->getPosition().x - cameraOffsetX, cam->getPosition().y);
-	//UpdateCamera();
 	PlaySoundTheme();
 }
 
 void MainScene::UpdateCamera()
 {
-	if (cam->followPlayer)
+	if (cam->followPlayerX)
 		cam->setPosition(samus->getPosition().x - SCREEN_WIDTH / 2, cam->getPosition().y);
+	else if(cam->followPlayerY)
+	{
+		cam->setPosition(cam->getPosition().x, samus->getPosition().y + SCREEN_HEIGHT / 2 - 32);
+	}
 	else if (cam->canFollowRight)
 	{
 		if (abs(cam->getPosition().x - samus->getPosition().x) > SCREEN_WIDTH / 2)
-			cam->followPlayer = true;
+			cam->followPlayerX = true;
 	}
 	else if (cam->canFollowLeft)
 	{
 		if (abs(cam->getPosition().x + SCREEN_WIDTH - samus->getPosition().x) > SCREEN_WIDTH / 2)
-			cam->followPlayer = true;
+			cam->followPlayerX = true;
+	}
+	else if (cam->canFollowUp)
+	{
+		if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) > SCREEN_HEIGHT / 2)
+			cam->followPlayerY = true;
+	}
+	else if (cam->canFollowDown)
+	{
+		if (abs(cam->getPosition().y - samus->getPosition().y) > SCREEN_HEIGHT / 2)
+			cam->followPlayerY = true;
 	}
 }
 

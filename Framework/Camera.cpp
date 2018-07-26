@@ -6,7 +6,8 @@ Camera::Camera() : GameObject()
 	_Position.y = 0;
 	_Size.x = SCREEN_WIDTH;
 	_Size.y = SCREEN_HEIGHT;
-	followPlayer = true;
+	followPlayerX = true;
+	followPlayerY = false;
 }
 
 Camera::~Camera()

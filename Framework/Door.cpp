@@ -29,6 +29,27 @@ void Door::SetPlayer(GameObject * p)
 	player = p;
 }
 
+void Door::SetCamDirection(FollowDirection fd)
+{
+	switch (fd)
+	{
+	case LEFT:
+		cam->canFollowLeft = true;
+		break;
+	case RIGHT:
+		cam->canFollowRight = true;
+		break;
+	case UP:
+		cam->canFollowUp = true;
+		break;
+	case DOWN:
+		cam->canFollowDown = true;
+		break;
+	default:
+		break;
+	}
+}
+
 void Door::Init(Texture * texture, float x, float y)
 {
 	setPosition(x, y);
@@ -88,7 +109,7 @@ void Door::Update(float dt)
 				leftDoor->_CategoryMask = OUTER_DOOR;
 				rightDoor->open = false;
 				rightDoor->_CategoryMask = OUTER_DOOR;
-				cam->canFollowRight = true;
+				SetCamDirection(leftDoor->followDirection);
 			}
 		}
 		else
@@ -107,7 +128,7 @@ void Door::Update(float dt)
 				rightDoor->_CategoryMask = OUTER_DOOR;
 				leftDoor->open = false;
 				leftDoor->_CategoryMask = OUTER_DOOR;
-				cam->canFollowLeft = true;
+				SetCamDirection(rightDoor->followDirection);
 			}
 		}
 		player->setPosition(temp);
@@ -132,7 +153,10 @@ void Door::OnHitPlayer()
 	((MainScene*)scene)->moveThroughDoor = true;
 	leftDoor->_CategoryMask = NONE;
 	rightDoor->_CategoryMask = NONE;
-	cam->followPlayer = false;
+	cam->followPlayerX = false;
+	cam->followPlayerY = false;
 	cam->canFollowLeft = false;
 	cam->canFollowRight = false;
+	cam->canFollowUp = false;
+	cam->canFollowDown = false;
 }

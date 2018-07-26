@@ -6,6 +6,14 @@
 #include "TexturePacker.h"
 #include "Scene.h"
 
+enum FollowDirection
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 class OuterDoor : public Sprite
 {
 private: 
@@ -13,6 +21,7 @@ private:
 	Texture * doorTexture;
 	float hitBulletTime;
 public: 
+	FollowDirection followDirection;
 	bool open;
 	OuterDoor();
 	~OuterDoor();
