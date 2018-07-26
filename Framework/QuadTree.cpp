@@ -664,6 +664,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		door->id = id;
 		return door;
 	}
+	else if(str._Equal("Kraid"))
+	{
+		Kraid * kraid = new Kraid();
+		kraid->setPosition(rect.x, rect.y);
+		kraid->setSize(rect.width, rect.height);
+		kraid->_CategoryMask = 0;
+		kraid->_BitMask = 0;
+		kraid->id = id;
+		return kraid;
+	}
 	return nullptr;
 }
 
@@ -832,6 +842,11 @@ void QuadTree::LoadObjectsInViewport(const RECT &viewport, QuadTreeNode* QNode)
 						{
 							objectsInViewport.push_back(((Door*)gameObject)->leftDoor);
 							objectsInViewport.push_back(((Door*)gameObject)->rightDoor);
+						}
+						else if (gameObject->_CategoryMask == KRAID)
+						{
+							objectsInViewport.insert(objectsInViewport.end(), ((Kraid*)gameObject)->bullets.begin(), ((Kraid*)gameObject)->bullets.end());
+							objectsInViewport.insert(objectsInViewport.end(), ((Kraid*)gameObject)->boomerangs.begin(), ((Kraid*)gameObject)->boomerangs.end());
 						}
 					}
 				}

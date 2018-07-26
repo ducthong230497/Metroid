@@ -39,13 +39,13 @@ private:
 
 	float lastShot;
 
-	std::vector<GameObject*> bullets;
-	std::vector<GameObject*> boomerangs;
 	Animation boomerangAnimation;
 
 
 	float hitBulletTime; //used when being hit by bullet
 public:
+	std::vector<GameObject*> bullets;
+	std::vector<GameObject*> boomerangs;
 	Kraid();
 	~Kraid();
 

@@ -14,7 +14,7 @@ void MainScene::Init()
 #pragma region set up settings
 	cam = Camera::Instance();
 	cam->setPosition(32 * 32, 32 * 89);
-	//cam->setPosition(32 * (155), 32 * 145);
+	cam->setPosition(32 * (155), 32 * 145);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -34,7 +34,7 @@ void MainScene::Init()
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
 	samus->Init(&samusTexture, 32*40, 32*80);
-	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
+	samus->Init(&samusTexture, 32 * 163, 32 * 136);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
@@ -50,7 +50,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER;
+		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID;
 	}
 	
 	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
@@ -121,6 +121,16 @@ void MainScene::Init()
 	}
 #pragma endregion
 
+#pragma region Initialize Boss
+	std::vector<GameObject*> kraids = quadTree->GetObjectsGroup("Kraid");
+	GameObject* kraid = kraids.front();
+	bossesTexture = Texture("Resources/bosses.png");
+	((Kraid*)kraid)->SetScene(this);
+	((Kraid*)kraid)->Init(&bossesTexture, kraid->getPosition().x, kraid->getPosition().y);
+	((Kraid*)kraid)->SetPlayer(samus);
+#pragma endregion
+
+
 #pragma region Initialize Items
 	itemsTexture = Texture("Resources/items.png");
 
@@ -130,13 +140,14 @@ void MainScene::Init()
 		((Marunari*)(*it))->Init(&itemsTexture, (*it)->getPosition().x, (*it)->getPosition().y);
 		((Marunari*)(*it))->SetScene(this);
 	}
+	bombItem = nullptr;
 #pragma endregion
 
 #pragma region Load Sounds
 	flagsound = Section::Brinstar;
 	Appearance = Sound::LoadSound("Resources/Audio/Appearance.wav");
 	Brinstar = Sound::LoadSound("Resources/Audio/BrinstarTheme.wav");
-	Kraid = Sound::LoadSound("Resources/Audio/BossKraid.wav");
+	KraidTheme = Sound::LoadSound("Resources/Audio/BossKraid.wav");
 	MotherBrain = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
 #pragma endregion
 	nextScene = MAINSCENE;
@@ -177,7 +188,7 @@ void MainScene::Update()
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
 	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
 	GameObjects.push_back(&explosionEffect);
-
+	if(bombItem != nullptr) GameObjects.push_back(bombItem);
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -424,6 +435,9 @@ void MainScene::DrawSquare()
 		case DOOR:
 			((Door*)(*it))->Render(batch);
 			break;
+		case KRAID:
+			((Kraid*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}
@@ -470,7 +484,7 @@ void MainScene::PlaySoundTheme()
 	if (flagsound == Section::Brinstar)
 	{
 		Sound::Play(Brinstar);
-		Sound::Stop(Kraid);
+		Sound::Stop(KraidTheme);
 		Sound::Stop(MotherBrain);
 	}
 }

@@ -1,4 +1,5 @@
 #include "Kraid.h"
+#include "MainScene.h"
 #define BULLETSPEED 300
 Kraid::Kraid()
 {
@@ -40,6 +41,7 @@ void Kraid::Init(Texture * texture, int x, int y)
 	//setup body
 	collisionType = Dynamic;
 	
+	_Velocity.y = -50;
 	
 	_CategoryMask = KRAID;
 	_BitMask = PLAYER | PLAYER_BULLET | PLATFORM | BOMB_EXPLOSION;
@@ -60,7 +62,7 @@ void Kraid::Init(Texture * texture, int x, int y)
 		bullet->_BitMask = PLAYER;
 		//bullet->SetID("bullet");
 		bullets.push_back(bullet);
-		scene->GameObjects.push_back(bullet);
+		//((MainScene*)scene)->kraidBullets.push_back(bullet);
 	}
 
 
@@ -79,7 +81,7 @@ void Kraid::Init(Texture * texture, int x, int y)
 		boomerang->_CategoryMask = KRAID_BULLET;
 		boomerang->_BitMask = PLAYER;
 		boomerangs.push_back(boomerang);
-		scene->GameObjects.push_back(boomerang);
+		//((MainScene*)scene)->kraidBullets.push_back(boomerang);
 	}
 }
 
@@ -304,10 +306,10 @@ void Kraid::OnDie()
 	{
 		scene->GameObjects.erase(it);
 	}
-	BombItem * bombItem = new BombItem();
-	bombItem->Init(&itemTexture, _Position.x, _Position.y);
-	bombItem->SetScene(scene);
-	scene->GameObjects.push_back(bombItem);
+	BombItem * bombitem = new BombItem();
+	bombitem->Init(&itemTexture, _Position.x, _Position.y);
+	bombitem->SetScene(scene);
+	((MainScene*)scene)->bombItem = bombitem;
 }
 
 bool Kraid::IsDead()

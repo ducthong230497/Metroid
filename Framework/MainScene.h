@@ -21,6 +21,7 @@
 #include "Explosion.h"
 #include "HealthItem.h"
 #include "Door.h"
+#include "Kraid.h"
 
 #define SPEED 2
 #define APPEARANCETIME 3
@@ -50,10 +51,13 @@ private:
 
 public:
 	bool moveThroughDoor;
+	BombItem * bombItem;
 	Explosion explosionEffect;
 	std::vector<GameObject*> playerBullets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
+
+	std::vector<GameObject*> kraidBullets;
 	//GameObject *object1;
 	std::vector<GameObject*> healthItems;
 	
@@ -63,13 +67,14 @@ private:
 	CollisionCallback *callback;
 
 	Texture enemiesTexture;
+	Texture bossesTexture;
 	Texture itemsTexture;
 	Texture doorTexture;
 
 	//Sound
 	CSound * Appearance;
 	CSound * Brinstar;
-	CSound * Kraid;
+	CSound * KraidTheme;
 	CSound * MotherBrain;
 	int flagsound;
 
