@@ -21,7 +21,7 @@ Bomb::Bomb(Texture * texture)
 	SetSize(16, 16);
 	_Position = POINT(110, 100);
 	//body definition
-	collisionType = None;
+	collisionType = Dynamic;
 	//bodyDef.size.Set(16, 16);
 	//bodyDef.isSensor = true;
 

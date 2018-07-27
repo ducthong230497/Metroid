@@ -197,10 +197,24 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == BREAKABLE_PLATFORM)
 		{
 			((BreakablePlatform*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
 		}
 		else
 		{
+			((Bullet*)gameObjectA)->OnHit();
 			((BreakablePlatform*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
+	case PLAYER_BULLET | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER_BULLET)
+		{
+			((Bullet*)gameObjectA)->OnHit();
+		}
+		else
+		{
+			((Bullet*)gameObjectB)->OnHit();
 		}
 		break;
 	}

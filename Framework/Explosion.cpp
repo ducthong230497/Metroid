@@ -23,7 +23,7 @@ void Explosion::Init(Texture* explosionTexture)
 
 	defaultPosition = POINT(0, 0);
 
-	_CategoryMask = BOMB_EXPLOSION;
+	_CategoryMask = EXPLOSION_EFFECT;
 }
 
 void Explosion::Render(SpriteBatch* batch)

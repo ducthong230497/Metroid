@@ -22,7 +22,6 @@ void MainScene::Init()
 	callback = new CollisionCallback();
 #pragma endregion
 
-
 #pragma region load quadtree
 	quadTree = new QuadTree();
 	quadTree->Load("Resources/mapQuadTree.xml", "Resources/metroid.tmx");
@@ -31,20 +30,20 @@ void MainScene::Init()
 	tileMap->SetSpaceDivisionQuadTree(quadTree);
 #pragma endregion
 
+#pragma region Initialize Samus
+
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
-	samus->Init(&samusTexture, 32*40, 32*80);
+	samus->Init(&samusTexture, 32 * 40, 32 * 80);
 	samus->Init(&samusTexture, 32 * 163, 32 * 136);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
 	explosionEffect.SetSize(32, 32);
-	/*object1 = new GameObject();
-	object1->setPosition(100, 100);
-	object1->setVelocity(0, -100);
-	object1->setSize(32, 64);
-	object1->setCategoryMask(Category::PLAYER);
-	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | Category::BREAKABLE_PLATFORM);*/
+
+#pragma endregion
+
+#pragma region Initialize Platform
 
 	std::vector<GameObject*> platforms = quadTree->GetObjectsGroup("Platform");
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
@@ -52,7 +51,7 @@ void MainScene::Init()
 		(*it)->_CategoryMask = PLATFORM;
 		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID;
 	}
-	
+
 	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
 	for (std::vector<GameObject*>::iterator it = breakablePlatforms.begin(); it != breakablePlatforms.end(); ++it)
 	{
@@ -62,7 +61,11 @@ void MainScene::Init()
 		((BreakablePlatform*)(*it))->SetTilemap(tileMap);
 	}
 
+#pragma endregion
+
+#pragma region Initialize Door
 	doorTexture = Texture("Resources/spriteobjects.PNG");
+
 	doors = quadTree->GetObjectsGroup("Door");
 	for (std::vector<GameObject*>::iterator it = doors.begin(); it != doors.end(); ++it)
 	{
@@ -71,14 +74,31 @@ void MainScene::Init()
 		((Door*)(*it))->SetCam(cam);
 		((Door*)(*it))->SetPlayer(samus);
 	}
+
 	((Door*)doors[0])->leftDoor->followDirection = DOWN;
 	((Door*)doors[0])->rightDoor->followDirection = LEFT;
+	((Door*)doors[0])->SetChangeSoundTheme(false);
+
 	((Door*)doors[1])->leftDoor->followDirection = RIGHT;
 	((Door*)doors[1])->rightDoor->followDirection = DOWN;
+	((Door*)doors[1])->SetChangeSoundTheme(false);
+
 	((Door*)doors[2])->leftDoor->followDirection = UP;
 	((Door*)doors[2])->rightDoor->followDirection = LEFT;
+	((Door*)doors[2])->SetChangeSoundTheme(false);
+
 	((Door*)doors[3])->leftDoor->followDirection = DOWN;
 	((Door*)doors[3])->rightDoor->followDirection = LEFT;
+	((Door*)doors[3])->SetChangeSoundTheme(true);
+	((Door*)doors[3])->leftFlagSound = Section::Brinstar;
+	((Door*)doors[3])->rightFlagSound = Section::KraidTheme;
+
+	((Door*)doors[4])->leftDoor->followDirection = RIGHT;
+	((Door*)doors[4])->rightDoor->followDirection = UP;
+	((Door*)doors[4])->SetChangeSoundTheme(true);
+	((Door*)doors[4])->leftFlagSound = Section::MotherBrain;
+	((Door*)doors[4])->rightFlagSound = Section::Brinstar;
+#pragma endregion
 
 #pragma region Initialize Enemy
 	enemiesTexture = Texture("Resources/enemies.png");
@@ -130,7 +150,6 @@ void MainScene::Init()
 	((Kraid*)kraid)->SetPlayer(samus);
 #pragma endregion
 
-
 #pragma region Initialize Items
 	itemsTexture = Texture("Resources/items.png");
 
@@ -141,6 +160,7 @@ void MainScene::Init()
 		((Marunari*)(*it))->SetScene(this);
 	}
 	bombItem = nullptr;
+	bomb = nullptr;
 #pragma endregion
 
 #pragma region Load Sounds
@@ -150,6 +170,7 @@ void MainScene::Init()
 	KraidTheme = Sound::LoadSound("Resources/Audio/BossKraid.wav");
 	MotherBrain = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
 #pragma endregion
+
 	nextScene = MAINSCENE;
 	Trace::Log("Init MainScene");
 }
@@ -171,7 +192,9 @@ void MainScene::Update()
 		/*samus->Render(batch);*/
 		return;
 	}
+
 	UpdateCamera();
+
 	if (moveThroughDoor)
 	{
 		for (std::vector<GameObject*>::iterator it = doors.begin(); it != doors.end(); ++it)
@@ -183,12 +206,16 @@ void MainScene::Update()
 		//samus->Update(dt);
 		return;
 	}
+
+	PlaySoundTheme();
+
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
 	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
 	GameObjects.push_back(&explosionEffect);
 	if(bombItem != nullptr) GameObjects.push_back(bombItem);
+	if(bomb != nullptr) GameObjects.push_back(bomb);
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -204,11 +231,11 @@ void MainScene::Update()
 		bool needMoveX = false, needMoveY = false;
 		//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
 		for (int j = 0; j < GameObjects.size(); ++j) {
-			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
 			if (GameObjects[i]->_CategoryMask == BOMB_EXPLOSION && GameObjects[j]->_CategoryMask == BREAKABLE_PLATFORM)
 			{
 				int a = 2;
 			}
+			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
 			if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
 			{
 				RECT box2 = collision->GetRECT((GameObjects.at(j)));
@@ -354,8 +381,6 @@ void MainScene::Update()
 			playerBullets.erase(playerBullets.begin() + i--);
 		}
 	}
-
-	PlaySoundTheme();
 }
 
 void MainScene::UpdateCamera()
@@ -423,6 +448,9 @@ void MainScene::DrawSquare()
 		case BOMB_EXPLOSION:
 			((Bomb*)(*it))->Render(batch);
 			break;
+		case EXPLOSION_EFFECT:
+			((Explosion*)(*it))->Render(batch);
+			break;
 		case MARUNARI:
 			((Marunari*)(*it))->Render(batch);
 			break;
@@ -481,11 +509,25 @@ void MainScene::End()
 
 void MainScene::PlaySoundTheme()
 {
-	if (flagsound == Section::Brinstar)
+	switch (flagsound)
 	{
+	case Section::Brinstar:
 		Sound::Play(Brinstar);
 		Sound::Stop(KraidTheme);
 		Sound::Stop(MotherBrain);
+		break;
+	case Section::KraidTheme:
+		Sound::Stop(Brinstar);
+		Sound::Play(KraidTheme);
+		Sound::Stop(MotherBrain);
+		break;
+	case Section::MotherBrain:
+		Sound::Stop(Brinstar);
+		Sound::Stop(KraidTheme);
+		Sound::Play(MotherBrain);
+		break;
+	default:
+		break;
 	}
 }
 

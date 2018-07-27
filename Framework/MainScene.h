@@ -37,7 +37,6 @@ class MainScene : public Scene
 {
 private:
 	float apprearanceTime;
-	Texture samusTexture;
 	Samus * samus;
 	Camera * cam;
 	float cameraOffsetX;
@@ -53,6 +52,7 @@ public:
 	bool moveThroughDoor;
 	BombItem * bombItem;
 	Explosion explosionEffect;
+	Bomb *bomb;
 	std::vector<GameObject*> playerBullets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
@@ -62,10 +62,13 @@ public:
 	std::vector<GameObject*> healthItems;
 	
 	std::vector<GameObject*> doors;
+
+	int flagsound;
 private:
 	Collision *collision;
 	CollisionCallback *callback;
 
+	Texture samusTexture;
 	Texture enemiesTexture;
 	Texture bossesTexture;
 	Texture itemsTexture;
@@ -76,7 +79,6 @@ private:
 	CSound * Brinstar;
 	CSound * KraidTheme;
 	CSound * MotherBrain;
-	int flagsound;
 
 public:
 	MainScene();

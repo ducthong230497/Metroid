@@ -310,6 +310,9 @@ void Kraid::OnDie()
 	bombitem->Init(&itemTexture, _Position.x, _Position.y);
 	bombitem->SetScene(scene);
 	((MainScene*)scene)->bombItem = bombitem;
+
+	((MainScene*)scene)->explosionEffect.setPosition(_Position);
+	((MainScene*)scene)->explosionEffect.Play();
 }
 
 bool Kraid::IsDead()

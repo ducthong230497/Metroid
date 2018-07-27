@@ -37,7 +37,7 @@ void BreakablePlatform::OnHitBomb()
 
 void BreakablePlatform::OnHitBullet()
 {
-	//EraseFromScene();
+	EraseFromScene();
 }
 
 void BreakablePlatform::EraseFromScene()
@@ -45,10 +45,9 @@ void BreakablePlatform::EraseFromScene()
 	std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), this);
 	if (it != scene->GameObjects.end())
 	{
-		//delete *it;
-		scene->GameObjects.erase(it);
 		int column = (int)(GetPosition().x / tileMap->GetTileWidth());
 		int row = tileMap->GetHeight() - (int)(GetPosition().y / tileMap->GetTileHeight()) - 1;
 		tileMap->SetTileData(row, column, 0);
+		isActive = false;
 	}
 }

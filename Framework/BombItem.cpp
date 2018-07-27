@@ -1,5 +1,5 @@
 #include "BombItem.h"
-
+#include "MainScene.h"
 BombItem::BombItem()
 {
 }
@@ -48,7 +48,7 @@ void BombItem::Update(float dt)
 			scene->GameObjects.erase(it);
 		}
 		SetTexture(NULL);
-		//body = NULL;
+		((MainScene*)scene)->bombItem = nullptr;
 		return;
 	}
 	SetRegion(*animation.Next(dt));

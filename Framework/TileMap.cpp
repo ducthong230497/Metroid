@@ -151,12 +151,12 @@ void TileMap::SetSpaceDivisionQuadTree(QuadTree *sdquadtree)
 void TileMap::SetTileData(int row, int column, int value)
 {
 	_Layers.begin()->second->GetData()[row][column] = 0;
-	/*if (_SDQuadTree != NULL)
+	if (_SDQuadTree != NULL)
 	{
-		Shape::Rectangle* tileRect = _SDQuadTree->GetTileMapTileRect().at(row*_Width + column);
+		Shape::Rectangle* tileRect = _SDQuadTree->GetMapTileRect().at(row*_Width + column);
 		tileRect->width = 0;
 		tileRect->height = 0;
-	}*/
+	}
 }
 
 //Render this TileMap

@@ -182,7 +182,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			roll = true;
 		}
 
-		if (KeyBoard->IsKeyDown(DIK_Z))
+		if (KeyBoard->IsKeyDown(DIK_Z) && !roll)
 		{
 			float currentTime = GetTickCount() / 1000.0f;
 			if (currentTime > FIRERATE + lastShootTime)
@@ -217,6 +217,13 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 				bullets.push_back(b);
 				((MainScene*)scene)->playerBullets.push_back(b);
 			}
+		}
+		else if (KeyBoard->IsKeyDown(DIK_Z) && roll)
+		{
+			Bomb * _bomb = new Bomb(&samusTexture);
+			_bomb->SetScene(scene);
+			_bomb->setPosition(_Position);
+			((MainScene*)scene)->bomb = _bomb;
 		}
 
 

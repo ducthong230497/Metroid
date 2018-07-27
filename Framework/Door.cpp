@@ -50,6 +50,11 @@ void Door::SetCamDirection(FollowDirection fd)
 	}
 }
 
+void Door::SetChangeSoundTheme(bool b)
+{
+	changeSoundTheme = b;
+}
+
 void Door::Init(Texture * texture, float x, float y)
 {
 	setPosition(x, y);
@@ -159,4 +164,25 @@ void Door::OnHitPlayer()
 	cam->canFollowRight = false;
 	cam->canFollowUp = false;
 	cam->canFollowDown = false;
+	if (changeSoundTheme)
+	{
+		if (leftDoor->open)
+		{
+			ChangeFlagLeftDoor();
+		}
+		else
+		{
+			ChangFlagRightDoor();
+		}
+	}
+}
+
+void Door::ChangeFlagLeftDoor()
+{
+	((MainScene*)scene)->flagsound = leftFlagSound;
+}
+
+void Door::ChangFlagRightDoor()
+{
+	((MainScene*)scene)->flagsound = rightFlagSound;
 }
