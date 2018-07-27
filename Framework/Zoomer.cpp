@@ -246,6 +246,10 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 	
 	if (t == 1)
 	{
+		if (id == 27)
+		{
+			int a = 2;
+		}
 		prevCollisionPosition = _Position;
 		t = 0;
 		bx = curCollisionDirection.x != NOT_COLLIDED ? true : false;
@@ -254,6 +258,10 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 	if (curCollisionDirection != prevCollisionDirection)
 	{
 		t++;
+		if (id == 27)
+		{
+			int a = 2;
+		}
 		if (fixedX || fixedY)
 		{
 			prevCollisionDirection = curCollisionDirection;

@@ -48,7 +48,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 	collisionType = CollisionType::Dynamic;
 
 	_Velocity.x = 150;
-	_Velocity.y = -400;
+	_Velocity.y = -350;
 
 	//sound when Ripper is shot
 	//isShot = Sound::LoadSound("Resources/SoundEffect/ShootRipper.wav");
@@ -72,16 +72,14 @@ void Rio::UpdateVelocity(GameObject * player)
 		{
 			setVelocity(previousVelocity.x, 0);
 		}
-		else if (abs(distance) <= 200 && player->getPosition().y > 120)
+		else if (abs(distance) <= 200 && !((Samus*)player)->onGround)
 		{
 			setVelocity(previousVelocity.x, -previousVelocity.y);
 			isHitGround = false;
 		}
 		else
 		{
-			POINT temp = getVelocity();
-			temp.y *= -1;
-			setVelocity(temp.x, temp.y);
+			setVelocity(_Velocity.x, -previousVelocity.y);
 			isHitGround = false;
 		}
 	}

@@ -14,7 +14,7 @@ void MainScene::Init()
 #pragma region set up settings
 	cam = Camera::Instance();
 	cam->setPosition(32 * 32, 32 * 89);
-	cam->setPosition(32 * (155), 32 * 145);
+	//cam->setPosition(32 * (155), 32 * 145);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -35,7 +35,7 @@ void MainScene::Init()
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
 	samus->Init(&samusTexture, 32 * 40, 32 * 80);
-	samus->Init(&samusTexture, 32 * 163, 32 * 136);
+	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
@@ -115,6 +115,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = inversezoomers.begin(); it != inversezoomers.end(); ++it)
 	{
 		((Zoomer*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y, 1);
+		((Zoomer*)(*it))->SetScene(this);
 		((Zoomer*)(*it))->startVelocityX *= -1;
 		POINT temp = (*it)->getVelocity();
 		temp.x *= -1;
@@ -192,7 +193,7 @@ void MainScene::Update()
 		/*samus->Render(batch);*/
 		return;
 	}
-
+	
 	UpdateCamera();
 
 	if (moveThroughDoor)

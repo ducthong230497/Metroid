@@ -37,6 +37,7 @@ public:
 	void Render(SpriteBatch * batch);
 	void OnHitGround();
 	void OnHitBullet();
+	void OnHitBomb();
 	void OnDie();
 	void OnHitPlayer() override;
 	bool IsHitGround();

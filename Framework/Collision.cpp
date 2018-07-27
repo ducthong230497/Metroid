@@ -57,7 +57,7 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 	//	_CollisionPosition.y = 0.0f;
 	//	return false;
 	//}
-	if (targetGameObject->getCategoryMask() == Category::PLAYER && otherGameObject->getCategoryMask() == Category::RIPPER /*&& otherGameObject->getPosition().y == 480-32-32-16*/)
+	if (targetGameObject->getCategoryMask() == Category::RIO && otherGameObject->getCategoryMask() == Category::PLAYER /*&& otherGameObject->getPosition().y == 480-32-32-16*/)
 	{
 		int a = 2;
 	}

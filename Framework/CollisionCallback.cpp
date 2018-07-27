@@ -323,6 +323,32 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 		performOverlaying = false;
 		break;
 	}
+	case BOMB_EXPLOSION | ZOOMER:
+	{
+		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			((Zoomer*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((Zoomer*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+		break;
+	}
+	case BOMB_EXPLOSION | SKREE:
+	{
+		if (gameObjectA->_CategoryMask == SKREE)
+		{
+			((Zoomer*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((Zoomer*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+		break;
+	}
 	default: break;
 	}
 	

@@ -71,11 +71,11 @@ void Skree::UpdateVelocity(GameObject * player)
 			collisionType = CollisionType::Dynamic;
 			if (player->getPosition().x - getPosition().x > 0)
 			{
-				setVelocity(90, -150);
+				setVelocity(90, -300);
 			}
 			else
 			{
-				setVelocity(-90, -150);
+				setVelocity(-90, -300);
 			}
 		}
 	}
@@ -123,7 +123,7 @@ void Skree::Update(float dt)
 					//create body
 					skreeBullet->setCollisionType(CollisionType::Dynamic);
 					skreeBullet->setSize(6, 7);
-					skreeBullet->setVelocity(200 * cos(45 * i*PI / 180), 200 * sin(45 * i*Pi / 180));
+					skreeBullet->setVelocity(400 * cos(45 * i*PI / 180), 400 * sin(45 * i*Pi / 180));
 					skreeBullet->_CategoryMask = SKREE_BULLET;
 					skreeBullet->_BitMask = PLAYER;
 					//sprite
@@ -205,6 +205,11 @@ void Skree::OnHitBullet()
 	//hitBulletTime = 0;
 	//stop this body a little bit 
 	setVelocity(0, 0);
+}
+
+void Skree::OnHitBomb()
+{
+	health -= takeBombDamage;
 }
 
 void Skree::OnDie()
