@@ -270,6 +270,9 @@
     <ClCompile Include="Outer_Door.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="Zeebetite.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -451,6 +454,9 @@
     </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Zeebetite.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
