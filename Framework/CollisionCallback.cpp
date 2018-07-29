@@ -104,11 +104,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == RIO)
 		{
+			((Rio*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
 			Trace::Log("Bullet hit Rio");
 		}
 		else
 		{
-
+			((Bullet*)gameObjectA)->OnHit();
+			((Rio*)gameObjectB)->OnHitBullet();
 		}
 		break;
 	}
@@ -116,11 +119,12 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == RIPPER)
 		{
+			((Bullet*)gameObjectB)->OnHitRipper();
 			Trace::Log("Bullet hit Ripper");
 		}
 		else
 		{
-
+			((Bullet*)gameObjectA)->OnHitRipper();
 		}
 		break;
 	}
@@ -223,11 +227,11 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == OUTER_DOOR)
 		{
 			((OuterDoor*)gameObjectA)->OnHitBullet();
-			((Bullet*)gameObjectB)->OnHit();
+			((Bullet*)gameObjectB)->OnHitDoor();
 		}
 		else
 		{
-			((Bullet*)gameObjectA)->OnHit();
+			((Bullet*)gameObjectA)->OnHitDoor();
 			((OuterDoor*)gameObjectB)->OnHitBullet();
 		}
 		break;
@@ -237,6 +241,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
 			Trace::Log("Hit Marunari");
+			((Samus*)gameObjectA)->OnHitItem();
 			((Marunari*)gameObjectB)->OnHitPlayer();
 		}
 		break;

@@ -1,11 +1,17 @@
 #include "Rio.h"
 #include "Samus.h"
+#include "MainScene.h"
 Rio::Rio()
 {
 }
 
 Rio::~Rio()
 {
+}
+
+void Rio::SetScene(Scene * s)
+{
+	scene = s;
 }
 
 void Rio::Init(Texture * rioTexture, float x, float y)
@@ -231,6 +237,8 @@ void Rio::Update(float dt)
 	if (health <= 0)
 	{
 		isDead = true;
+		isActive = false;
+		OnDie();
 		//world->DestroyBody(body);
 		return;
 	}
@@ -300,4 +308,23 @@ void Rio::OnHitRight()
 void Rio::OnHitPlayer()
 {
 	Trace::Log("Rio hit player");
+}
+
+void Rio::OnHitBomb()
+{
+	health -= takeBombDamage;
+}
+
+void Rio::OnHitBullet()
+{
+	health -= takeDamage;
+}
+
+void Rio::OnDie()
+{
+	((MainScene*)scene)->explosionEffect.setPosition(_Position);
+	((MainScene*)scene)->explosionEffect.Play();
+	healthItem->setPosition(_Position);
+	healthItem->SetScene(scene);
+	((MainScene*)scene)->healthItems.push_back(healthItem);
 }

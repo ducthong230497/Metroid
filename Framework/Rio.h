@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "SpriteBatch.h"
 #include "TexturePacker.h"
+#include "Scene.h"
 
 #define MAXHITBULLETTIME 0.05
 #define MAXHITPLAYERHITTIME 0.2
@@ -11,6 +12,8 @@
 class Rio : public Sprite, public Enemy
 {
 private:
+	Scene * scene;
+
 	Animation rioAnimation;
 
 	bool phase1;
@@ -53,6 +56,9 @@ private:
 public:
 	Rio();
 	~Rio();
+
+	void SetScene(Scene * s);
+
 	void Init(Texture *rioTexture, float x, float y);
 
 	void UpdateVelocity(GameObject *player) override;
@@ -71,12 +77,12 @@ public:
 
 	bool IsDead();
 
-	int GetHealth();
-
 	void OnHitPlayer() override;
 
 	void OnHitBomb();
 
 	void OnHitBullet();
+
+	void OnDie();
 };
 

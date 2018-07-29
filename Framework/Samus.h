@@ -6,6 +6,7 @@
 #include "Animator.h"
 #include "Bullet.h"
 #include "Scene.h"
+#include "Sound.h"
 
 #define FIRERATE 0.1f
 #define JUMP_1 90;
@@ -29,6 +30,9 @@ private:
 	void HandleAnimation();
 
 	bool facingRight;
+	//sound
+	CSound * ShootSound;
+	CSound * JumpSound;
 public:
 	Animator  animator;
 	Animation_
@@ -49,7 +53,9 @@ public:
 	void ProcessInput(CKeyboard * KeyBoard);
 	void OnHitGround(POINT direction);
 	void OnExitGround(POINT direction);
-	
+	void OnShoot();
+	void OnJump();
+	void OnHitItem();
 };
 
 #endif

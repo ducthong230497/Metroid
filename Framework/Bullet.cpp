@@ -26,6 +26,10 @@ Bullet::Bullet(Texture * texture)
 	//create body
 	_CategoryMask = PLAYER_BULLET;
 	_BitMask = SKREE | ZOOMER | RIO | RIPPER | PLATFORM | BREAKABLE_PLATFORM | KRAID | DOOR | OUTER_DOOR/*| MOTHERBRAIN_BIT | HEALTHPILE_BIT | KRAID_BIT | DOOR_BIT*/;
+
+	HitEnemySound = Sound::LoadSound("Resources/Audio/ShootEnemies.wav");
+	HitRipperSound = Sound::LoadSound("Resources/Audio/ShootRipper.wav");
+	HitDoor = Sound::LoadSound("Resources/Audio/DoorSound.wav");
 }
 
 void Bullet::Render(SpriteBatch * batch)
@@ -62,4 +66,17 @@ float Bullet::GetBulletSpeed()
 void Bullet::OnHit()
 {
 	stateTime = 100; //force to be dead
+	Sound::Play(HitEnemySound);
+}
+
+void Bullet::OnHitRipper()
+{
+	stateTime = 100; //force to be dead
+	Sound::Play(HitRipperSound);
+}
+
+void Bullet::OnHitDoor()
+{
+	stateTime = 100; //force to be dead
+	Sound::Play(HitDoor);
 }

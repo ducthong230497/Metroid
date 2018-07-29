@@ -139,6 +139,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = rios.begin(); it != rios.end(); ++it)
 	{
 		((Rio*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
+		((Rio*)(*it))->SetScene(this);
 	}
 #pragma endregion
 
@@ -166,6 +167,7 @@ void MainScene::Init()
 
 #pragma region Load Sounds
 	flagsound = Section::Brinstar;
+	EatItemSound = Sound::LoadSound("Resources/Audio/ItemAcquisition.wav");
 	Appearance = Sound::LoadSound("Resources/Audio/Appearance.wav");
 	Brinstar = Sound::LoadSound("Resources/Audio/BrinstarTheme.wav");
 	KraidTheme = Sound::LoadSound("Resources/Audio/BossKraid.wav");
@@ -190,8 +192,22 @@ void MainScene::Update()
 		Sound::Play(Appearance);
 		Render();
 		samus->Update(dt);
-		/*samus->Render(batch);*/
 		return;
+	}
+
+	if (eatItem && eatItemTime < EATITEMTIME)
+	{
+		eatItemTime += dt;
+		Sound::Stop(Brinstar);
+		Sound::Stop(KraidTheme);
+		Sound::Play(EatItemSound);
+		Render();
+		return;
+	}
+	else
+	{
+		eatItemTime = 0;
+		eatItem = false;
 	}
 	
 	UpdateCamera();

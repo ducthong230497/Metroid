@@ -81,6 +81,10 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	animator.currentAnimation = Appear;
 	animator.previousAnimation = Appear;
 	animator.frameInterval = Appear.duration;
+
+	//sound
+	ShootSound = Sound::LoadSound("Resources/Audio/Fire.wav");
+	JumpSound = Sound::LoadSound("Resources/Audio/Jump.wav");
 }
 
 
@@ -315,6 +319,20 @@ void Samus::OnExitGround(POINT direction)
 {
 	onGround = false;
 	Trace::Log("Exit ground");
+}
+
+void Samus::OnShoot()
+{
+	Sound::Play(ShootSound);
+}
+
+void Samus::OnJump()
+{
+}
+
+void Samus::OnHitItem()
+{
+	((MainScene*)scene)->eatItem = true;
 }
 
 void Samus::HandleAnimation()

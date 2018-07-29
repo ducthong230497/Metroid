@@ -25,6 +25,7 @@
 
 #define SPEED 2
 #define APPEARANCETIME 3
+#define EATITEMTIME 2
 
 enum Section
 {
@@ -37,6 +38,7 @@ class MainScene : public Scene
 {
 private:
 	float apprearanceTime;
+	float eatItemTime;
 	Samus * samus;
 	Camera * cam;
 	float cameraOffsetX;
@@ -50,6 +52,7 @@ private:
 
 public:
 	bool moveThroughDoor;
+	bool eatItem;
 	BombItem * bombItem;
 	Explosion explosionEffect;
 	Bomb *bomb;
@@ -75,6 +78,7 @@ private:
 	Texture doorTexture;
 
 	//Sound
+	CSound * EatItemSound;
 	CSound * Appearance;
 	CSound * Brinstar;
 	CSound * KraidTheme;

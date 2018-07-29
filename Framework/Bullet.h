@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "SpriteBatch.h"
 #include "TexturePacker.h"
+#include "Sound.h"
 #define BULLETLIVETIME 0.3f
 #define BULLETSPEED 5.0f
 
@@ -10,6 +11,10 @@ class Bullet : public Sprite
 private:
 	float stateTime;
 	bool isDestroyed;
+	//Sound
+	CSound * HitEnemySound;
+	CSound * HitRipperSound;
+	CSound * HitDoor;
 public:
 	Bullet();
 	~Bullet();
@@ -26,4 +31,8 @@ public:
 	float GetBulletSpeed();
 
 	void OnHit();
+
+	void OnHitRipper();
+
+	void OnHitDoor();
 };
