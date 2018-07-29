@@ -283,14 +283,17 @@ void MainScene::Update()
 					}
 				}
 				//check overlaying (sometimes two bodies are already overlaying each other 
-				if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
+				if (GameObjects.at(i)->collisionType != Static)
 				{
-					callback->OnTriggerEnter((GameObjects.at(i)), (GameObjects.at(j)), performOverLaying);
-					if (performOverLaying)
+					if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
 					{
-						collision->PerformOverlaying((GameObjects.at(i)), (GameObjects.at(j)), moveX, moveY);
+						callback->OnTriggerEnter((GameObjects.at(i)), (GameObjects.at(j)), performOverLaying);
+						if (performOverLaying)
+						{
+							collision->PerformOverlaying((GameObjects.at(i)), (GameObjects.at(j)), moveX, moveY);
+						}
+						performOverLaying = true;
 					}
-					performOverLaying = true;
 				}
 			}
 		}
