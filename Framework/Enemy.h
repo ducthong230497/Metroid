@@ -1,5 +1,6 @@
 #pragma once
 #include "HealthItem.h"
+#include "RocketItem.h"
 class Enemy
 {
 private:
@@ -10,6 +11,7 @@ protected:
 	int takeDamage;
 	int takeBombDamage;
 	HealthItem * healthItem;
+	RocketItem * rocketItem;
 public:
 	Enemy();
 	~Enemy();

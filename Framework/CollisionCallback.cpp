@@ -382,6 +382,15 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER | ROCKET_ITEM:
+	{
+		Trace::Log("Player eat rocket item");
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((RocketItem*)gameObjectB)->OnHitPlayer();
+		}
+		break;
+	}
 	case PLAYER | DOOR:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)

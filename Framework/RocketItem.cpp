@@ -23,7 +23,6 @@ void RocketItem::Init(Texture * itemsTexture, int x, int y)
 	collisionType = Static;
 	setPosition(x, y);
 	SetSize(16, 24);
-	SetRotation(-90);
 	//bodyDef.isSensor = true;
 
 	_CategoryMask = ROCKET_ITEM;
@@ -43,11 +42,11 @@ void RocketItem::Update(float dt)
 			//delete *it;
 			scene->GameObjects.erase(it);
 		}
-		std::vector<GameObject*>::iterator it1 = std::find(((MainScene*)scene)->healthItems.begin(), ((MainScene*)scene)->healthItems.end(), (this));
-		if (it1 != ((MainScene*)scene)->healthItems.end())
+		std::vector<GameObject*>::iterator it1 = std::find(((MainScene*)scene)->rocketItems.begin(), ((MainScene*)scene)->rocketItems.end(), (this));
+		if (it1 != ((MainScene*)scene)->rocketItems.end())
 		{
 			//delete *it;
-			((MainScene*)scene)->healthItems.erase(it1);
+			((MainScene*)scene)->rocketItems.erase(it1);
 		}
 		//body = NULL;
 		return;

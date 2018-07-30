@@ -276,6 +276,9 @@
     <ClCompile Include="Rocket.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="RocketItem.cpp">
+      <Filter>Object\src\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="Rocket.h">
       <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketItem.h">
+      <Filter>Object\include\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

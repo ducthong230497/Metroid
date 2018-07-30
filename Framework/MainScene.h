@@ -64,6 +64,7 @@ public:
 	std::vector<GameObject*> kraidBullets;
 	//GameObject *object1;
 	std::vector<GameObject*> healthItems;
+	std::vector<GameObject*> rocketItems;
 	
 	std::vector<GameObject*> doors;
 

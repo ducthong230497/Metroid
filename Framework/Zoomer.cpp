@@ -307,7 +307,17 @@ void Zoomer::OnDie()
 {
 	((MainScene*)scene)->explosionEffect.setPosition(_Position);
 	((MainScene*)scene)->explosionEffect.Play();
-	healthItem->setPosition(_Position);
-	healthItem->SetScene(scene);
-	((MainScene*)scene)->healthItems.push_back(healthItem);
+	int a = rand() % 2;
+	if (a == 0)
+	{
+		healthItem->setPosition(_Position);
+		healthItem->SetScene(scene);
+		((MainScene*)scene)->healthItems.push_back(healthItem);
+	}
+	else
+	{
+		rocketItem->setPosition(_Position);
+		rocketItem->SetScene(scene);
+		((MainScene*)scene)->rocketItems.push_back(rocketItem);
+	}
 }

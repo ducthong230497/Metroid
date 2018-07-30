@@ -166,6 +166,7 @@
     <ClCompile Include="Rio.cpp" />
     <ClCompile Include="Ripper.cpp" />
     <ClCompile Include="Rocket.cpp" />
+    <ClCompile Include="RocketItem.cpp" />
     <ClCompile Include="Samus.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Rio.h" />
     <ClInclude Include="Ripper.h" />
     <ClInclude Include="Rocket.h" />
+    <ClInclude Include="RocketItem.h" />
     <ClInclude Include="Samus.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />

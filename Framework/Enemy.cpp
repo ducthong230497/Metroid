@@ -5,6 +5,8 @@ void Enemy::InitHealthItem()
 	itemTexture = Texture("Resources/items.png");
 	healthItem = new HealthItem();
 	healthItem->Init(&itemTexture, 0, 0);
+	rocketItem = new RocketItem();
+	rocketItem->Init(&itemTexture, 0, 0);
 }
 
 Enemy::Enemy()

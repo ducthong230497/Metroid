@@ -231,6 +231,7 @@ void MainScene::Update()
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
 	GameObjects.insert(GameObjects.end(), playerRockets.begin(), playerRockets.end());
 	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
+	GameObjects.insert(GameObjects.end(), rocketItems.begin(), rocketItems.end());
 	GameObjects.push_back(&explosionEffect);
 	if(bombItem != nullptr) GameObjects.push_back(bombItem);
 	if(bomb != nullptr) GameObjects.push_back(bomb);
@@ -490,6 +491,9 @@ void MainScene::DrawSquare()
 			break;
 		case HEALTHITEM:
 			((HealthItem*)(*it))->Render(batch);
+			break;
+		case ROCKET_ITEM:
+			((RocketItem*)(*it))->Render(batch);
 			break;
 		case DOOR:
 			((Door*)(*it))->Render(batch);
