@@ -23,7 +23,7 @@ void testScene1::Init()
 	object1->setCategoryMask(Category::PLAYER);
 	object1->setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | 
 						Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::KRAID | 
-						Category::DOOR | Category::OUTER_DOOR);
+						Category::DOOR | Category::OUTER_DOOR | Category::ZEEBETITE);
 	isGrounded = true;
 	jumpTime = 100;
 
@@ -90,6 +90,9 @@ void testScene1::Init()
 	kraid->Init(&bossesTexture, 1800, 100);
 	kraid->SetPlayer(object1);
 
+	zeebetite = new Zeebetite();
+	zeebetite->Init(&bossesTexture, 1350, 100);
+
 	/*GameObjects.push_back(object2);
 	GameObjects.push_back(object3);
 	GameObjects.push_back(object4);*/
@@ -105,6 +108,7 @@ void testScene1::Init()
 	GameObjects.push_back(bombItem);
 	//GameObjects.push_back(samus);
 	GameObjects.push_back(kraid);
+	GameObjects.push_back(zeebetite);
 	int result = CDevice::getInstance()->getD3DDevice()->CreateOffscreenPlainSurface(
 		object1->getSize().x,					// width 				
 		object1->getSize().y,					// height
@@ -181,7 +185,7 @@ void testScene1::Update()
 	test += dt;
 	if (test > 1)
 	{
-		//Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", object1->getPosition().x, object1->getPosition().y, object1->getSize().x, object1->getSize().y);
+		Trace::Log("x: %f, y: %f, sizeX: %f, sizeY: %f", zeebetite->getPosition().x, zeebetite->getPosition().y, zeebetite->getSize().x, zeebetite->getSize().y);
 		test = 0;
 	}
 	
@@ -427,6 +431,10 @@ void testScene1::DrawSquare()
 			break;
 		case DOOR:
 			((Door*)(*it))->Render(batch);
+			break;
+		case ZEEBETITE:
+			((Zeebetite*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}

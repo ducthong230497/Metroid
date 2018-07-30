@@ -10,6 +10,7 @@
 #include "HealthItem.h"
 #include "Kraid.h"
 #include "Door.h"
+#include "Zeebetite.h"
 class CollisionCallback
 {
 public:

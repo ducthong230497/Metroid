@@ -21,6 +21,7 @@
 #include "Samus.h"
 #include "Kraid.h"
 #include "Door.h"
+#include "Zeebetite.h"
 #define MAXJUMPTIME 0.4f
 
 class testScene1 : public Scene
@@ -46,6 +47,7 @@ private:
 	Marunari * marunari;
 	BombItem * bombItem;
 	Samus* samus;
+	Zeebetite * zeebetite;
 	Texture bossesTexture;
 	Texture doorTexture;
 	Kraid * kraid;

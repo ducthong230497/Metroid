@@ -173,6 +173,20 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER_BULLET | ZEEBETITE:
+	{
+		if (gameObjectA->_CategoryMask == ZEEBETITE)
+		{
+			((Zeebetite*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Bullet*)gameObjectA)->OnHit();
+			((Zeebetite*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
 	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
