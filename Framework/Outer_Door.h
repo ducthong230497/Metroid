@@ -27,6 +27,7 @@ public:
 	~OuterDoor();
 	void SetScene(Scene * s);
 	void Init(Texture * texture, float x, float y);
+	void InitOrangeDoor(Texture * texture, float x, float y);
 	void Update(float dt) override;
 	void Render(SpriteBatch * batch);
 	void OnHitBullet();

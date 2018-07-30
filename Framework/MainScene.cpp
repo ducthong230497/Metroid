@@ -15,6 +15,7 @@ void MainScene::Init()
 	cam = Camera::Instance();
 	cam->setPosition(32 * 32, 32 * 89);
 	//cam->setPosition(32 * (155), 32 * 145);
+	//cam->setPosition(32 * (86), 32 * 34);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -36,6 +37,7 @@ void MainScene::Init()
 	samus = new Samus();
 	samus->Init(&samusTexture, 32 * 40, 32 * 80);
 	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
+	//samus->Init(&samusTexture, 32 * 93, 32 * 25);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
@@ -49,14 +51,14 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID;
+		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID;
 	}
 
 	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
 	for (std::vector<GameObject*>::iterator it = breakablePlatforms.begin(); it != breakablePlatforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = BREAKABLE_PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
+		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
 		((BreakablePlatform*)(*it))->SetScene(this);
 		((BreakablePlatform*)(*it))->SetTilemap(tileMap);
 	}
@@ -93,6 +95,7 @@ void MainScene::Init()
 	((Door*)doors[3])->leftFlagSound = Section::Brinstar;
 	((Door*)doors[3])->rightFlagSound = Section::KraidTheme;
 
+	((Door*)doors[4])->InitOrangeDoor(&doorTexture, doors[4]->getPosition().x, doors[4]->getPosition().y);
 	((Door*)doors[4])->leftDoor->followDirection = RIGHT;
 	((Door*)doors[4])->rightDoor->followDirection = UP;
 	((Door*)doors[4])->SetChangeSoundTheme(true);

@@ -68,6 +68,19 @@ void Door::Init(Texture * texture, float x, float y)
 	rightDoor->Init(texture, x + 32 + 8, y);
 }
 
+void Door::InitOrangeDoor(Texture * texture, float x, float y)
+{
+	setPosition(x, y);
+	setSize(64, 96);
+	_CategoryMask = DOOR;
+	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET | ZOOMER;
+	leftDoor = new OuterDoor();
+	leftDoor->InitOrangeDoor(texture, x - 32 - 8, y);
+	leftDoor->Flip(true, false);
+	rightDoor = new OuterDoor();
+	rightDoor->InitOrangeDoor(texture, x + 32 + 8, y);
+}
+
 void Door::Update(float dt)
 {
 	if (moveCam)

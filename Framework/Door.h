@@ -22,6 +22,7 @@ public:
 	void SetCamDirection(FollowDirection fd);
 	void SetChangeSoundTheme(bool b);
 	void Init(Texture * texture, float x, float y);
+	void InitOrangeDoor(Texture * texture, float x, float y);
 	void Update(float dt) override;
 	void Render(SpriteBatch * batch);
 	void OnHitPlayer();
