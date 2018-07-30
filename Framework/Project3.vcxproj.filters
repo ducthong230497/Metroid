@@ -273,6 +273,9 @@
     <ClCompile Include="Zeebetite.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="Rocket.cpp">
+      <Filter>Object\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -456,6 +459,9 @@
       <Filter>Object\include</Filter>
     </ClInclude>
     <ClInclude Include="Zeebetite.h">
+      <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Rocket.h">
       <Filter>Object\include</Filter>
     </ClInclude>
   </ItemGroup>

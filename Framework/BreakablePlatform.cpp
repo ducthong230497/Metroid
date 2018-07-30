@@ -4,7 +4,7 @@ BreakablePlatform::BreakablePlatform()
 {
 	collisionType = Static;
 	_CategoryMask = BREAKABLE_PLATFORM;
-	_BitMask = PLAYER | RIO | ZOOMER | SKREE | RIPPER | BOMB_EXPLOSION | PLAYER_BULLET;
+	_BitMask = PLAYER | ZOOMER | RIPPER | BOMB_EXPLOSION | PLAYER_BULLET | PLAYER_ROCKET;
 }
 
 BreakablePlatform::~BreakablePlatform()

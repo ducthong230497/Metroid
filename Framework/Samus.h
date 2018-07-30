@@ -7,8 +7,10 @@
 #include "Bullet.h"
 #include "Scene.h"
 #include "Sound.h"
+#include "Rocket.h"
 
-#define FIRERATE 0.1f
+#define FIRERATE 0.15f
+#define FIRERATEROCKET 0.25f
 #define JUMP_1 90;
 #define JUMP_2 200;
 #define IME 0.4f;
@@ -21,6 +23,7 @@ private:
 
 	Texture samusTexture;
 	std::vector<Bullet*> bullets;
+	std::vector<Rocket*> rockets;
 	float lastShootTime;
 	float jump1 = 0;
 	float jump2 = 0;
@@ -30,6 +33,7 @@ private:
 	void HandleAnimation();
 
 	bool facingRight;
+	bool shootRocket;
 	//sound
 	CSound * ShootSound;
 	CSound * JumpSound;

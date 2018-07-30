@@ -21,7 +21,7 @@ void Ripper::Init(Texture *ripperTexture, float x, float y)
 
 	//setup body
 	_CategoryMask = RIPPER;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | PLAYER_ROCKET;
 	collisionType = CollisionType::Dynamic;
 
 	_Velocity.x = -90;

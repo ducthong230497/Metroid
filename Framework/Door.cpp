@@ -60,7 +60,7 @@ void Door::Init(Texture * texture, float x, float y)
 	setPosition(x, y);
 	setSize(64, 96);
 	_CategoryMask = DOOR;
-	_BitMask = PLAYER | PLAYER_BULLET | ZOOMER;
+	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET | ZOOMER;
 	leftDoor = new OuterDoor();
 	leftDoor->Init(texture, x - 32 - 8, y);
 	leftDoor->Flip(true, false);

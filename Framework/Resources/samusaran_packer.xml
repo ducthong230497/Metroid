@@ -3,6 +3,10 @@
  <rect left="100" top = "678" width = "4" height="5" />
 </bullet>
 
+<rocket>
+ <rect left="87" top = "711" width = "12" height="8" />
+</rocket>
+
 <bomb>
  <rect left="168" top = "676" width = "8" height="8" />
  <rect left="178" top = "676" width = "8" height="8" />

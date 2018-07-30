@@ -24,7 +24,7 @@ void Zeebetite::Init(Texture * itemsTexture, int x, int y)
 	SetSize(16, 64);
 
 	_CategoryMask = ZEEBETITE;
-	_BitMask = PLAYER | PLAYER_BULLET;
+	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET;
 	health = ZEEBETITEHEALTH;
 }
 

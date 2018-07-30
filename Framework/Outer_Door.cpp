@@ -22,7 +22,7 @@ void OuterDoor::Init(Texture * doorTexture, float x, float y)
 	SetSize(16, 96);
 	collisionType = CollisionType::Static;
 	_CategoryMask = OUTER_DOOR;
-	_BitMask = PLAYER | PLAYER_BULLET | ZOOMER | RIO;
+	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET | ZOOMER | RIO;
 
 	hitBulletTime = -1;
 }

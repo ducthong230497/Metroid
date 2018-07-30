@@ -43,6 +43,8 @@ private:
 
 
 	float hitBulletTime; //used when being hit by bullet
+
+	void OnHit();
 public:
 	std::vector<GameObject*> bullets;
 	std::vector<GameObject*> boomerangs;
@@ -64,6 +66,8 @@ public:
 	void OnHitBullet();
 
 	void OnHitBomb();
+
+	void OnHitRocket();
 
 	void OnDie();
 

@@ -1,6 +1,14 @@
 #include "Kraid.h"
 #include "MainScene.h"
 #define BULLETSPEED 300
+void Kraid::OnHit()
+{
+	hitBulletTime = 0;
+	if (health <= 0)
+	{
+		OnDie();
+	}
+}
 Kraid::Kraid()
 {
 }
@@ -44,7 +52,7 @@ void Kraid::Init(Texture * texture, int x, int y)
 	_Velocity.y = -50;
 	
 	_CategoryMask = KRAID;
-	_BitMask = PLAYER | PLAYER_BULLET | PLATFORM | BOMB_EXPLOSION;
+	_BitMask = PLAYER | PLAYER_BULLET | PLATFORM | BOMB_EXPLOSION | PLAYER_ROCKET;
 
 	//setup bullets
 	TextureRegion bulletRegion = p.GetRegion("kraidbullet").front();
@@ -286,16 +294,20 @@ void Kraid::Render(SpriteBatch * batch)
 
 void Kraid::OnHitBullet()
 {
-	health -= 5;
-	hitBulletTime = 0;
-	if (health <= 0)
-	{
-		OnDie();
-	}
+	health -= 2;
+	OnHit();
 }
 
 void Kraid::OnHitBomb()
 {
+	health -= 10;
+	OnHit();
+}
+
+void Kraid::OnHitRocket()
+{
+	health -= 5;
+	OnHit();
 }
 
 void Kraid::OnDie()

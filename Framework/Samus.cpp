@@ -130,6 +130,11 @@ void Samus::Render(SpriteBatch * batch)
 	{
 		batch->Draw(*it);
 	}
+
+	for (std::vector<Rocket*>::iterator it = rockets.begin(); it != rockets.end(); ++it)
+	{
+		batch->Draw(*it);
+	}
 }
 
 void Samus::Update(float dt)
@@ -189,37 +194,78 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		if (KeyBoard->IsKeyDown(DIK_Z) && !roll)
 		{
 			float currentTime = GetTickCount() / 1000.0f;
-			if (currentTime > FIRERATE + lastShootTime)
+			if (!shootRocket)
 			{
-				lastShootTime = currentTime;
-				Bullet *b = new Bullet(&samusTexture);
-				if (!lookUp)
+				if (currentTime > FIRERATE + lastShootTime)
 				{
-					if (facingRight)
+					lastShootTime = currentTime;
+					Bullet *b = new Bullet(&samusTexture);
+					if (!lookUp)
 					{
-						b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
-						b->setVelocity(BULLET_VELOCITY, 0);
+						if (facingRight)
+						{
+							b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
+							b->setVelocity(BULLET_VELOCITY, 0);
+						}
+						else
+						{
+							b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
+							b->setVelocity(-BULLET_VELOCITY, 0);
+						}
 					}
 					else
 					{
-						b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
-						b->setVelocity(-BULLET_VELOCITY, 0);
+						if (facingRight)
+						{
+							b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+						}
+						else
+						{
+							b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+						}
+						b->setVelocity(0, BULLET_VELOCITY);
 					}
+					bullets.push_back(b);
+					((MainScene*)scene)->playerBullets.push_back(b);
 				}
-				else
+			}
+			else
+			{
+				if (currentTime > FIRERATEROCKET + lastShootTime)
 				{
-					if (facingRight)
+					lastShootTime = currentTime;
+					Rocket *b = new Rocket(&samusTexture);
+					if (!lookUp)
 					{
-						b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+						if (facingRight)
+						{
+							b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
+							b->setVelocity(BULLET_VELOCITY, 0);
+							b->SetRotation(0);
+						}
+						else
+						{
+							b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
+							b->setVelocity(-BULLET_VELOCITY, 0);
+							b->SetRotation(180);
+						}
 					}
 					else
 					{
-						b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+						if (facingRight)
+						{
+							b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+						}
+						else
+						{
+							b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+						}
+						b->setVelocity(0, BULLET_VELOCITY);
+						b->SetRotation(-90);
 					}
-					b->setVelocity(0, BULLET_VELOCITY);
+					rockets.push_back(b);
+					((MainScene*)scene)->playerRockets.push_back(b);
 				}
-				bullets.push_back(b);
-				((MainScene*)scene)->playerBullets.push_back(b);
 			}
 		}
 		else if (KeyBoard->IsKeyDown(DIK_Z) && roll)
@@ -280,6 +326,10 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			shoot = false;
 		}
 
+		if (KeyBoard->IsKeyDown(DIK_S))
+		{
+			shootRocket = !shootRocket;
+		}
 		HandleAnimation();
 	}
 }

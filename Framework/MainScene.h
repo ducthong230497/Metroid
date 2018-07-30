@@ -57,6 +57,7 @@ public:
 	Explosion explosionEffect;
 	Bomb *bomb;
 	std::vector<GameObject*> playerBullets;
+	std::vector<GameObject*> playerRockets;
 	//Enemy
 	std::vector<GameObject*> skreeBullet;
 

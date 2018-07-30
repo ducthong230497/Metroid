@@ -31,7 +31,7 @@ void Skree::Init(Texture * skreeTexture, float x, float y)
 
 	//setup body
 	_CategoryMask = SKREE;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | BOMB_EXPLOSION | PLAYER_ROCKET;
 	collisionType = CollisionType::Static;
 
 	//for (int i = 0; i < 5; i++)

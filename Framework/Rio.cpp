@@ -50,7 +50,7 @@ void Rio::Init(Texture * rioTexture, float x, float y)
 
 	//setup body
 	_CategoryMask = RIO;
-	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET;
+	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | PLAYER_ROCKET | BOMB_EXPLOSION;
 	collisionType = CollisionType::Dynamic;
 
 	_Velocity.x = 150;

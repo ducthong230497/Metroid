@@ -229,6 +229,7 @@ void MainScene::Update()
 	GameObjects.insert(GameObjects.end(), quadTree->GetObjectsInViewport().begin(), quadTree->GetObjectsInViewport().end());
 	GameObjects.insert(GameObjects.end(), skreeBullet.begin(), skreeBullet.end());
 	GameObjects.insert(GameObjects.end(), playerBullets.begin(), playerBullets.end());
+	GameObjects.insert(GameObjects.end(), playerRockets.begin(), playerRockets.end());
 	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
 	GameObjects.push_back(&explosionEffect);
 	if(bombItem != nullptr) GameObjects.push_back(bombItem);
@@ -399,6 +400,16 @@ void MainScene::Update()
 			delete *it;
 			GameObjects.erase(it);
 			playerBullets.erase(playerBullets.begin() + i--);
+		}
+	}
+	for (int i = 0; i < playerRockets.size(); ++i)
+	{
+		if (((Rocket*)playerRockets[i])->IsDestroyed())
+		{
+			std::vector<GameObject*>::iterator it = std::find(GameObjects.begin(), GameObjects.end(), playerRockets[i]);
+			delete *it;
+			GameObjects.erase(it);
+			playerRockets.erase(playerRockets.begin() + i--);
 		}
 	}
 }

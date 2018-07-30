@@ -187,6 +187,110 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER_ROCKET | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER_ROCKET)
+		{
+			((Rocket*)gameObjectA)->OnHit();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | BREAKABLE_PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == BREAKABLE_PLATFORM)
+		{
+			((BreakablePlatform*)gameObjectA)->OnHitBullet();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((BreakablePlatform*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | ZOOMER:
+	{
+		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			((Zoomer*)gameObjectA)->OnHitBomb();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((Zoomer*)gameObjectB)->OnHitBomb();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | SKREE:
+	{
+		if (gameObjectA->_CategoryMask == SKREE)
+		{
+			((Skree*)gameObjectA)->OnHitBomb();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((Skree*)gameObjectB)->OnHitBomb();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | RIO:
+	{
+		if (gameObjectA->_CategoryMask == RIO)
+		{
+			((Rio*)gameObjectA)->OnHitBomb();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((Rio*)gameObjectB)->OnHitBomb();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | RIPPER:
+	{
+		if (gameObjectA->_CategoryMask == RIPPER)
+		{
+			((Rocket*)gameObjectB)->OnHitRipper();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHitRipper();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | KRAID:
+	{
+		if (gameObjectA->_CategoryMask == RIO)
+		{
+			((Kraid*)gameObjectA)->OnHitRocket();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((Kraid*)gameObjectB)->OnHitRocket();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | OUTER_DOOR:
+	{
+		if (gameObjectA->_CategoryMask == OUTER_DOOR)
+		{
+			((OuterDoor*)gameObjectA)->OnHitBullet();
+			((Rocket*)gameObjectB)->OnHitDoor();
+		}
+		else
+		{
+			((Rocket*)gameObjectA)->OnHitDoor();
+			((OuterDoor*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
 	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
@@ -359,11 +463,37 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 	{
 		if (gameObjectA->_CategoryMask == SKREE)
 		{
-			((Zoomer*)gameObjectA)->OnHitBomb();
+			((Skree*)gameObjectA)->OnHitBomb();
 		}
 		else
 		{
-			((Zoomer*)gameObjectB)->OnHitBomb();
+			((Skree*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+		break;
+	}
+	case BOMB_EXPLOSION | RIO:
+	{
+		if (gameObjectA->_CategoryMask == SKREE)
+		{
+			((Rio*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((Rio*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+		break;
+	}
+	case BOMB_EXPLOSION | KRAID:
+	{
+		if (gameObjectA->_CategoryMask == SKREE)
+		{
+			((Kraid*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((Kraid*)gameObjectB)->OnHitBomb();
 		}
 		performOverlaying = false;
 		break;

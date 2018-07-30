@@ -11,6 +11,7 @@
 #include "Kraid.h"
 #include "Door.h"
 #include "Zeebetite.h"
+#include "Rocket.h"
 class CollisionCallback
 {
 public:

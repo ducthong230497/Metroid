@@ -14,4 +14,8 @@
  <rect left="91" top = "121" width = "8" height="8" />
 </healthitem>
 
+<rocketitem>
+ <rect left="101" top = "117" width = "8" height="12" //>
+</rocketitem>
+
 
