@@ -3,7 +3,7 @@
 #include "SpriteBatch.h"
 #include "Animation.h"
 #include "TexturePacker.h"
-#include "MainScene.h"
+#include "Scene.h"
 class Zeebetite : public Sprite
 {
 private:

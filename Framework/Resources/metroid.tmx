@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" infinite="0" nextobjectid="191">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" infinite="0" nextobjectid="194">
  <tileset firstgid="1" name="metroidTileMap" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="metroidTileMap2.png" width="258" height="193"/>
  </tileset>
@@ -322,6 +322,11 @@
   <object id="156" x="5280" y="352" width="32" height="32"/>
   <object id="157" x="5376" y="224" width="32" height="32"/>
   <object id="174" x="2784" y="2016" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="Zeebetite">
+  <object id="191" x="3520" y="3744" width="32" height="64"/>
+  <object id="192" x="3904" y="3744" width="32" height="64"/>
+  <object id="193" x="4160" y="3744" width="32" height="64"/>
  </objectgroup>
  <objectgroup name="InverseZoomer">
   <object id="137" x="3232" y="1984" width="32" height="32"/>

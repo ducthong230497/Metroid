@@ -23,6 +23,7 @@
 #include "BombItem.h"
 #include "Door.h"
 #include "Kraid.h"
+#include "Zeebetite.h"
 
 class QObject;
 class QuadTreeNode;

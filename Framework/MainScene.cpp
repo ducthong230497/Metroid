@@ -13,9 +13,9 @@ void MainScene::Init()
 {
 #pragma region set up settings
 	cam = Camera::Instance();
-	cam->setPosition(32 * 32, 32 * 89);
+	//cam->setPosition(32 * 32, 32 * 89);
 	//cam->setPosition(32 * (155), 32 * 145);
-	//cam->setPosition(32 * (86), 32 * 34);
+	cam->setPosition(32 * (86), 32 * 34);
 	batch = SpriteBatch::Instance();
 	batch->SetCamera(cam);
 	KeyBoard = CKeyboard::getInstance();
@@ -35,9 +35,9 @@ void MainScene::Init()
 
 	samusTexture = Texture("Resources/metroidfullsheet.png");
 	samus = new Samus();
-	samus->Init(&samusTexture, 32 * 40, 32 * 80);
+	//samus->Init(&samusTexture, 32 * 40, 32 * 80);
 	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
-	//samus->Init(&samusTexture, 32 * 93, 32 * 25);
+	samus->Init(&samusTexture, 32 * 93, 32 * 25);
 	samus->SetScene(this);
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
 	explosionEffect.Init(&samusTexture);
@@ -147,12 +147,20 @@ void MainScene::Init()
 #pragma endregion
 
 #pragma region Initialize Boss
+	//Kraid
 	std::vector<GameObject*> kraids = quadTree->GetObjectsGroup("Kraid");
 	GameObject* kraid = kraids.front();
 	bossesTexture = Texture("Resources/bosses.png");
 	((Kraid*)kraid)->SetScene(this);
 	((Kraid*)kraid)->Init(&bossesTexture, kraid->getPosition().x, kraid->getPosition().y);
 	((Kraid*)kraid)->SetPlayer(samus);
+
+	//Mother Brain
+	std::vector<GameObject*> Zeebetites = quadTree->GetObjectsGroup("Zeebetite");
+	for (std::vector<GameObject*>::iterator it = Zeebetites.begin(); it != Zeebetites.end(); ++it)
+	{
+		((Zeebetite*)(*it))->Init(&bossesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
+	}
 #pragma endregion
 
 #pragma region Initialize Items
@@ -560,6 +568,9 @@ void MainScene::DrawSquare()
 			break;
 		case KRAID:
 			((Kraid*)(*it))->Render(batch);
+			break;
+		case ZEEBETITE:
+			((Zeebetite*)(*it))->Render(batch);
 			break;
 		default:
 			break;

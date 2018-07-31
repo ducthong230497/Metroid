@@ -674,6 +674,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		kraid->id = id;
 		return kraid;
 	}
+	else if (str._Equal("Zeebetite"))
+	{
+		Zeebetite * zeebetite = new Zeebetite();
+		zeebetite->setPosition(rect.x, rect.y);
+		zeebetite->setSize(rect.width, rect.height);
+		zeebetite->_CategoryMask = 0;
+		zeebetite->_BitMask = 0;
+		zeebetite->id = id;
+		return zeebetite;
+	}
 	return nullptr;
 }
 

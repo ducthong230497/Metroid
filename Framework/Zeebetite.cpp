@@ -35,9 +35,10 @@ void Zeebetite::Update(float dt)
 		health = ZEEBETITEHEALTH;
 		SetRegion(regions.at(++index));
 	}
-	else
+	else if (health < 0 && index == regions.size() - 1)
 	{
-		std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), this);
+		//std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), this);
+		isActive = false;
 	}
 }
 
