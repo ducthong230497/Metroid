@@ -1,5 +1,5 @@
 #include "MainScene.h"
-
+#define ANCHOR 50
 MainScene::MainScene()
 {
 	Time = GameTime::getInstance();
@@ -167,6 +167,15 @@ void MainScene::Init()
 	bombItem = nullptr;
 	bomb = nullptr;
 #pragma endregion
+
+#pragma region Initialize UI
+	ENTexture = Texture("Resources/EN.png");
+	RocketTexture = Texture("Resources/rocketlabel.png");
+	font = Font("Arial", 10, 30);
+	playerHealthLabel = Label("30", &font, cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR, SCREEN_WIDTH, SCREEN_HEIGHT);
+	playerRocketLabel = Label("5", &font, cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR - 30, SCREEN_WIDTH, SCREEN_HEIGHT);
+#pragma endregion
+
 
 #pragma region Load Sounds
 	flagsound = Section::Brinstar;
@@ -416,6 +425,9 @@ void MainScene::Update()
 			playerRockets.erase(playerRockets.begin() + i--);
 		}
 	}
+
+	playerHealthLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR);
+	playerRocketLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR - 30);
 }
 
 void MainScene::UpdateCamera()
@@ -466,7 +478,11 @@ eSceneID MainScene::Render()
 	batch->Begin();
 	DrawSquare();
 	tileMap->Render(batch);
+	batch->Draw(ENTexture, cam->getPosition().x + 27, cam->getPosition().y - ANCHOR - ENTexture.GetImageSize().y / 2 - 3);
+	batch->Draw(RocketTexture, cam->getPosition().x + 27, cam->getPosition().y - ANCHOR - ENTexture.GetImageSize().y / 2 - 35);
 	batch->End();
+	playerHealthLabel.Draw(cam);
+	playerRocketLabel.Draw(cam);
 	return nextScene;
 }
 

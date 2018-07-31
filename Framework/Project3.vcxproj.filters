@@ -279,6 +279,12 @@
     <ClCompile Include="RocketItem.cpp">
       <Filter>Object\src\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -469,6 +475,12 @@
     </ClInclude>
     <ClInclude Include="RocketItem.h">
       <Filter>Object\include\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Core\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Core\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

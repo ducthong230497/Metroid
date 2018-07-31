@@ -22,6 +22,8 @@
 #include "HealthItem.h"
 #include "Door.h"
 #include "Kraid.h"
+#include "Font.h"
+#include "Label.h"
 
 #define SPEED 2
 #define APPEARANCETIME 3
@@ -49,6 +51,13 @@ private:
 	TileMap* tileMap;
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
+
+	//UI
+	Texture ENTexture;
+	Texture RocketTexture;
+	Font font;
+	Label playerHealthLabel;
+	Label playerRocketLabel;
 
 public:
 	bool moveThroughDoor;
