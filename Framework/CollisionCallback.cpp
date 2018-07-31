@@ -378,6 +378,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		Trace::Log("Player eat health");
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
+			((Samus*)gameObjectA)->OnHitHealthItem();
 			((HealthItem*)gameObjectB)->OnHitPlayer();
 		}
 		break;
@@ -387,6 +388,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		Trace::Log("Player eat rocket item");
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
+			((Samus*)gameObjectA)->OnHitRocketItem();
 			((RocketItem*)gameObjectB)->OnHitPlayer();
 		}
 		break;

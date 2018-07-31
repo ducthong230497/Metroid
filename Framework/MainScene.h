@@ -24,7 +24,8 @@
 #include "Kraid.h"
 #include "Font.h"
 #include "Label.h"
-
+#include <iostream>
+#include <string>
 #define SPEED 2
 #define APPEARANCETIME 3
 #define EATITEMTIME 2
@@ -104,6 +105,7 @@ public:
 	void Init() override;
 	void Update() override;
 	void UpdateCamera();
+	void UpdateUI();
 	eSceneID Render() override;
 	void DrawSquare();
 	void ProcessInput();

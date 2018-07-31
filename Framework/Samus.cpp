@@ -3,6 +3,9 @@
 #include "MainScene.h"
 
 #define BULLET_VELOCITY 400
+#define SAMUSSTARTINGHEALTH 30
+#define SAMUSSTARTINGROCKET 5
+#define GAINHEALTH 6
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -85,6 +88,9 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	//sound
 	ShootSound = Sound::LoadSound("Resources/Audio/Fire.wav");
 	JumpSound = Sound::LoadSound("Resources/Audio/Jump.wav");
+
+	health = SAMUSSTARTINGHEALTH;
+	rocket = SAMUSSTARTINGROCKET;
 }
 
 
@@ -231,40 +237,44 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			}
 			else
 			{
-				if (currentTime > FIRERATEROCKET + lastShootTime)
+				if (rocket > 0)
 				{
-					lastShootTime = currentTime;
-					Rocket *b = new Rocket(&samusTexture);
-					if (!lookUp)
+					if (currentTime > FIRERATEROCKET + lastShootTime)
 					{
-						if (facingRight)
+						lastShootTime = currentTime;
+						Rocket *b = new Rocket(&samusTexture);
+						if (!lookUp)
 						{
-							b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
-							b->setVelocity(BULLET_VELOCITY, 0);
-							b->SetRotation(0);
+							if (facingRight)
+							{
+								b->setPosition(getPosition().x + 20, getPosition().y + 13); // move right
+								b->setVelocity(BULLET_VELOCITY, 0);
+								b->SetRotation(0);
+							}
+							else
+							{
+								b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
+								b->setVelocity(-BULLET_VELOCITY, 0);
+								b->SetRotation(180);
+							}
 						}
 						else
 						{
-							b->setPosition(getPosition().x - 20, getPosition().y + 13); // move right
-							b->setVelocity(-BULLET_VELOCITY, 0);
-							b->SetRotation(180);
+							if (facingRight)
+							{
+								b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
+							}
+							else
+							{
+								b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
+							}
+							b->setVelocity(0, BULLET_VELOCITY);
+							b->SetRotation(-90);
 						}
+						rockets.push_back(b);
+						((MainScene*)scene)->playerRockets.push_back(b);
+						rocket--;
 					}
-					else
-					{
-						if (facingRight)
-						{
-							b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
-						}
-						else
-						{
-							b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
-						}
-						b->setVelocity(0, BULLET_VELOCITY);
-						b->SetRotation(-90);
-					}
-					rockets.push_back(b);
-					((MainScene*)scene)->playerRockets.push_back(b);
 				}
 			}
 		}
@@ -383,6 +393,26 @@ void Samus::OnJump()
 void Samus::OnHitItem()
 {
 	((MainScene*)scene)->eatItem = true;
+}
+
+void Samus::OnHitHealthItem()
+{
+	health += GAINHEALTH;
+}
+
+void Samus::OnHitRocketItem()
+{
+	rocket++;
+}
+
+int Samus::getHealth()
+{
+	return health;
+}
+
+int Samus::getNumberRocket()
+{
+	return rocket;
 }
 
 void Samus::HandleAnimation()

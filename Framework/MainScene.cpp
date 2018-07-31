@@ -1,5 +1,5 @@
 #include "MainScene.h"
-#define ANCHOR 50
+#define ANCHOR 55
 MainScene::MainScene()
 {
 	Time = GameTime::getInstance();
@@ -223,6 +223,7 @@ void MainScene::Update()
 	}
 	
 	UpdateCamera();
+	UpdateUI();
 
 	if (moveThroughDoor)
 	{
@@ -230,6 +231,7 @@ void MainScene::Update()
 		{
 			(*it)->Update(dt);
 		}
+		UpdateUI();
 		Render();
 
 		//samus->Update(dt);
@@ -426,8 +428,7 @@ void MainScene::Update()
 		}
 	}
 
-	playerHealthLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR);
-	playerRocketLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR - 30);
+
 }
 
 void MainScene::UpdateCamera()
@@ -471,6 +472,33 @@ void MainScene::UpdateCamera()
 		//if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) < 100)
 			cam->followPlayerY = true;
 	}
+}
+
+void MainScene::UpdateUI()
+{
+	if (samus->getHealth() < 0)
+	{
+		string temp = "0";
+		playerHealthLabel.SetText(temp);
+	}
+	else
+	{
+		string temp = std::to_string(samus->getHealth());
+		playerHealthLabel.SetText(temp);
+	}
+
+	if (samus->getNumberRocket() < 0)
+	{
+		string temp = "0";
+		playerRocketLabel.SetText(temp);
+	}
+	else
+	{
+		string temp = std::to_string(samus->getNumberRocket());
+		playerRocketLabel.SetText(temp);
+	}
+	playerHealthLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR);
+	playerRocketLabel.SetPosition(cam->getPosition().x + ANCHOR, cam->getPosition().y - ANCHOR - 30);
 }
 
 eSceneID MainScene::Render()

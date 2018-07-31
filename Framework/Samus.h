@@ -34,6 +34,9 @@ private:
 
 	bool facingRight;
 	bool shootRocket;
+
+	int health;
+	int rocket;
 	//sound
 	CSound * ShootSound;
 	CSound * JumpSound;
@@ -60,6 +63,11 @@ public:
 	void OnShoot();
 	void OnJump();
 	void OnHitItem();
+	void OnHitHealthItem();
+	void OnHitRocketItem();
+
+	int getHealth();
+	int getNumberRocket();
 };
 
 #endif
