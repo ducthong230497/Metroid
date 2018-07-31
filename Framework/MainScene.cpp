@@ -425,6 +425,17 @@ void MainScene::UpdateCamera()
 	else if(cam->followPlayerY)
 	{
 		cam->setPosition(cam->getPosition().x, samus->getPosition().y + SCREEN_HEIGHT / 2 - 32);
+		/*cam->setPosition(cam->getPosition().x, samus->getPosition().y + 100);
+		cam->followPlayerY = false;*/
+		/*if (cam->canFollowDown)
+		{
+			cam->setPosition(cam->getPosition().x, samus->getPosition().y + 100);
+		}
+		else if(cam->canFollowUp)
+		{
+			cam->setPosition(cam->getPosition().x, samus->getPosition().y + 100);
+		}*/
+
 	}
 	else if (cam->canFollowRight)
 	{
@@ -439,11 +450,13 @@ void MainScene::UpdateCamera()
 	else if (cam->canFollowUp)
 	{
 		if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) > SCREEN_HEIGHT / 2)
+		//if (abs(cam->getPosition().y - samus->getPosition().y) < 100)
 			cam->followPlayerY = true;
 	}
 	else if (cam->canFollowDown)
 	{
 		if (abs(cam->getPosition().y - samus->getPosition().y) > SCREEN_HEIGHT / 2)
+		//if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) < 100)
 			cam->followPlayerY = true;
 	}
 }

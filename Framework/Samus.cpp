@@ -42,7 +42,7 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Appear.SetFrameInterval(0.02);
 	Stand.AddRegion(p.GetRegion("standing"));
 	Move.AddRegion(p.GetRegion("movewithoutshooting"));
-	Move.SetFrameInterval(0.02);
+	Move.SetFrameInterval(0.03);
 	Jump.AddRegion(p.GetRegion("jumpwithoutshooting"));
 	StandUp.AddRegion(p.GetRegion("standandshootup"));
 	MoveShoot.AddRegion(p.GetRegion("moveandshoot"));

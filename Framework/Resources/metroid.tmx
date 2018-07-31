@@ -299,7 +299,7 @@
  <objectgroup name="Zoomer">
   <object id="25" x="1184" y="1728" width="32" height="32"/>
   <object id="26" x="1344" y="1728" width="32" height="32"/>
-  <object id="27" x="1984" y="1984" width="32" height="32"/>
+  <object id="27" x="514" y="1666" width="2012" height="668"/>
   <object id="92" x="2816" y="2144" width="32" height="32"/>
   <object id="93" x="2688" y="2272" width="32" height="32"/>
   <object id="94" x="2784" y="2400" width="32" height="32"/>
@@ -310,7 +310,7 @@
   <object id="99" x="2784" y="3648" width="32" height="32"/>
   <object id="108" x="2688" y="2752" width="32" height="32"/>
   <object id="109" x="2688" y="3232" width="32" height="32"/>
-  <object id="139" x="3840" y="1984" width="32" height="32"/>
+  <object id="139" x="3138" y="1668" width="1532" height="348"/>
   <object id="148" x="5376" y="1696" width="32" height="32"/>
   <object id="149" x="5344" y="1440" width="32" height="32"/>
   <object id="150" x="5280" y="1312" width="32" height="32"/>
