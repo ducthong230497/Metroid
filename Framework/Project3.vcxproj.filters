@@ -288,6 +288,9 @@
     <ClCompile Include="MotherBrain.cpp">
       <Filter>Object\src\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="CircleBullet.cpp">
+      <Filter>Object\src\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -486,6 +489,9 @@
       <Filter>Core\include</Filter>
     </ClInclude>
     <ClInclude Include="MotherBrain.h">
+      <Filter>Object\include\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleBullet.h">
       <Filter>Object\include\Boss</Filter>
     </ClInclude>
   </ItemGroup>

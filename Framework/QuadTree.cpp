@@ -705,6 +705,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		motherBrain->id = id;
 		return motherBrain;
 	}
+	else if (str._Equal("CircleBullet"))
+	{
+		Rinka * circleBullet = new Rinka();
+		circleBullet->setPosition(rect.x, rect.y);
+		circleBullet->setSize(rect.width, rect.height);
+		circleBullet->_CategoryMask = 0;
+		circleBullet->_BitMask = 0;
+		circleBullet->id = id;
+		return circleBullet;
+	}
 	return nullptr;
 }
 

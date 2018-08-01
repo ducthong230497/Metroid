@@ -171,6 +171,14 @@ void MainScene::Init()
 	{
 		((Zeebetite*)(*it))->Init(&bossesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
 	}
+
+	std::vector<GameObject*> circleBullets = quadTree->GetObjectsGroup("CircleBullet");
+	for (std::vector<GameObject*>::iterator it = circleBullets.begin(); it != circleBullets.end(); ++it)
+	{
+		((Rinka*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
+		((Rinka*)(*it))->SetScene(this);
+		((Rinka*)(*it))->SetPlayer(samus);
+	}
 #pragma endregion
 
 #pragma region Initialize Items
@@ -584,6 +592,9 @@ void MainScene::DrawSquare()
 			break;
 		case MOTHERBRAIN:
 			((MotherBrain*)(*it))->Render(batch);
+			break;
+		case CIRCLEBULLET:
+			((Rinka*)(*it))->Render(batch);
 			break;
 		default:
 			break;

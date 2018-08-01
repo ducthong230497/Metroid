@@ -139,6 +139,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDevice.cpp" />
+    <ClCompile Include="CircleBullet.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionCallback.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDevice.h" />
+    <ClInclude Include="CircleBullet.h" />
     <ClInclude Include="CKeyboard.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionCallback.h" />

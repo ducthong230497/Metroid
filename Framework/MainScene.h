@@ -23,6 +23,7 @@
 #include "Door.h"
 #include "Kraid.h"
 #include "MotherBrain.h"
+#include "CircleBullet.h"
 #include "Font.h"
 #include "Label.h"
 #include <iostream>
