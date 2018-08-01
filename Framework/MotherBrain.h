@@ -1,20 +1,20 @@
 #pragma once
+
 #include "Sprite.h"
 #include "SpriteBatch.h"
 #include "Animation.h"
 #include "TexturePacker.h"
 #include "Scene.h"
-class Zeebetite : public Sprite
+#include "Enemy.h"
+class MotherBrain : public Sprite, public Enemy
 {
 private:
-	int health;
-	//Animation animation;
-	std::vector<TextureRegion> regions;
+	Animation IdleAnimation;
+	Animation OpenDoorAnimation;
 	Scene * scene;
-	int index;
 public:
-	Zeebetite();
-	~Zeebetite();
+	MotherBrain();
+	~MotherBrain();
 
 	void SetScene(Scene * s);
 
@@ -27,4 +27,6 @@ public:
 	void OnHitBullet();
 
 	void OnHitRocket();
+
+	void OnDie();
 };

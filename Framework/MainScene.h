@@ -22,6 +22,7 @@
 #include "HealthItem.h"
 #include "Door.h"
 #include "Kraid.h"
+#include "MotherBrain.h"
 #include "Font.h"
 #include "Label.h"
 #include <iostream>
@@ -34,7 +35,7 @@ enum Section
 {
 	Brinstar,
 	KraidTheme,
-	MotherBrain
+	MotherBrainTheme
 };
 
 class MainScene : public Scene
@@ -94,7 +95,7 @@ private:
 	CSound * Appearance;
 	CSound * Brinstar;
 	CSound * KraidTheme;
-	CSound * MotherBrain;
+	CSound * MotherBrainSound;
 
 public:
 	MainScene();

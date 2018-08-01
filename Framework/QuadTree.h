@@ -24,6 +24,7 @@
 #include "Door.h"
 #include "Kraid.h"
 #include "Zeebetite.h"
+#include "MotherBrain.h"
 
 class QObject;
 class QuadTreeNode;

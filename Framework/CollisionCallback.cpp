@@ -187,6 +187,20 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER_BULLET | MOTHERBRAIN:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER_BULLET)
+		{
+			((Bullet*)gameObjectA)->OnHit();
+			((MotherBrain*)gameObjectB)->OnHitBullet();
+		}
+		else
+		{
+			((MotherBrain*)gameObjectA)->OnHitBullet();
+			((Bullet*)gameObjectB)->OnHit();
+		}
+		break;
+	}
 	case PLAYER_ROCKET | PLATFORM:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER_ROCKET)
@@ -288,6 +302,34 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			((Rocket*)gameObjectA)->OnHitDoor();
 			((OuterDoor*)gameObjectB)->OnHitBullet();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | ZEEBETITE:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER_ROCKET)
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((Zeebetite*)gameObjectB)->OnHitRocket();
+		}
+		else
+		{
+			((Zeebetite*)gameObjectA)->OnHitRocket();
+			((Rocket*)gameObjectB)->OnHit();
+		}
+		break;
+	}
+	case PLAYER_ROCKET | MOTHERBRAIN:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER_ROCKET)
+		{
+			((Rocket*)gameObjectA)->OnHit();
+			((MotherBrain*)gameObjectB)->OnHitRocket();
+		}
+		else
+		{
+			((MotherBrain*)gameObjectA)->OnHitRocket();
+			((Rocket*)gameObjectB)->OnHit();
 		}
 		break;
 	}

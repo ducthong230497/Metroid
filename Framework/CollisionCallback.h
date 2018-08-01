@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "HealthItem.h"
 #include "Kraid.h"
+#include "MotherBrain.h"
 #include "Door.h"
 #include "Zeebetite.h"
 #include "Rocket.h"

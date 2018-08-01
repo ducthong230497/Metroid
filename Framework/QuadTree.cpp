@@ -574,7 +574,18 @@ void QuadTree::Load(const std::string &quadtreeFilePath, const std::string &tmxF
 
 GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float y, float w, float h, Shape::Rectangle rect)
 {
-	if (str._Equal("Platform"))
+	if (str._Equal("Player"))
+	{
+		GameObject* gameObject = new GameObject();
+		gameObject->setPosition(rect.x, rect.y);
+		gameObject->setSize(rect.width, rect.height);
+		gameObject->_CategoryMask = 0;
+		gameObject->_BitMask = 0;
+		gameObject->id = id;
+		gameObject->isActive = false;
+		return gameObject;
+	}
+	else if (str._Equal("Platform"))
 	{
 		GameObject* gameObject = new GameObject();
 		gameObject->setPosition(rect.x, rect.y);
@@ -683,6 +694,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		zeebetite->_BitMask = 0;
 		zeebetite->id = id;
 		return zeebetite;
+	}
+	else if (str._Equal("MotherBrain"))
+	{
+		MotherBrain * motherBrain = new MotherBrain();
+		motherBrain->setPosition(rect.x, rect.y);
+		motherBrain->setSize(rect.width, rect.height);
+		motherBrain->_CategoryMask = 0;
+		motherBrain->_BitMask = 0;
+		motherBrain->id = id;
+		return motherBrain;
 	}
 	return nullptr;
 }

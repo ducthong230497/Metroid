@@ -6,6 +6,7 @@
 #define SAMUSSTARTINGHEALTH 30
 #define SAMUSSTARTINGROCKET 5
 #define GAINHEALTH 6
+#define BOMBDELAY 1.5f
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -280,10 +281,15 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 		else if (KeyBoard->IsKeyDown(DIK_Z) && roll)
 		{
-			Bomb * _bomb = new Bomb(&samusTexture);
-			_bomb->SetScene(scene);
-			_bomb->setPosition(_Position);
-			((MainScene*)scene)->bomb = _bomb;
+			float currentTime = GetTickCount() / 1000.0f;
+			if (currentTime > lastBombTime + BOMBDELAY)
+			{
+				lastBombTime = currentTime;
+				Bomb * _bomb = new Bomb(&samusTexture);
+				_bomb->SetScene(scene);
+				_bomb->setPosition(_Position);
+				((MainScene*)scene)->bomb = _bomb;
+			}
 		}
 
 
@@ -336,9 +342,10 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			shoot = false;
 		}
 
-		if (KeyBoard->IsKeyDown(DIK_S))
+		if (KeyBoard->IsFirstKeyDown(DIK_S))
 		{
 			shootRocket = !shootRocket;
+			Trace::Log("shootRocket: %d", shootRocket);
 		}
 		HandleAnimation();
 	}

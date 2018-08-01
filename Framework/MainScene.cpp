@@ -37,9 +37,13 @@ void MainScene::Init()
 	samus = new Samus();
 	//samus->Init(&samusTexture, 32 * 40, 32 * 80);
 	//samus->Init(&samusTexture, 32 * 163, 32 * 136);
-	samus->Init(&samusTexture, 32 * 93, 32 * 25);
+	GameObject* Player = quadTree->GetObjectsGroup("Player").front();
+	samus->Init(&samusTexture, Player->getPosition().x, Player->getPosition().y);
 	samus->SetScene(this);
+
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
+	cam->setPosition(samus->getPosition().x - 32 * (5), samus->getPosition().y + 32 * 5);
+
 	explosionEffect.Init(&samusTexture);
 	explosionEffect.SetSize(32, 32);
 
@@ -99,7 +103,7 @@ void MainScene::Init()
 	((Door*)doors[4])->leftDoor->followDirection = RIGHT;
 	((Door*)doors[4])->rightDoor->followDirection = UP;
 	((Door*)doors[4])->SetChangeSoundTheme(true);
-	((Door*)doors[4])->leftFlagSound = Section::MotherBrain;
+	((Door*)doors[4])->leftFlagSound = Section::MotherBrainTheme;
 	((Door*)doors[4])->rightFlagSound = Section::Brinstar;
 #pragma endregion
 
@@ -147,15 +151,21 @@ void MainScene::Init()
 #pragma endregion
 
 #pragma region Initialize Boss
+	bossesTexture = Texture("Resources/bosses.png");
 	//Kraid
 	std::vector<GameObject*> kraids = quadTree->GetObjectsGroup("Kraid");
 	GameObject* kraid = kraids.front();
-	bossesTexture = Texture("Resources/bosses.png");
 	((Kraid*)kraid)->SetScene(this);
 	((Kraid*)kraid)->Init(&bossesTexture, kraid->getPosition().x, kraid->getPosition().y);
 	((Kraid*)kraid)->SetPlayer(samus);
 
 	//Mother Brain
+	std::vector<GameObject*> motherBrains = quadTree->GetObjectsGroup("MotherBrain");
+	GameObject * motherBrain = motherBrains.front();
+	((MotherBrain*)motherBrain)->Init(&bossesTexture, motherBrain->getPosition().x, motherBrain->getPosition().y);
+	((MotherBrain*)motherBrain)->SetScene(this);
+
+
 	std::vector<GameObject*> Zeebetites = quadTree->GetObjectsGroup("Zeebetite");
 	for (std::vector<GameObject*>::iterator it = Zeebetites.begin(); it != Zeebetites.end(); ++it)
 	{
@@ -191,7 +201,7 @@ void MainScene::Init()
 	Appearance = Sound::LoadSound("Resources/Audio/Appearance.wav");
 	Brinstar = Sound::LoadSound("Resources/Audio/BrinstarTheme.wav");
 	KraidTheme = Sound::LoadSound("Resources/Audio/BossKraid.wav");
-	MotherBrain = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
+	MotherBrainSound = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
 #pragma endregion
 
 	nextScene = MAINSCENE;
@@ -572,6 +582,9 @@ void MainScene::DrawSquare()
 		case ZEEBETITE:
 			((Zeebetite*)(*it))->Render(batch);
 			break;
+		case MOTHERBRAIN:
+			((MotherBrain*)(*it))->Render(batch);
+			break;
 		default:
 			break;
 		}
@@ -620,17 +633,17 @@ void MainScene::PlaySoundTheme()
 	case Section::Brinstar:
 		Sound::Play(Brinstar);
 		Sound::Stop(KraidTheme);
-		Sound::Stop(MotherBrain);
+		Sound::Stop(MotherBrainSound);
 		break;
 	case Section::KraidTheme:
 		Sound::Stop(Brinstar);
 		Sound::Play(KraidTheme);
-		Sound::Stop(MotherBrain);
+		Sound::Stop(MotherBrainSound);
 		break;
-	case Section::MotherBrain:
+	case Section::MotherBrainTheme:
 		Sound::Stop(Brinstar);
 		Sound::Stop(KraidTheme);
-		Sound::Play(MotherBrain);
+		Sound::Play(MotherBrainSound);
 		break;
 	default:
 		break;

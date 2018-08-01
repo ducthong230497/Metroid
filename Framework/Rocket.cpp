@@ -24,7 +24,7 @@ Rocket::Rocket(Texture * texture)
 
 	//create body
 	_CategoryMask = PLAYER_ROCKET;
-	_BitMask = SKREE | ZOOMER | RIO | RIPPER | PLATFORM | BREAKABLE_PLATFORM | KRAID | DOOR | OUTER_DOOR | ZEEBETITE;
+	_BitMask = SKREE | ZOOMER | RIO | RIPPER | PLATFORM | BREAKABLE_PLATFORM | KRAID | DOOR | OUTER_DOOR | ZEEBETITE | MOTHERBRAIN;
 
 	HitEnemySound = Sound::LoadSound("Resources/Audio/ShootEnemies.wav");
 	HitRipperSound = Sound::LoadSound("Resources/Audio/ShootRipper.wav");

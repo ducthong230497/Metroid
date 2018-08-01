@@ -1,5 +1,5 @@
 #include "Zeebetite.h"
-#define ZEEBETITEHEALTH 10
+#define ZEEBETITEHEALTH 8
 Zeebetite::Zeebetite()
 {
 }
@@ -26,6 +26,7 @@ void Zeebetite::Init(Texture * itemsTexture, int x, int y)
 	_CategoryMask = ZEEBETITE;
 	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET;
 	health = ZEEBETITEHEALTH;
+	//isActive = false;
 }
 
 void Zeebetite::Update(float dt)
@@ -50,4 +51,9 @@ void Zeebetite::Render(SpriteBatch * batch)
 void Zeebetite::OnHitBullet()
 {
 	health--;
+}
+
+void Zeebetite::OnHitRocket()
+{
+	health -= ZEEBETITEHEALTH;
 }

@@ -37,6 +37,7 @@ private:
 
 	int health;
 	int rocket;
+	float lastBombTime;
 	//sound
 	CSound * ShootSound;
 	CSound * JumpSound;
