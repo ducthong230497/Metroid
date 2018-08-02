@@ -26,6 +26,7 @@
 #include "Zeebetite.h"
 #include "MotherBrain.h"
 #include "CircleBullet.h"
+#include "Cannon.h"
 
 class QObject;
 class QuadTreeNode;

@@ -1,7 +1,7 @@
 #include "CircleBullet.h"
 
 #define FIRERATE 2
-#define CIRCLEBULLETLIVETIME 3
+#define CIRCLEBULLETLIVETIME 2
 #define SPEED 100 
 
 Rinka::Rinka()
@@ -43,14 +43,14 @@ void Rinka::Init(Texture * enemiesTexture, int x, int y)
 
 void Rinka::Update(float dt)
 {
-	float currentTime = GetTickCount();
+	float currentTime = GetTickCount()/1000.0f;
 	if (currentTime > lastShootTime + FIRERATE)
 	{
+		lastShootTime = currentTime;
 		if (isDestroyed)
 		{
 			stateTime = 0;
 			isDestroyed = false;
-			lastShootTime = currentTime;
 
 			POINT offset = player->getPosition() - _Position;
 
@@ -72,6 +72,8 @@ void Rinka::Update(float dt)
 			if (stateTime > CIRCLEBULLETLIVETIME)
 			{
 				isDestroyed = true;
+				_Velocity = POINT(0, 0);
+				_Position = basePosition;
 				stateTime = -1;
 			}
 		}

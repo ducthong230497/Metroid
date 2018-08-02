@@ -457,6 +457,17 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case CANNON_BULLET | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == CANNON_BULLET)
+		{
+			((CannonBullet*)gameObjectA)->OnHitGround();
+		}
+		else
+		{
+			((CannonBullet*)gameObjectB)->OnHitGround();
+		}
+	}
 	default: break;
 	}
 }

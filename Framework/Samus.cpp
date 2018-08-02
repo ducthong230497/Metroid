@@ -113,7 +113,8 @@ void Samus::Init(Texture * texture, float x, float y)
 	setCategoryMask(Category::PLAYER);
 	setBitMask(	Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | 
 				Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET | 
-				Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM);
+				Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
+				Category::ZEEBETITE);
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;

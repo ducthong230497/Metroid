@@ -715,6 +715,26 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		circleBullet->id = id;
 		return circleBullet;
 	}
+	else if (str._Equal("LeftCannon"))
+	{
+		Cannon * cannon = new Cannon();
+		cannon->setPosition(rect.x, rect.y);
+		cannon->setSize(rect.width, rect.height);
+		cannon->_CategoryMask = 0;
+		cannon->_BitMask = 0;
+		cannon->id = id;
+		return cannon;
+	}
+	else if (str._Equal("RightCannon"))
+	{
+		Cannon * cannon = new Cannon();
+		cannon->setPosition(rect.x, rect.y);
+		cannon->setSize(rect.width, rect.height);
+		cannon->_CategoryMask = 0;
+		cannon->_BitMask = 0;
+		cannon->id = id;
+		return cannon;
+	}
 	return nullptr;
 }
 
@@ -888,6 +908,10 @@ void QuadTree::LoadObjectsInViewport(const RECT &viewport, QuadTreeNode* QNode)
 						{
 							objectsInViewport.insert(objectsInViewport.end(), ((Kraid*)gameObject)->bullets.begin(), ((Kraid*)gameObject)->bullets.end());
 							objectsInViewport.insert(objectsInViewport.end(), ((Kraid*)gameObject)->boomerangs.begin(), ((Kraid*)gameObject)->boomerangs.end());
+						}
+						else if (gameObject->_CategoryMask == CANNON)
+						{
+							objectsInViewport.push_back((((Cannon*)gameObject)->cannonBullet));
 						}
 					}
 				}

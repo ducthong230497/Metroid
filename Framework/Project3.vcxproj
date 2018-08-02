@@ -138,6 +138,7 @@
     <ClCompile Include="BreakablePlatform.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CircleBullet.cpp" />
     <ClCompile Include="CKeyboard.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Condition_.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -204,6 +206,7 @@
     <ClInclude Include="BreakablePlatform.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CircleBullet.h" />
     <ClInclude Include="CKeyboard.h" />
@@ -216,6 +219,7 @@
     <ClInclude Include="define_eSceneID.h" />
     <ClInclude Include="define_Category.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Font.h" />

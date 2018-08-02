@@ -55,7 +55,7 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID;
+		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID | Category::CANNON_BULLET;
 	}
 
 	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
@@ -178,6 +178,20 @@ void MainScene::Init()
 		((Rinka*)(*it))->Init(&enemiesTexture, (*it)->getPosition().x, (*it)->getPosition().y);
 		((Rinka*)(*it))->SetScene(this);
 		((Rinka*)(*it))->SetPlayer(samus);
+	}
+
+	std::vector<GameObject*> lcannons = quadTree->GetObjectsGroup("LeftCannon");
+	for (std::vector<GameObject*>::iterator it = lcannons.begin(); it != lcannons.end(); ++it)
+	{
+		((Cannon*)(*it))->Init(&bossesTexture,  Cannon::Type::Left, rand() % 4,(*it)->getPosition().x, (*it)->getPosition().y);
+		((Cannon*)(*it))->SetScene(this);
+	}
+
+	std::vector<GameObject*> rcannons = quadTree->GetObjectsGroup("RightCannon");
+	for (std::vector<GameObject*>::iterator it = rcannons.begin(); it != rcannons.end(); ++it)
+	{
+		((Cannon*)(*it))->Init(&bossesTexture, Cannon::Type::Right, rand() % 4, (*it)->getPosition().x, (*it)->getPosition().y);
+		((Cannon*)(*it))->SetScene(this);
 	}
 #pragma endregion
 
@@ -430,6 +444,8 @@ void MainScene::Update()
 #pragma endregion
 
 		(GameObjects.at(i))->Next(dt, moveX, moveY);
+		if (GameObjects.at(i)->_CategoryMask == CANNON)
+			int a = 2;
 		(GameObjects.at(i))->Update(dt);
 	}
 
@@ -595,6 +611,9 @@ void MainScene::DrawSquare()
 			break;
 		case CIRCLEBULLET:
 			((Rinka*)(*it))->Render(batch);
+			break;
+		case CANNON:
+			((Cannon*)(*it))->Render(batch);
 			break;
 		default:
 			break;
