@@ -1,5 +1,6 @@
 #include "MainScene.h"
 #define ANCHOR 55
+#define CHANGESCENE 1
 MainScene::MainScene()
 {
 	Time = GameTime::getInstance();
@@ -232,12 +233,22 @@ void MainScene::Init()
 
 void MainScene::Update()
 {
+	float dt = Time->getDeltaTime() / 1000.0f;
+
+	if (samus->IsDead())
+	{
+		samusDeadTime += dt;
+		if (samusDeadTime > CHANGESCENE)
+		{
+			nextScene = GAMEOVERSCENE;
+		}
+	}
+
 	quadTree->LoadObjectsInViewport(cam, true, true);
 
 	GameObjects.clear();
 	GameObjects.insert(GameObjects.begin(), samus);
 
-	float dt = Time->getDeltaTime() / 1000.0f;
 	if (apprearanceTime < APPEARANCETIME)
 	{
 		apprearanceTime += dt;
@@ -658,6 +669,15 @@ void MainScene::End()
 
 void MainScene::PlaySoundTheme()
 {
+	if (samus->PlayDeadSound())
+	{
+		cam->followPlayerX = false;
+		cam->followPlayerY = false;
+		Sound::Stop(Brinstar);
+		Sound::Stop(KraidTheme);
+		Sound::Stop(MotherBrainSound);
+		return;
+	}
 	switch (flagsound)
 	{
 	case Section::Brinstar:

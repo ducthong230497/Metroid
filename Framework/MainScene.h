@@ -56,6 +56,8 @@ private:
 	SpriteBatch * batch;
 	CKeyboard * KeyBoard;
 
+	float samusDeadTime;
+
 	//UI
 	Texture ENTexture;
 	Texture RocketTexture;

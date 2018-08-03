@@ -9,7 +9,7 @@
 #include "Sound.h"
 #include "Rocket.h"
 
-#define FIRERATE 0.15f
+#define FIRERATE 0.25f
 #define FIRERATEROCKET 0.25f
 #define JUMP_1 90;
 #define JUMP_2 200;
@@ -32,15 +32,24 @@ private:
 	void InitSamusAnimation(Texture * samusTexture);
 	void HandleAnimation();
 
+	//deadEffect
+	std::vector<Sprite> deadEffect;
+
 	bool facingRight;
 	bool shootRocket;
+	bool isDead;
+	bool playDeadSound;
 
 	int health;
 	int rocket;
 	float lastBombTime;
+	float deadTime;
 	//sound
 	CSound * ShootSound;
 	CSound * JumpSound;
+	CSound * moveSound;
+	CSound * deathSound;
+
 public:
 	Animator  animator;
 	Animation_
@@ -66,9 +75,12 @@ public:
 	void OnHitItem();
 	void OnHitHealthItem();
 	void OnHitRocketItem();
+	void OnHitEnemy();
 
 	int getHealth();
 	int getNumberRocket();
+	bool IsDead();
+	bool PlayDeadSound();
 };
 
 #endif

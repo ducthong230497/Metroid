@@ -337,7 +337,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
-			//OnHitEnemy
+			((Samus*)gameObjectA)->OnHitEnemy();
 			Trace::Log("Player hit enemy");
 		}
 		else
@@ -348,10 +348,23 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 				Trace::Log("Player hit Rio");
 				//gameObjectB->setVelocity(-100 * 3, 100);
 			}
-			else if (gameObjectA->_CategoryMask == RIPPER)
+			else
+			{
+
+			}
+			if (gameObjectA->_CategoryMask == RIPPER)
 			{
 				((Ripper*)gameObjectA)->OnHitPlayer();
 				Trace::Log("Player hit Ripper");
+			}
+			else
+			{
+
+			}
+			
+			if (gameObjectA->_CategoryMask == ZOOMER)
+			{
+				
 			}
 		}
 		break;

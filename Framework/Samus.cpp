@@ -7,6 +7,7 @@
 #define SAMUSSTARTINGROCKET 5
 #define GAINHEALTH 6
 #define BOMBDELAY 1.5f
+#define MAXDEADTIME 0.5
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -86,9 +87,23 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	animator.previousAnimation = Appear;
 	animator.frameInterval = Appear.duration;
 
+	//Setup Dead effect
+	Sprite deadEffectSprite;
+	deadEffectSprite.SetRegion(p.GetRegion("deadeffect").front());
+	deadEffectSprite.SetSize(8, 8);
+	for (int i = 0; i < 8; i++)
+	{
+		deadEffectSprite.SetRotation(i * 30);
+		deadEffect.push_back(deadEffectSprite);
+	}
+
 	//sound
 	ShootSound = Sound::LoadSound("Resources/Audio/Fire.wav");
 	JumpSound = Sound::LoadSound("Resources/Audio/Jump.wav");
+	moveSound = Sound::LoadSound("Resources/Audio/Move.wav");
+	deathSound = Sound::LoadSound("Resources/Audio/Death.wav");
+
+	deadTime = -1;
 
 	health = SAMUSSTARTINGHEALTH;
 	rocket = SAMUSSTARTINGROCKET;
@@ -132,21 +147,57 @@ void Samus::Init(Texture * texture, float x, float y)
 
 void Samus::Render(SpriteBatch * batch)
 {
-	batch->Draw(*this);
-
-	for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+	if (health > 0)
 	{
-		batch->Draw(*it);
+		batch->Draw(*this);
+
+		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+		{
+			batch->Draw(*it);
+		}
+
+		for (std::vector<Rocket*>::iterator it = rockets.begin(); it != rockets.end(); ++it)
+		{
+			batch->Draw(*it);
+		}
 	}
-
-	for (std::vector<Rocket*>::iterator it = rockets.begin(); it != rockets.end(); ++it)
+	else
 	{
-		batch->Draw(*it);
+		if (deadTime < MAXDEADTIME)
+		{
+			int i = 0;
+			for (std::vector<Sprite>::iterator it = deadEffect.begin(); it != deadEffect.end(); ++it)
+			{
+				it->SetPosition(it->GetPosition().x + 5 * cos(45 * i*Pi / 180), it->GetPosition().y + 5 * sin(45 * i*Pi / 180));
+				batch->Draw(*it);
+				i++;
+			}
+		}
 	}
 }
 
 void Samus::Update(float dt)
 {
+	if (health <= 0)
+	{
+		if (deadTime == -1)
+		{
+			playDeadSound = true;
+			isDead = true;
+			Sound::Play(deathSound);
+			//setup for deadEffect
+			for (std::vector<Sprite>::iterator it = deadEffect.begin(); it != deadEffect.end(); ++it)
+			{
+				it->SetPosition(getPosition().x, getPosition().y);
+			}
+			deadTime = 0;
+		}
+		else
+		{
+			deadTime += dt;
+		}
+	}
+
 	if (moveThroughDoor) return;
 
 	if (getVelocity().x > 0)
@@ -206,6 +257,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			{
 				if (currentTime > FIRERATE + lastShootTime)
 				{
+					Sound::Play(ShootSound);
 					lastShootTime = currentTime;
 					Bullet *b = new Bullet(&samusTexture);
 					if (!lookUp)
@@ -243,6 +295,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 				{
 					if (currentTime > FIRERATEROCKET + lastShootTime)
 					{
+						Sound::Play(ShootSound);
 						lastShootTime = currentTime;
 						Rocket *b = new Rocket(&samusTexture);
 						if (!lookUp)
@@ -349,6 +402,11 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			Trace::Log("shootRocket: %d", shootRocket);
 		}
 		HandleAnimation();
+
+		if ((KeyBoard->IsKeyDown(DIK_LEFT) || KeyBoard->IsKeyDown(DIK_RIGHT)) && onGround)
+		{
+			Sound::Play(moveSound);
+		}
 	}
 }
 
@@ -413,6 +471,11 @@ void Samus::OnHitRocketItem()
 	rocket++;
 }
 
+void Samus::OnHitEnemy()
+{
+	health -= 30;
+}
+
 int Samus::getHealth()
 {
 	return health;
@@ -421,6 +484,16 @@ int Samus::getHealth()
 int Samus::getNumberRocket()
 {
 	return rocket;
+}
+
+bool Samus::IsDead()
+{
+	return isDead;
+}
+
+bool Samus::PlayDeadSound()
+{
+	return playDeadSound;
 }
 
 void Samus::HandleAnimation()
