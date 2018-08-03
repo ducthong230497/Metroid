@@ -350,7 +350,7 @@
   <object id="194" x="4320" y="3680" width="128" height="128"/>
  </objectgroup>
  <objectgroup name="Player">
-  <object id="195" x="3313" y="3697" width="32" height="64"/>
+  <object id="195" x="1279" y="1887" width="32" height="64"/>
  </objectgroup>
  <objectgroup name="InverseZoomer">
   <object id="137" x="3232" y="1984" width="32" height="32"/>

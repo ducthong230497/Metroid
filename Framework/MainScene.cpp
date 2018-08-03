@@ -43,7 +43,7 @@ void MainScene::Init()
 	samus->SetScene(this);
 
 	cameraOffsetX = samus->getPosition().x - cam->getPosition().x;
-	cam->setPosition(samus->getPosition().x - 32 * (5), samus->getPosition().y + 32 * 5);
+	cam->setPosition(samus->getPosition().x - 32 * (8), samus->getPosition().y + 32 * 9);
 
 	explosionEffect.Init(&samusTexture);
 	explosionEffect.SetSize(32, 32);
