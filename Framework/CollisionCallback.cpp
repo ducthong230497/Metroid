@@ -335,9 +335,12 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	}
 	case PLAYER | RIO :case PLAYER | RIPPER: case PLAYER | ZOOMER: case PLAYER | SKREE:
 	{
-		if (gameObjectA->_CategoryMask == PLAYER)
+		if (gameObjectA->_CategoryMask == PLAYER && gameObjectB->_CategoryMask == ZOOMER)
 		{
-			((Samus*)gameObjectA)->OnHitEnemy();
+			if(CollisionDirection.x != NOT_COLLIDED)
+				((Samus*)gameObjectA)->OnHitEnemy();
+			else if(CollisionDirection.y != NOT_COLLIDED && (CollisionDirection.y < 0))
+				((Samus*)gameObjectA)->OnHitEnemy();
 			Trace::Log("Player hit enemy");
 		}
 		else
@@ -362,9 +365,9 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 
 			}
 			
-			if (gameObjectA->_CategoryMask == ZOOMER)
+			if (gameObjectA->_CategoryMask == ZOOMER && CollisionDirection.y < 0)
 			{
-				
+				//((Samus*)gameObjectA)->OnHitEnemy();
 			}
 		}
 		break;

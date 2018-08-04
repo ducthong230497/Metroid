@@ -39,6 +39,7 @@ private:
 	bool shootRocket;
 	bool isDead;
 	bool playDeadSound;
+	bool addAccelaration;
 
 	int health;
 	int rocket;
@@ -66,6 +67,7 @@ public:
 	void SetScene(Scene *s);
 	void Init(Texture * samusTexture, float x, float y);
 	void Render(SpriteBatch *batch);
+	void UpdateVelocity(GameObject * player) override;
 	void Update(float dt) override;
 	void ProcessInput(CKeyboard * KeyBoard);
 	void OnHitGround(POINT direction);

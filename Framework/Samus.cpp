@@ -8,6 +8,9 @@
 #define GAINHEALTH 6
 #define BOMBDELAY 1.5f
 #define MAXDEADTIME 0.5
+#define GRAVITY -3000.0f
+#define JUMPSPEED 800
+#define JUMPACCELARATION 300
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -173,6 +176,18 @@ void Samus::Render(SpriteBatch * batch)
 				i++;
 			}
 		}
+	}
+}
+
+void Samus::UpdateVelocity(GameObject * player)
+{
+	if (!onGround)
+	{
+		_Velocity.y += GRAVITY * 2 * 0.016f;
+	}
+	else
+	{
+		//_Velocity.y = -400;
 	}
 }
 
@@ -349,30 +364,32 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 #pragma region Jump way 2
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
-			setVelocity(getVelocity().x, 400);
-			jump1 = _Position.y + JUMP_1;
-			jump2 = _Position.y + JUMP_2;
-			count = 1;
+			setVelocity(getVelocity().x, JUMPSPEED);
+			addAccelaration = true;
 		}
-
-		if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
-			count = -1;
-			setVelocity(getVelocity().x, -400);
+		if (KeyBoard->IsKeyDown(DIK_X) && !KeyBoard->IsFirstKeyDown(DIK_X))
+		{
+			setVelocity(getVelocity().x, _Velocity.y + JUMPACCELARATION * 0.016);
+			addAccelaration = false;
 		}
+		//if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
+		//	count = -1;
+		//	setVelocity(getVelocity().x, -400);
+		//}
 
-		// set new velocity when it pass jump 1
-		if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
-			setVelocity(getVelocity().x, 350);
+		//// set new velocity when it pass jump 1
+		//if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
+		//	setVelocity(getVelocity().x, 350);
 
-		if (_Position.y > jump2 && !onGround) {
-			count = -1;
-			setVelocity(getVelocity().x, -400);
-		}
+		//if (_Position.y > jump2 && !onGround) {
+		//	count = -1;
+		//	setVelocity(getVelocity().x, -400);
+		//}
 
-		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
-			jumpTime += 0.02;
-		else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
-			count = 2;
+		//if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
+		//	jumpTime += 0.02;
+		//else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
+		//	count = 2;
 
 #pragma endregion
 
