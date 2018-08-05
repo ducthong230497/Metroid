@@ -35,7 +35,7 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Jump = Animation_("Jump", [=] { setSize(34, 45);  if (animator.previousAnimation.name != "MoveUp") animator.SetBool("MoveUp", false); }, NULL, [=] {setSize(34, 60); }, true);
 	JumpShoot = Animation_("JumpShoot", NULL, NULL, NULL, true);
 	JumpUp = Animation_("JumpUp", NULL, NULL, NULL, true);
-	JumpRoll = Animation_("JumpRoll", NULL, NULL, NULL, true);
+	JumpRoll = Animation_("JumpRoll", [=] { setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
 	Roll = Animation_("Roll", [=] { setSize(26, 22); }, NULL, [=] {setSize(34, 60); }, true);
 	Hit = Animation_("Hit", NULL, NULL, NULL, false);
 
@@ -47,7 +47,7 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Appear.SetFrameInterval(0.02);
 	Stand.AddRegion(p.GetRegion("standing"));
 	Move.AddRegion(p.GetRegion("movewithoutshooting"));
-	Move.SetFrameInterval(0.03);
+	Move.SetFrameInterval(0.02);
 	Jump.AddRegion(p.GetRegion("jumpwithoutshooting"));
 	StandUp.AddRegion(p.GetRegion("standandshootup"));
 	MoveShoot.AddRegion(p.GetRegion("moveandshoot"));
@@ -70,7 +70,8 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Jump.AddTransition("JumpUp", { new Condition_("LookUp",true),new Condition_("Ground",false),new Condition_("MoveUp",false) });
 	JumpShoot.AddTransition("Stand", { new Condition_("Ground",true) });
 	Move.AddTransition("Stand", { new Condition_("Move",false),new Condition_("Ground",true) });
-	Move.AddTransition("Jump", { new Condition_("Move",true),new Condition_("Falling",true) });
+	//	Move.AddTransition("Jump", { new Condition_("Move",true),new Condition_("Falling",true) });
+	Move.AddTransition("JumpRoll", { new Condition_("Ground",false),new Condition_("Move",true) });
 	Move.AddTransition("MoveUp", { new Condition_("LookUp",true), new Condition_("Move",true) });
 	MoveUp.AddTransition("Move", { new Condition_("LookUp",false) });
 	MoveUp.AddTransition("StandUp", { new Condition_("Move",false),new Condition_("LookUp",true) });
@@ -79,9 +80,10 @@ void Samus::InitSamusAnimation(Texture * samusTexture)
 	Roll.AddTransition("Move", { new Condition_("Roll",false),new Condition_("Move",true) });
 	StandUp.AddTransition("Stand", { new Condition_("LookUp",false) });
 	StandUp.AddTransition("MoveUp", { new Condition_("LookUp",true),new Condition_("Move",true) });
-
+	JumpRoll.AddTransition("Move", { new Condition_("Ground",true),new Condition_("Move",true) });
+	JumpRoll.AddTransition("Stand", { new Condition_("Ground",true),new Condition_("Move",false) });
 	// ADD TO ANIMATOR
-	animator.AddAnimation({ &Appear,&Stand,&StandShoot,&StandUp,&Roll,&Move,&MoveShoot,&MoveUp,&Jump,&JumpShoot,&JumpUp });
+	animator.AddAnimation({ &Appear,&Stand,&StandShoot,&StandUp,&Roll,&Move,&MoveShoot,&MoveUp,&Jump,&JumpShoot,&JumpUp,&JumpRoll });
 	//
 	animator.currentAnimation = Appear;
 	animator.previousAnimation = Appear;
@@ -126,10 +128,10 @@ void Samus::Init(Texture * texture, float x, float y)
 {
 	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
-	setBitMask(	Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO | 
-				Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET | 
-				Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-				Category::ZEEBETITE);
+	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
+		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
+		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
+		Category::ZEEBETITE);
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;
@@ -349,20 +351,29 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 #pragma region Jump way 2
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
+			setVelocity(getVelocity().x, 720);
+			/*jump1 = _Position.y + JUMP_1;
+			jump2 = _Position.y + JUMP_2;
+			count = 1;*/
+		}
+
+		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll)
+			setVelocity(getVelocity().x, getVelocity().y + 6.1);
+
+
+		/*if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
 			setVelocity(getVelocity().x, 400);
 			jump1 = _Position.y + JUMP_1;
 			jump2 = _Position.y + JUMP_2;
 			count = 1;
 		}
 
-		if (!onGround && _Position.y >= jump1 && count == 2/* && (jumpTime < 0.7 || jumpTime >= 0.7)*/) {
+		if (!onGround && _Position.y >= jump1 && count == 2) {
 			count = -1;
 			setVelocity(getVelocity().x, -400);
 		}
 
-		// set new velocity when it pass jump 1
-		if (!onGround && _Position.y >= jump1 && count == 1 && jumpTime >= 0.7)
-			setVelocity(getVelocity().x, 350);
+
 
 		if (_Position.y > jump2 && !onGround) {
 			count = -1;
@@ -372,7 +383,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && count != 2)
 			jumpTime += 0.02;
 		else if (KeyBoard->IsKeyUp(DIK_X) && !onGround && !roll)
-			count = 2;
+			count = 2;*/
 
 #pragma endregion
 
@@ -430,12 +441,13 @@ void Samus::OnHitGround(POINT direction)
 			//setVelocity(getVelocity().x, -450);
 			//nextPosition = maxPosition = _Position.y;
 			onGround = true;
+		//	setVelocity(getVelocity().x, -1);
 			jumpTime = 0;
 			down = false;
 		}
 		else if (direction.y < 0) {
 			setVelocity(getVelocity().x, 0);
-			jump1 = jump2 = _Position.y;
+			//		jump1 = jump2 = _Position.y;
 		}
 
 	}
@@ -494,6 +506,13 @@ bool Samus::IsDead()
 bool Samus::PlayDeadSound()
 {
 	return playDeadSound;
+}
+
+void Samus::UpdateVelocity(GameObject * obj)
+{
+	if (onGround) return;
+	//float currentTime = GetTickCount() / 1000.0f;
+	setVelocity(getVelocity().x, getVelocity().y - 100);
 }
 
 void Samus::HandleAnimation()

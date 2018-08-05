@@ -9,7 +9,6 @@ MainScene::MainScene()
 MainScene::~MainScene()
 {
 }
-
 void MainScene::Init()
 {
 #pragma region set up settings
@@ -184,7 +183,7 @@ void MainScene::Init()
 	std::vector<GameObject*> lcannons = quadTree->GetObjectsGroup("LeftCannon");
 	for (std::vector<GameObject*>::iterator it = lcannons.begin(); it != lcannons.end(); ++it)
 	{
-		((Cannon*)(*it))->Init(&bossesTexture,  Cannon::Type::Left, rand() % 4,(*it)->getPosition().x, (*it)->getPosition().y);
+		((Cannon*)(*it))->Init(&bossesTexture, Cannon::Type::Left, rand() % 4, (*it)->getPosition().x, (*it)->getPosition().y);
 		((Cannon*)(*it))->SetScene(this);
 	}
 
@@ -272,7 +271,7 @@ void MainScene::Update()
 		eatItemTime = 0;
 		eatItem = false;
 	}
-	
+
 	UpdateCamera();
 	UpdateUI();
 
@@ -298,8 +297,8 @@ void MainScene::Update()
 	GameObjects.insert(GameObjects.end(), healthItems.begin(), healthItems.end());
 	GameObjects.insert(GameObjects.end(), rocketItems.begin(), rocketItems.end());
 	GameObjects.push_back(&explosionEffect);
-	if(bombItem != nullptr) GameObjects.push_back(bombItem);
-	if(bomb != nullptr) GameObjects.push_back(bomb);
+	if (bombItem != nullptr) GameObjects.push_back(bombItem);
+	if (bomb != nullptr) GameObjects.push_back(bomb);
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
 	for (int i = 0; i < GameObjects.size(); i++) {
 		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
@@ -488,7 +487,7 @@ void MainScene::UpdateCamera()
 {
 	if (cam->followPlayerX)
 		cam->setPosition(samus->getPosition().x - SCREEN_WIDTH / 2, cam->getPosition().y);
-	else if(cam->followPlayerY)
+	else if (cam->followPlayerY)
 	{
 		cam->setPosition(cam->getPosition().x, samus->getPosition().y + SCREEN_HEIGHT / 2 - 32);
 		/*cam->setPosition(cam->getPosition().x, samus->getPosition().y + 100);
@@ -516,13 +515,13 @@ void MainScene::UpdateCamera()
 	else if (cam->canFollowUp)
 	{
 		if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) > SCREEN_HEIGHT / 2)
-		//if (abs(cam->getPosition().y - samus->getPosition().y) < 100)
+			//if (abs(cam->getPosition().y - samus->getPosition().y) < 100)
 			cam->followPlayerY = true;
 	}
 	else if (cam->canFollowDown)
 	{
 		if (abs(cam->getPosition().y - samus->getPosition().y) > SCREEN_HEIGHT / 2)
-		//if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) < 100)
+			//if (abs(cam->getPosition().y - SCREEN_HEIGHT - samus->getPosition().y) < 100)
 			cam->followPlayerY = true;
 	}
 }

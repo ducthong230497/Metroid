@@ -81,6 +81,7 @@ public:
 	int getNumberRocket();
 	bool IsDead();
 	bool PlayDeadSound();
+	void UpdateVelocity(GameObject* obj);
 };
 
 #endif

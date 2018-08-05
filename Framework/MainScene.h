@@ -106,7 +106,6 @@ public:
 	~MainScene();
 
 	std::vector<GameObject*> getSkreeBullet() { return skreeBullet; }
-
 	void Init() override;
 	void Update() override;
 	void UpdateCamera();
