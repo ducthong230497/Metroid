@@ -10,7 +10,7 @@
 #define MAXDEADTIME 0.5
 #define GRAVITY -3000.0f
 #define JUMPSPEED 800
-#define JUMPACCELARATION 300
+#define JUMPACCELARATION 250
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -184,6 +184,10 @@ void Samus::UpdateVelocity(GameObject * player)
 	if (!onGround)
 	{
 		_Velocity.y += GRAVITY * 2 * 0.016f;
+		if (_Velocity.y < -600)
+		{
+			_Velocity.y = -600;
+		}
 	}
 	else
 	{
