@@ -1,5 +1,5 @@
 #include "Bomb.h"
-
+#include "MainScene.h"
 Bomb::Bomb()
 {
 }
@@ -65,13 +65,15 @@ void Bomb::Update(float dt)
 		{
 			//world->DestroyBody(mainBody);
 			//mainBody = NULL;
-			std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (this));
-			if (it != scene->GameObjects.end())
-			{
-				//delete *it;
-				scene->GameObjects.erase(it);
-			}
+			//std::vector<GameObject*>::iterator it = std::find(scene->GameObjects.begin(), scene->GameObjects.end(), (this));
+			//if (it != scene->GameObjects.end())
+			//{
+			//	//delete *it;
+			//	scene->GameObjects.erase(it);
+			//}
+			((MainScene*)scene)->bomb = nullptr;
 			isDestroyed = true;
+			_BitMask = NONE;
 		}
 	}
 	else

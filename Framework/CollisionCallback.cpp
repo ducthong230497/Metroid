@@ -575,6 +575,17 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 		performOverlaying = false;
 		break;
 	}
+	case BOMB_EXPLOSION | PLAYER:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((Samus*)gameObjectA)->OnHitBomb();
+		}
+		else
+		{
+			((Samus*)gameObjectB)->OnHitBomb();
+		}
+	}
 	default: break;
 	}
 	

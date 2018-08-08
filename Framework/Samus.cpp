@@ -11,6 +11,7 @@
 #define PUSHX 200
 #define PUSHY 400
 #define MAXINVINCIBLETIME 0.3
+#define BOMBFORCE 600
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -134,11 +135,11 @@ void Samus::Init(Texture * texture, float x, float y)
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
 		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-		Category::ZEEBETITE);
+		Category::ZEEBETITE | Category::BOMB_EXPLOSION);
 	defaultBitMask = Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
 		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-		Category::ZEEBETITE;
+		Category::ZEEBETITE | Category::BOMB_EXPLOSION;
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;
@@ -532,6 +533,12 @@ void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 			setVelocity(PUSHX, PUSHY);
 		}
 	}
+}
+
+void Samus::OnHitBomb()
+{
+	_Velocity.y = BOMBFORCE;
+	onGround = false;
 }
 
 int Samus::getHealth()

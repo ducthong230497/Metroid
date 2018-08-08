@@ -78,6 +78,7 @@ public:
 	void OnHitHealthItem();
 	void OnHitRocketItem();
 	void OnHitEnemy(GameObject *enemy, POINT CollisionDirection);
+	void OnHitBomb();
 
 	int getHealth();
 	int getNumberRocket();
