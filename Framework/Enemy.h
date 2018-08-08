@@ -15,6 +15,6 @@ protected:
 public:
 	Enemy();
 	~Enemy();
-	virtual void OnHitPlayer();
+	virtual void OnHitPlayer(GameObject* samus, POINT CollisionDirection);
 	virtual void OnDie();
 };

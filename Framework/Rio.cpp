@@ -305,7 +305,7 @@ void Rio::OnHitRight()
 	isHitRight = true;
 }
 
-void Rio::OnHitPlayer()
+void Rio::OnHitPlayer(GameObject* samus, POINT CollisionDirection)
 {
 	Trace::Log("Rio hit player");
 }

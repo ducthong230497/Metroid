@@ -21,5 +21,5 @@ public:
 	void Render(SpriteBatch * batch) override;
 	void OnHitGround();
 	void OnHitBullet();
-	void OnHitPlayer() override;
+	void OnHitPlayer(GameObject* samus, POINT CollisionDirection) override;
 };
