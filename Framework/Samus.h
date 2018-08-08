@@ -20,7 +20,7 @@ class Samus : public Sprite
 {
 private:
 	Scene * scene;
-
+	float dt;
 	Texture samusTexture;
 	std::vector<Bullet*> bullets;
 	std::vector<Rocket*> rockets;

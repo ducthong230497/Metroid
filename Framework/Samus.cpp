@@ -110,6 +110,7 @@ void Samus::Render(SpriteBatch * batch)
 
 void Samus::Update(float dt)
 {
+	this->dt = dt;
 	if (hitEnemy)
 	{
 		invincibleTime += dt;
@@ -144,16 +145,17 @@ void Samus::Update(float dt)
 	}
 
 	if (moveThroughDoor) return;
-
-	if (getVelocity().x > 0)
-	{
-		this->Flip(false, false);
-	}
-	else
-	{
-		if (getVelocity().x < 0)
+	if (!hitEnemy) {
+		if (getVelocity().x > 0)
 		{
-			this->Flip(true, false);
+			this->Flip(false, false);
+		}
+		else
+		{
+			if (getVelocity().x < 0)
+			{
+				this->Flip(true, false);
+			}
 		}
 	}
 
@@ -292,7 +294,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 
 
-#pragma region Jump way 2
+#pragma region Jump 
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
 			setVelocity(getVelocity().x, 740);
 			maxJumpHeight = _Position.y + JUMP_2;
@@ -402,25 +404,22 @@ void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 	if (CollisionDirection.x != NOT_COLLIDED)
 	{
 		if (CollisionDirection.x > 0)
-		{
 			setVelocity(PUSHX, PUSHY);
-		}
 		else if (CollisionDirection.x < 0)
-		{
 			setVelocity(-PUSHX, PUSHY);
-		}
 	}
 	else
 	{
 		if (enemy->getPosition().x > _Position.x)
-		{
 			setVelocity(-PUSHX, PUSHY);
-		}
 		else
-		{
 			setVelocity(PUSHX, PUSHY);
-		}
 	}
+	move = false;
+	fall = true;
+	animator.SetBool("Ground", false);
+	animator.SetBool("Falling", true);
+	animator.CheckCondition(dt);
 }
 
 int Samus::getHealth()
