@@ -44,6 +44,8 @@ private:
 	int rocket;
 	float lastBombTime;
 	float deadTime;
+	float invincibleTime;
+	unsigned long defaultBitMask;
 	//sound
 	CSound * ShootSound;
 	CSound * JumpSound;
@@ -60,7 +62,7 @@ public:
 		Roll,
 		Hit;
 
-	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor;
+	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy;
 	float jumpTime = 0.f;
 	Samus();
 	void SetScene(Scene *s);
@@ -75,7 +77,7 @@ public:
 	void OnHitItem();
 	void OnHitHealthItem();
 	void OnHitRocketItem();
-	void OnHitEnemy();
+	void OnHitEnemy(GameObject *enemy, POINT CollisionDirection);
 
 	int getHealth();
 	int getNumberRocket();

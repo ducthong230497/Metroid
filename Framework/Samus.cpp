@@ -8,6 +8,9 @@
 #define GAINHEALTH 6
 #define BOMBDELAY 1.5f
 #define MAXDEADTIME 0.5
+#define PUSHX 200
+#define PUSHY 400
+#define MAXINVINCIBLETIME 0.3
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -132,6 +135,10 @@ void Samus::Init(Texture * texture, float x, float y)
 		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
 		Category::ZEEBETITE);
+	defaultBitMask = Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
+		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
+		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
+		Category::ZEEBETITE;
 	setVelocity(0, -200);
 	canRoll = true;
 	onGround = false;
@@ -180,6 +187,19 @@ void Samus::Render(SpriteBatch * batch)
 
 void Samus::Update(float dt)
 {
+	if (hitEnemy)
+	{
+		invincibleTime += dt;
+		if (invincibleTime > MAXINVINCIBLETIME)
+		{
+			hitEnemy = false;
+			canControl = true;
+			_BitMask = defaultBitMask;
+			invincibleTime = 0;
+			setVelocity(0, -10);
+		}
+	}
+
 	if (health <= 0)
 	{
 		if (deadTime == -1)
@@ -483,9 +503,35 @@ void Samus::OnHitRocketItem()
 	rocket++;
 }
 
-void Samus::OnHitEnemy()
+void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 {
-	health -= 30;
+	health -= 1;
+	hitEnemy = true;
+	canControl = false;
+	_BitMask = PLATFORM;
+	onGround = false;
+	if (CollisionDirection.x != NOT_COLLIDED)
+	{
+		if (CollisionDirection.x > 0)
+		{
+			setVelocity(PUSHX, PUSHY);
+		}
+		else if (CollisionDirection.x < 0)
+		{
+			setVelocity(-PUSHX, PUSHY);
+		}
+	}
+	else
+	{
+		if (enemy->getPosition().x > _Position.x)
+		{
+			setVelocity(-PUSHX, PUSHY);
+		}
+		else
+		{
+			setVelocity(PUSHX, PUSHY);
+		}
+	}
 }
 
 int Samus::getHealth()

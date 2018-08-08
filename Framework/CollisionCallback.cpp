@@ -337,7 +337,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
-			((Samus*)gameObjectA)->OnHitEnemy();
+			((Samus*)gameObjectA)->OnHitEnemy(gameObjectB, CollisionDirection);
 			Trace::Log("Player hit enemy");
 		}
 		else
