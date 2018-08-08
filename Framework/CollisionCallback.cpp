@@ -342,9 +342,13 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		else
 		{
+			if (gameObjectB->_CategoryMask == PLAYER) {
+				((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, CollisionDirection);
+				Trace::Log("Player hit enemy");
+			}
 			if (gameObjectA->_CategoryMask == RIO)
 			{
-				((Rio*)gameObjectA)->OnHitPlayer();
+				((Rio*)gameObjectA)->OnHitPlayer(gameObjectB, CollisionDirection);
 				Trace::Log("Player hit Rio");
 				//gameObjectB->setVelocity(-100 * 3, 100);
 			}
@@ -354,7 +358,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			}
 			if (gameObjectA->_CategoryMask == RIPPER)
 			{
-				((Ripper*)gameObjectA)->OnHitPlayer();
+				((Ripper*)gameObjectA)->OnHitPlayer(gameObjectB, CollisionDirection);
 				Trace::Log("Player hit Ripper");
 			}
 			else
@@ -364,7 +368,12 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			
 			if (gameObjectA->_CategoryMask == ZOOMER)
 			{
-				
+			//	((Zoomer*)gameObjectA)->OnHitPlayer(gameObjectB, CollisionDirection);
+			//	Trace::Log("Player hit Zoomer");
+			}
+			else {
+			//	((Zoomer*)gameObjectB)->OnHitPlayer(gameObjectA, CollisionDirection);
+				//Trace::Log("Player hit Zoomer");
 			}
 		}
 		break;

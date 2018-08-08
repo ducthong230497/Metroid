@@ -243,7 +243,7 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 {
 	curCollisionDirection = CollisionDirection;
 	POINT a = _Velocity;
-	
+
 	if (t == 1)
 	{
 		if (id == 27)
@@ -272,7 +272,7 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 		{
 			_Velocity.y *= -1;
 		}
-		else if(curCollisionDirection.y != NOT_COLLIDED)
+		else if (curCollisionDirection.y != NOT_COLLIDED)
 		{
 			_Velocity.x *= -1;
 		}
@@ -298,8 +298,9 @@ void Zoomer::OnHitBomb()
 	health -= takeBombDamage;
 }
 
-void Zoomer::OnHitPlayer()
+void Zoomer::OnHitPlayer(GameObject* samus, POINT CollisionDirection)
 {
+	((Samus*)samus)->OnHitEnemy(this, CollisionDirection);
 	Trace::Log("asdasdasdasd");
 }
 

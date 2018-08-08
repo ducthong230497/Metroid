@@ -232,7 +232,7 @@ void Skree::OnDie()
 	}
 }
 
-void Skree::OnHitPlayer()
+void Skree::OnHitPlayer(GameObject* samus, POINT CollisionDirection)
 {
 }
 

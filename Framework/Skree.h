@@ -39,7 +39,7 @@ public:
 	void OnHitBullet();
 	void OnHitBomb();
 	void OnDie();
-	void OnHitPlayer() override;
+	void OnHitPlayer(GameObject* samus, POINT CollisionDirection) override;
 	bool IsHitGround();
 	bool IsDead();
 	int GetHealth();

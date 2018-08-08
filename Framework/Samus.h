@@ -20,17 +20,22 @@ class Samus : public Sprite
 {
 private:
 	Scene * scene;
-
+	float dt;
 	Texture samusTexture;
 	std::vector<Bullet*> bullets;
 	std::vector<Rocket*> rockets;
 	float lastShootTime;
-	float jump1 = 0;
-	float jump2 = 0;
+	float maxJumpHeight = 0;
 	int count = 0;
 	bool isAppear;
 	void InitSamusAnimation(Texture * samusTexture);
 	void HandleAnimation();
+
+	void CreateParameter();
+	void CreateAnimation_();
+	void CreateTransition();
+	void LoadImageAnimation(Texture * samusTexture);
+	void LoadAnimator();
 
 	//deadEffect
 	std::vector<Sprite> deadEffect;
@@ -62,7 +67,7 @@ public:
 		Roll,
 		Hit;
 
-	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy;
+	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy, activeJump,fall;
 	float jumpTime = 0.f;
 	Samus();
 	void SetScene(Scene *s);

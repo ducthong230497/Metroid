@@ -77,7 +77,7 @@ public:
 
 	bool IsDead();
 
-	void OnHitPlayer() override;
+	void OnHitPlayer(GameObject* samus, POINT CollisionDirection) override;
 
 	void OnHitBomb();
 

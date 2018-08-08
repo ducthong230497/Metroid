@@ -66,7 +66,7 @@ public:
 
 	void OnHitBomb();
 
-	void OnHitPlayer() override;
+	void OnHitPlayer(GameObject* samus, POINT CollisionDirection) override;
 
 	void OnDie() override;
 

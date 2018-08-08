@@ -53,7 +53,7 @@ void Ripper::OnHitBullet()
 {
 }
 
-void Ripper::OnHitPlayer()
+void Ripper::OnHitPlayer(GameObject* samus, POINT CollisionDirection)
 {
 	Trace::Log("Ripper hit Player");
 }

@@ -21,7 +21,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::OnHitPlayer()
+void Enemy::OnHitPlayer(GameObject* samus, POINT CollisionDirection)
 {
 }
 
