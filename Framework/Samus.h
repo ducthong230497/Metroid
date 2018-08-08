@@ -19,6 +19,9 @@ class CKeyboard;
 class Samus : public Sprite
 {
 private:
+
+	int _SPEED, _JUMPFORCE, _ACCELERATION, _PULLINGFORCE, _PUSHFORCE;
+
 	Scene * scene;
 	float dt;
 	Texture samusTexture;

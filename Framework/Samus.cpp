@@ -72,7 +72,11 @@ void Samus::Init(Texture * texture, float x, float y)
 	SetPosition(x, y);
 
 	deadTime = -1;
-
+	_SPEED = 200;
+	_JUMPFORCE = 740;
+	_ACCELERATION = 100;
+	_PULLINGFORCE = 450;
+	_PUSHFORCE = 7;
 	health = SAMUSSTARTINGHEALTH;
 	rocket = SAMUSSTARTINGROCKET;
 
@@ -146,6 +150,7 @@ void Samus::Update(float dt)
 	}
 
 	if (moveThroughDoor) return;
+#pragma region flip
 	if (!hitEnemy) {
 		if (getVelocity().x > 0)
 		{
@@ -159,6 +164,7 @@ void Samus::Update(float dt)
 			}
 		}
 	}
+#pragma endregion
 
 	animator.CheckCondition(dt);
 	SetRegion(*animator.Next(dt));
@@ -170,9 +176,54 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 {
 	if (canControl)
 	{
+
+#pragma region setting online
+
+		if (KeyBoard->IsFirstKeyDown(DIK_C))
+		{
+			shootRocket = !shootRocket;
+			if (shootRocket) Trace::Log("Active Rocket: %d", shootRocket);
+			else Trace::Log("Deactive Rocket: %d", shootRocket);
+		}
+
+
+		if (KeyBoard->IsFirstKeyDown(DIK_Q))
+		{
+			_JUMPFORCE += 5;
+			Trace::Log("Increase JUMP FORCE : %d", _JUMPFORCE);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_W))
+		{
+			_JUMPFORCE -= 5;
+			Trace::Log("Decrease JUMP FORCE : %d", _JUMPFORCE);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_A))
+		{
+			_SPEED += 20;
+			Trace::Log("Increase SPEED : %d", _SPEED);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_S))
+		{
+			_SPEED -= 20;
+			Trace::Log("Decrease SPEED : %d", _SPEED);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_E))
+		{
+			_PUSHFORCE += 1;
+			Trace::Log("Increase PUSH FORCE : %d", _PUSHFORCE);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_R))
+		{
+			_PUSHFORCE -= 1;
+			Trace::Log("Decrease PUSH FORCE : %d", _PUSHFORCE);
+		}
+#pragma endregion
+
+#pragma region movement
+
 		if (KeyBoard->IsKeyDown(DIK_RIGHT))
 		{
-			setVelocity(200, getVelocity().y);
+			setVelocity(_SPEED, getVelocity().y);
 			move = true;
 			facingRight = true;
 		}
@@ -184,7 +235,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 		if (KeyBoard->IsKeyDown(DIK_LEFT))
 		{
-			setVelocity(-200, getVelocity().y);
+			setVelocity(-_SPEED, getVelocity().y);
 			move = true;
 			facingRight = false;
 		}
@@ -193,10 +244,17 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			setVelocity(0, getVelocity().y);
 			move = false;
 		}
+#pragma endregion
 
-		if (KeyBoard->IsKeyDown(DIK_DOWN) && canRoll && onGround) {
+		if (KeyBoard->IsKeyDown(DIK_DOWN) && canRoll && onGround)
 			roll = true;
-		}
+
+#pragma region shooting
+
+		if (KeyBoard->IsKeyDown(DIK_Z))
+			shoot = true;
+		else if (KeyBoard->IsKeyUp(DIK_Z))
+			shoot = false;
 
 		if (KeyBoard->IsKeyDown(DIK_Z) && !roll)
 		{
@@ -208,7 +266,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 					Sound::Play(ShootSound);
 					lastShootTime = currentTime;
 					Bullet *b = new Bullet(&samusTexture);
-					if (!lookUp)
+					if (animator.currentAnimation.name != "JumpRoll" && animator.currentAnimation.name != "MoveUp" && animator.currentAnimation.name != "StandUp" && animator.currentAnimation.name != "JumpUp")
 					{
 						if (facingRight)
 						{
@@ -221,16 +279,12 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 							b->setVelocity(-BULLET_VELOCITY, 0);
 						}
 					}
-					else
+					else if (animator.currentAnimation.name == "MoveUp" || animator.currentAnimation.name == "StandUp" || animator.currentAnimation.name == "JumpUp")
 					{
 						if (facingRight)
-						{
 							b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
-						}
 						else
-						{
 							b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
-						}
 						b->setVelocity(0, BULLET_VELOCITY);
 					}
 					bullets.push_back(b);
@@ -246,7 +300,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 						Sound::Play(ShootSound);
 						lastShootTime = currentTime;
 						Rocket *b = new Rocket(&samusTexture);
-						if (!lookUp)
+						if (animator.currentAnimation.name != "MoveUp" && animator.currentAnimation.name != "StandUp" && animator.currentAnimation.name != "JumpUp")
 						{
 							if (facingRight)
 							{
@@ -261,16 +315,12 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 								b->SetRotation(180);
 							}
 						}
-						else
+						else if (animator.currentAnimation.name == "MoveUp" || animator.currentAnimation.name == "StandUp" || animator.currentAnimation.name == "JumpUp")
 						{
 							if (facingRight)
-							{
 								b->setPosition(getPosition().x + 5, getPosition().y + 33); // move right
-							}
 							else
-							{
 								b->setPosition(getPosition().x - 5, getPosition().y + 33); // move right
-							}
 							b->setVelocity(0, BULLET_VELOCITY);
 							b->SetRotation(-90);
 						}
@@ -293,7 +343,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 				((MainScene*)scene)->bomb = _bomb;
 			}
 		}
-
+#pragma endregion
 
 #pragma region Jump 
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
@@ -308,40 +358,30 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 
 		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && getVelocity().y >= -200 && !down)
-			setVelocity(getVelocity().x, getVelocity().y + 7);
+			setVelocity(getVelocity().x, getVelocity().y + _PUSHFORCE);
 #pragma endregion
 
+#pragma region movement
 		if (KeyBoard->IsKeyDown(DIK_X) && roll)
 			roll = false;
 
-
 		if (KeyBoard->IsKeyDown(DIK_UP)) {
 			lookUp = true;
-			if (roll)
-				roll = false;
+			if (roll) roll = false;
+			if (animator.currentAnimation.name == "Jump" && animator.previousAnimation.name == "MoveUp" && !onGround) lookUp = false;
 		}
 		else if (KeyBoard->IsKeyUp(DIK_UP)) {
 			lookUp = false;
+			if (animator.currentAnimation.name == "Jump" && animator.previousAnimation.name == "MoveUp" && !onGround) lookUp = true;
 		}
-
-		if (KeyBoard->IsKeyDown(DIK_Z)) {
-			shoot = true;
-		}
-		else if (KeyBoard->IsKeyUp(DIK_Z)) {
-			shoot = false;
-		}
-
-		if (KeyBoard->IsFirstKeyDown(DIK_S))
-		{
-			shootRocket = !shootRocket;
-			Trace::Log("shootRocket: %d", shootRocket);
-		}
-		HandleAnimation();
+#pragma endregion
 
 		if ((KeyBoard->IsKeyDown(DIK_LEFT) || KeyBoard->IsKeyDown(DIK_RIGHT)) && onGround)
-		{
 			Sound::Play(moveSound);
-		}
+
+		HandleAnimation();
+
+
 	}
 }
 
@@ -359,7 +399,7 @@ void Samus::OnHitGround(POINT direction)
 			down = false;
 		}
 		else if (direction.y < 0) {
-			setVelocity(getVelocity().x, 0);
+			setVelocity(getVelocity().x, -_ACCELERATION);
 		}
 
 	}
@@ -402,6 +442,8 @@ void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 	canControl = false;
 	_BitMask = PLATFORM;
 	onGround = false;
+
+
 	if (CollisionDirection.x != NOT_COLLIDED)
 	{
 		if (CollisionDirection.x > 0)
@@ -417,6 +459,10 @@ void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 			setVelocity(PUSHX, PUSHY);
 	}
 	move = false;
+	if (animator.currentAnimation.name == "MoveUp" || animator.currentAnimation.name == "JumpUp") {
+		lookUp = false;
+		animator.SetBool("LookUp", false);
+	}
 	fall = true;
 	animator.SetBool("Ground", false);
 	animator.SetBool("Falling", true);
@@ -462,10 +508,10 @@ void Samus::UpdateVelocity(GameObject * obj)
 	if (onGround) return;
 
 	if (getVelocity().y >= -200) {
-		setVelocity(getVelocity().x, getVelocity().y - 100);
+		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION);
 	}
 	else if (getVelocity().y < -200) {
-		setVelocity(getVelocity().x, -450);
+		setVelocity(getVelocity().x, -_PULLINGFORCE);
 	}
 }
 
@@ -510,10 +556,10 @@ void Samus::CreateAnimation_()
 	StandUp = Animation_("StandUp", NULL, NULL, NULL, true);
 	Move = Animation_("Move", NULL, NULL, NULL, true);
 	MoveShoot = Animation_("MoveShoot", NULL, NULL, NULL, true);
-	MoveUp = Animation_("MoveUp", [=] {animator.SetBool("MoveUp", true); }, NULL, NULL, true);
-	Jump = Animation_("Jump", [=] { setSize(34, 45);  if (animator.previousAnimation.name != "MoveUp") animator.SetBool("MoveUp", false); }, NULL, [=] {setSize(34, 60); }, true);
-	JumpShoot = Animation_("JumpShoot", NULL, NULL, NULL, true);
-	JumpUp = Animation_("JumpUp", NULL, NULL, NULL, true);
+	MoveUp = Animation_("MoveUp", NULL, NULL, NULL, true);
+	Jump = Animation_("Jump", [=] {setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
+	JumpShoot = Animation_("JumpShoot", [=] {setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
+	JumpUp = Animation_("JumpUp", [=] { lookUp = false; }, NULL, NULL, true);
 	JumpRoll = Animation_("JumpRoll", [=] { setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
 	Roll = Animation_("Roll", [=] { setSize(26, 22); }, NULL, [=] {setSize(34, 60); }, true);
 	Hit = Animation_("Hit", NULL, NULL, NULL, false);
@@ -538,7 +584,7 @@ void Samus::CreateTransition()
 
 	Jump.AddTransition("Stand", { new Condition_("Ground",true) });
 	Jump.AddTransition("JumpShoot", { new Condition_("Shoot",true),new Condition_("Ground",false) });
-	Jump.AddTransition("JumpUp", { new Condition_("LookUp",true),new Condition_("Ground",false),new Condition_("MoveUp",false) });
+	Jump.AddTransition("JumpUp", { new Condition_("LookUp",true),new Condition_("Ground",false) });
 
 	JumpShoot.AddTransition("Stand", { new Condition_("Ground",true) });
 
@@ -551,8 +597,8 @@ void Samus::CreateTransition()
 	MoveUp.AddTransition("StandUp", { new Condition_("Move",false),new Condition_("LookUp",true) });
 	MoveUp.AddTransition("Jump", { new Condition_("Ground",false) });
 
-	Roll.AddTransition("Stand", { new Condition_("Roll",false) });
-	Roll.AddTransition("Move", { new Condition_("Roll",false),new Condition_("Move",true) });
+	Roll.AddTransition("Stand", { new Condition_("Roll",false), new Condition_("Falling",false) });
+	Roll.AddTransition("Move", { new Condition_("Roll",false),new Condition_("Move",true), new Condition_("Falling",false) });
 
 	JumpRoll.AddTransition("Move", { new Condition_("Ground",true),new Condition_("Move",true) });
 	JumpRoll.AddTransition("Stand", { new Condition_("Ground",true),new Condition_("Move",false) });
