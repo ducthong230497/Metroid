@@ -14,6 +14,7 @@ public:
 	unsigned long _BitMask;
 	unsigned long _CategoryMask;
 	CollisionType collisionType;
+	bool isTrigger;
 public:
 	bool isActive;
 	GameObject();
