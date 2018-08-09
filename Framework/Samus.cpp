@@ -75,7 +75,7 @@ void Samus::Init(Texture * texture, float x, float y)
 	_SPEED = 200;
 	_JUMPFORCE = 740;
 	_ACCELERATION = 100;
-	_PULLINGFORCE = 450;
+	_PULLINGFORCE = 520;
 	_PUSHFORCE = 7;
 	health = SAMUSSTARTINGHEALTH;
 	rocket = SAMUSSTARTINGROCKET;
@@ -116,9 +116,16 @@ void Samus::Render(SpriteBatch * batch)
 void Samus::Update(float dt)
 {
 	this->dt = dt;
+	if (dt == 0) {
+		Trace::Log("dt: = 0");
+	}
 	if (hitEnemy)
 	{
 		invincibleTime += dt;
+		if(this->GetTexture()->GetOpacity() == 1)
+			this->GetTexture()->SetOpacity(0);
+		else
+			this->GetTexture()->SetOpacity(1);
 		if (invincibleTime > MAXINVINCIBLETIME)
 		{
 			hitEnemy = false;
@@ -126,6 +133,7 @@ void Samus::Update(float dt)
 			_BitMask = defaultBitMask;
 			invincibleTime = 0;
 			setVelocity(0, -10);
+			this->GetTexture()->SetOpacity(1);
 		}
 	}
 
@@ -185,7 +193,16 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 			if (shootRocket) Trace::Log("Active Rocket: %d", shootRocket);
 			else Trace::Log("Deactive Rocket: %d", shootRocket);
 		}
-
+		if (KeyBoard->IsFirstKeyDown(DIK_U))
+		{
+			_PULLINGFORCE += 5;
+			Trace::Log("Increase _PULLINGFORCE : %d", _PULLINGFORCE);
+		}
+		if (KeyBoard->IsFirstKeyDown(DIK_I))
+		{
+			_PULLINGFORCE -= 5;
+			Trace::Log("Decrease _PULLINGFORCE : %d", _PULLINGFORCE);
+		}
 
 		if (KeyBoard->IsFirstKeyDown(DIK_Q))
 		{
@@ -347,7 +364,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 #pragma region Jump 
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
-			setVelocity(getVelocity().x, 740);
+			setVelocity(getVelocity().x, _JUMPFORCE);
 			maxJumpHeight = _Position.y + JUMP_2;
 			activeJump = true;
 		}

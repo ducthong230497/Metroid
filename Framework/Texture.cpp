@@ -169,9 +169,14 @@ Texture& Texture::operator=(const Texture &texture)
 //}
 
 //all get functions
-D3DCOLOR Texture::GetTranscolor() const
+D3DXCOLOR Texture::GetTranscolor() const
 {
 	return _Transcolor;
+}
+
+float Texture::GetOpacity()
+{
+	return _Transcolor.a;
 }
 
 LPDIRECT3DTEXTURE9 Texture::GetImage() const
@@ -183,6 +188,11 @@ LPDIRECT3DTEXTURE9 Texture::GetImage() const
 void Texture::SetTranscolor(D3DCOLOR transcolor)
 {
 	_Transcolor = transcolor;
+}
+
+void Texture::SetOpacity(float a)
+{
+	_Transcolor.a = a;
 }
 
 const POINT& Texture::GetImageSize() const
