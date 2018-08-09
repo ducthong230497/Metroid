@@ -1,5 +1,8 @@
 #include "Skree.h"
 #include "MainScene.h"
+
+#define SKREEBULLETSPEED 600
+
 Skree::Skree()
 {
 }
@@ -123,7 +126,7 @@ void Skree::Update(float dt)
 					//create body
 					skreeBullet->setCollisionType(CollisionType::Dynamic);
 					skreeBullet->setSize(6, 7);
-					skreeBullet->setVelocity(400 * cos(45 * i*PI / 180), 400 * sin(45 * i*Pi / 180));
+					skreeBullet->setVelocity(SKREEBULLETSPEED * cos(45 * i*PI / 180), SKREEBULLETSPEED * sin(45 * i*Pi / 180));
 					skreeBullet->_CategoryMask = SKREE_BULLET;
 					skreeBullet->_BitMask = PLAYER;
 					//sprite

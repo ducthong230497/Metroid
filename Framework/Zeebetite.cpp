@@ -1,5 +1,5 @@
 #include "Zeebetite.h"
-#define ZEEBETITEHEALTH 8
+#define ZEEBETITEHEALTH 4
 Zeebetite::Zeebetite()
 {
 }

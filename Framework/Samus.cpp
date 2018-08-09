@@ -50,7 +50,7 @@ void Samus::Init(Texture * texture, float x, float y)
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
 		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-		Category::ZEEBETITE | Category::BOMB_EXPLOSION | Category::VELOCITY);
+		Category::ZEEBETITE | Category::BOMB_EXPLOSION | Category::CIRCLEBULLET | Category::CANNON_BULLET | Category::KRAID_BULLET);
 	defaultBitMask = _BitMask;
 	setVelocity(0, -200);
 	fall = false;
@@ -429,7 +429,7 @@ void Samus::OnHitGround(POINT direction)
 			down = false;		
 		}
 		else if (direction.y < 0) {
-			setVelocity(getVelocity().x, -_PULLINGFORCE* dt);
+			setVelocity(getVelocity().x, 0);
 		}
 
 	}

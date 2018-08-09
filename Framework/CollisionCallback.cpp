@@ -394,6 +394,10 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			((Samus*)gameObjectA)->OnHitEnemyBullet();
 		}
+		else
+		{
+			((Samus*)gameObjectB)->OnHitEnemyBullet();
+		}
 		break;
 	}
 	case PLAYER_BULLET | BREAKABLE_PLATFORM:
@@ -488,6 +492,16 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		break;
 	}
 	case PLAYER | PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER) {
+			static_cast<Samus*>(gameObjectA)->OnHitGround(CollisionDirection);
+		}
+		else {
+			static_cast<Samus*>(gameObjectB)->OnHitGround(CollisionDirection);
+		}
+		break;
+	}
+	case PLAYER | BREAKABLE_PLATFORM:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER) {
 			static_cast<Samus*>(gameObjectA)->OnHitGround(CollisionDirection);
