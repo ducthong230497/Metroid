@@ -343,7 +343,17 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		else
 		{
 			if (gameObjectB->_CategoryMask == PLAYER) {
-				((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, CollisionDirection);
+				if (CollisionDirection.x != NOT_COLLIDED)
+				{
+					POINT cd;
+					cd.x = CollisionDirection.x * -1;
+					cd.y = CollisionDirection.y;
+					((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, cd);
+				}
+				else
+				{
+					((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, CollisionDirection);
+				}
 				Trace::Log("Player hit enemy");
 			}
 			if (gameObjectA->_CategoryMask == RIO)
@@ -593,6 +603,14 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 		else
 		{
 			((Samus*)gameObjectB)->OnHitBomb();
+		}
+		performOverlaying = false;
+	}
+	case ZOOMER | PLAYER:
+	{
+		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, POINT(NOT_COLLIDED, 0));
 		}
 	}
 	default: break;
