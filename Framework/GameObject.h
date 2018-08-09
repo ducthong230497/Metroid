@@ -10,6 +10,7 @@ protected:
 	POINT _Size;
 	POINT _Velocity;
 public:
+	bool isTrigger = false;
 	unsigned int id;
 	unsigned long _BitMask;
 	unsigned long _CategoryMask;

@@ -61,6 +61,7 @@ private:
 	CSound * deathSound;
 
 public:
+	GameObject * head;
 	float dt;
 	Animator  animator;
 	Animation_

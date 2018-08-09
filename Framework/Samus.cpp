@@ -45,6 +45,9 @@ void Samus::SetScene(Scene * s)
 
 void Samus::Init(Texture * texture, float x, float y)
 {
+	head = new GameObject();
+	head->setCategoryMask(Category::HEAD);
+	head->setCategoryMask(Category::PLATFORM);
 	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
