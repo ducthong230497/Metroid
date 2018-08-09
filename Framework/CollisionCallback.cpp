@@ -445,6 +445,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
 			Trace::Log("Hit Marunari");
+			((Samus*)gameObjectA)->SetCanRoll();
 			((Samus*)gameObjectA)->OnHitItem();
 			((Marunari*)gameObjectB)->OnHitPlayer();
 		}

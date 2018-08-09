@@ -89,7 +89,7 @@ public:
 	void OnHitEnemy(GameObject *enemy, POINT CollisionDirection);
 	void OnHitEnemyBullet();
 	void OnHitBomb();
-
+	void SetCanRoll();
 	int getHealth();
 	int getNumberRocket();
 	bool IsDead();

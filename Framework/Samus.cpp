@@ -55,7 +55,7 @@ void Samus::Init(Texture * texture, float x, float y)
 	setVelocity(0, -200);
 	fall = false;
 	activeJump = false;
-	canRoll = true;
+	canRoll = false;
 	onGround = false;
 	move = false;
 	shoot = false;
@@ -510,6 +510,11 @@ void Samus::OnHitBomb()
 {
 	_Velocity.y = BOMBFORCE;
 	onGround = false;
+}
+
+void Samus::SetCanRoll()
+{
+	canRoll = true;
 }
 
 int Samus::getHealth()
