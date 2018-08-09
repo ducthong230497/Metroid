@@ -388,6 +388,14 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		}
 		break;
 	}
+	case PLAYER | SKREE_BULLET: case PLAYER | KRAID_BULLET: case PLAYER | CANNON_BULLET: case PLAYER | CIRCLEBULLET:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((Samus*)gameObjectA)->OnHitEnemyBullet();
+		}
+		break;
+	}
 	case PLAYER_BULLET | BREAKABLE_PLATFORM:
 	{
 		if (gameObjectA->_CategoryMask == BREAKABLE_PLATFORM)

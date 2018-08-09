@@ -137,6 +137,22 @@ void Samus::Update(float dt)
 		}
 	}
 
+	if (hitBullet)
+	{
+		invincibleTime += dt;
+		if (this->GetTexture()->GetOpacity() == 1)
+			this->GetTexture()->SetOpacity(0);
+		else
+			this->GetTexture()->SetOpacity(1);
+		if (invincibleTime > MAXINVINCIBLETIME)
+		{
+			hitBullet = false;
+			_BitMask = defaultBitMask;
+			invincibleTime = 0;
+			this->GetTexture()->SetOpacity(1);
+		}
+	}
+
 	if (health <= 0)
 	{
 		if (deadTime == -1)
@@ -484,6 +500,13 @@ void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 	animator.SetBool("Ground", false);
 	animator.SetBool("Falling", true);
 	animator.CheckCondition(dt);
+}
+
+void Samus::OnHitEnemyBullet()
+{
+	health -= 1;
+	hitBullet = true;
+	_BitMask = PLATFORM;
 }
 
 void Samus::OnHitBomb()

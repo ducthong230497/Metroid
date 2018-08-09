@@ -70,7 +70,7 @@ public:
 		Roll,
 		Hit;
 
-	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy, activeJump,fall;
+	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy, activeJump,fall, hitBullet;
 	float jumpTime = 0.f;
 	Samus();
 	void SetScene(Scene *s);
@@ -86,6 +86,7 @@ public:
 	void OnHitHealthItem();
 	void OnHitRocketItem();
 	void OnHitEnemy(GameObject *enemy, POINT CollisionDirection);
+	void OnHitEnemyBullet();
 	void OnHitBomb();
 
 	int getHealth();
