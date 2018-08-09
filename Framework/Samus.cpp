@@ -50,11 +50,8 @@ void Samus::Init(Texture * texture, float x, float y)
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
 		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-		Category::ZEEBETITE | Category::BOMB_EXPLOSION);
-	defaultBitMask = Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
-		Category::BREAKABLE_PLATFORM | Category::MARUNARI | Category::BOMBITEM | Category::SKREE_BULLET |
-		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
-		Category::ZEEBETITE | Category::BOMB_EXPLOSION;
+		Category::ZEEBETITE | Category::BOMB_EXPLOSION | Category::VELOCITY);
+	defaultBitMask = _BitMask;
 	setVelocity(0, -200);
 	fall = false;
 	activeJump = false;
@@ -73,10 +70,10 @@ void Samus::Init(Texture * texture, float x, float y)
 
 	deadTime = -1;
 	_SPEED = 200;
-	_JUMPFORCE = 740;
-	_ACCELERATION = 100;
-	_PULLINGFORCE = 520;
-	_PUSHFORCE = 7;
+	_JUMPFORCE = 740 / 0.031f;
+	_ACCELERATION = 100 / 0.031f;
+	_PULLINGFORCE = 520 / 0.031f;
+	_PUSHFORCE = 11 / 0.031f;
 	health = SAMUSSTARTINGHEALTH;
 	rocket = SAMUSSTARTINGROCKET;
 
@@ -115,10 +112,10 @@ void Samus::Render(SpriteBatch * batch)
 
 void Samus::Update(float dt)
 {
-	this->dt = dt;
 	if (dt == 0) {
-		Trace::Log("dt: = 0");
+	//	Trace::Log("dt: = 0");
 	}
+	//Trace::Log("%f",dt);
 	if (hitEnemy)
 	{
 		invincibleTime += dt;
@@ -380,7 +377,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 
 #pragma region Jump 
 		if (KeyBoard->IsFirstKeyDown(DIK_X) && onGround && !roll) {
-			setVelocity(getVelocity().x, _JUMPFORCE);
+			setVelocity(getVelocity().x, _JUMPFORCE*dt);
 			maxJumpHeight = _Position.y + JUMP_2;
 			activeJump = true;
 		}
@@ -391,7 +388,7 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 
 		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && getVelocity().y >= -200 && !down)
-			setVelocity(getVelocity().x, getVelocity().y + _PUSHFORCE);
+			setVelocity(getVelocity().x, getVelocity().y + _PUSHFORCE*dt);
 #pragma endregion
 
 #pragma region movement
@@ -429,10 +426,10 @@ void Samus::OnHitGround(POINT direction)
 			onGround = true;
 			fall = false;
 			activeJump = false;
-			down = false;
+			down = false;		
 		}
 		else if (direction.y < 0) {
-			setVelocity(getVelocity().x, -_ACCELERATION);
+			setVelocity(getVelocity().x, -_PULLINGFORCE* dt);
 		}
 
 	}
@@ -548,11 +545,19 @@ void Samus::UpdateVelocity(GameObject * obj)
 	if (onGround) return;
 
 	if (getVelocity().y >= -200) {
-		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION);
+		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION*dt);
 	}
 	else if (getVelocity().y < -200) {
-		setVelocity(getVelocity().x, -_PULLINGFORCE);
+		setVelocity(getVelocity().x, -_PULLINGFORCE* dt);
 	}
+}
+
+void Samus::SetNewData()
+{
+	/*_JUMPFORCE = 800;
+	_ACCELERATION = 100 / 0.016f;
+	_PULLINGFORCE = 520 / 0.016f;
+	_PUSHFORCE = 9 / 0.016f;*/
 }
 
 void Samus::HandleAnimation()

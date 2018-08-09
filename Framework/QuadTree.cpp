@@ -4,7 +4,7 @@
 
 QuadTree::QuadTree()
 {
-	minSquareSize = SCREEN_WIDTH;
+	minSquareSize =  SCREEN_WIDTH;
 	//world = NULL;
 }
 
@@ -93,7 +93,6 @@ void QuadTree::StartBuildingTreeNodes(const std::string &outpath, const std::str
 		rootXmlNode->append_attribute(doc.allocate_attribute("height", value));
 		//append to xml doc 
 		doc.append_node(rootXmlNode);
-
 
 		//create a root QNode
 		rootQNode = new QuadTreeNode();
@@ -728,6 +727,15 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 	else if (str._Equal("RightCannon"))
 	{
 		Cannon * cannon = new Cannon();
+		cannon->setPosition(rect.x, rect.y);
+		cannon->setSize(rect.width, rect.height);
+		cannon->_CategoryMask = 0;
+		cannon->_BitMask = 0;
+		cannon->id = id;
+		return cannon;
+	}else if (str._Equal("Collide"))
+	{
+		GameObject * cannon = new GameObject();
 		cannon->setPosition(rect.x, rect.y);
 		cannon->setSize(rect.width, rect.height);
 		cannon->_CategoryMask = 0;
