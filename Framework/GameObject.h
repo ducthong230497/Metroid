@@ -10,15 +10,16 @@ protected:
 	POINT _Size;
 	POINT _Velocity;
 public:
+	GameObject * parent;
 	bool isTrigger = false;
 	unsigned int id;
 	unsigned long _BitMask;
 	unsigned long _CategoryMask;
 	CollisionType collisionType;
-	bool isTrigger;
 public:
 	bool isActive;
 	GameObject();
+	GameObject(GameObject* parent);
 	~GameObject();
 	POINT getPosition() const;
 	POINT getSize() const;

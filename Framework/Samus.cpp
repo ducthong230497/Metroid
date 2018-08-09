@@ -45,9 +45,12 @@ void Samus::SetScene(Scene * s)
 
 void Samus::Init(Texture * texture, float x, float y)
 {
-	head = new GameObject();
+	head = new GameObject(this);
+	head->setSize(20, 25);
+	head->setPosition(_Position.x, _Position.y + 22);
+	head->isTrigger = true;
 	head->setCategoryMask(Category::HEAD);
-	head->setCategoryMask(Category::PLATFORM);
+	head->setBitMask(Category::PLATFORM | Category::BREAKABLE_PLATFORM);
 	samusTexture = *texture;
 	setCategoryMask(Category::PLAYER);
 	setBitMask(Category::PLATFORM | Category::SKREE | Category::ZOOMER | Category::RIPPER | Category::RIO |
@@ -55,10 +58,11 @@ void Samus::Init(Texture * texture, float x, float y)
 		Category::HEALTHITEM | Category::KRAID | Category::DOOR | Category::OUTER_DOOR | Category::ROCKET_ITEM |
 		Category::ZEEBETITE | Category::BOMB_EXPLOSION | Category::CIRCLEBULLET | Category::CANNON_BULLET | Category::KRAID_BULLET);
 	defaultBitMask = _BitMask;
+	triggerRoll = true;
 	setVelocity(0, -200);
 	fall = false;
 	activeJump = false;
-	canRoll = false;
+	canRoll = true;
 	onGround = false;
 	move = false;
 	shoot = false;
@@ -115,14 +119,16 @@ void Samus::Render(SpriteBatch * batch)
 
 void Samus::Update(float dt)
 {
+//	if (animator.currentAnimation.name != "Roll")
+		head->setPosition(_Position.x, _Position.y + 22);
 	if (dt == 0) {
-	//	Trace::Log("dt: = 0");
+		//	Trace::Log("dt: = 0");
 	}
 	//Trace::Log("%f",dt);
 	if (hitEnemy)
 	{
 		invincibleTime += dt;
-		if(this->GetTexture()->GetOpacity() == 1)
+		if (this->GetTexture()->GetOpacity() == 1)
 			this->GetTexture()->SetOpacity(0);
 		else
 			this->GetTexture()->SetOpacity(1);
@@ -391,16 +397,16 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		}
 
 		if (KeyBoard->IsKeyDown(DIK_X) && !onGround && !roll && getVelocity().y >= -200 && !down)
-			setVelocity(getVelocity().x, getVelocity().y + _PUSHFORCE*dt);
+			setVelocity(getVelocity().x, getVelocity().y + _PUSHFORCE * dt);
 #pragma endregion
 
 #pragma region movement
-		if (KeyBoard->IsKeyDown(DIK_X) && roll)
+		if (KeyBoard->IsKeyDown(DIK_X) && roll && triggerRoll)
 			roll = false;
 
 		if (KeyBoard->IsKeyDown(DIK_UP)) {
 			lookUp = true;
-			if (roll) roll = false;
+			if (roll && triggerRoll) roll = false;
 			if (animator.currentAnimation.name == "Jump" && animator.previousAnimation.name == "MoveUp" && !onGround) lookUp = false;
 		}
 		else if (KeyBoard->IsKeyUp(DIK_UP)) {
@@ -429,7 +435,7 @@ void Samus::OnHitGround(POINT direction)
 			onGround = true;
 			fall = false;
 			activeJump = false;
-			down = false;		
+			down = false;
 		}
 		else if (direction.y < 0) {
 			setVelocity(getVelocity().x, 0);
@@ -511,8 +517,11 @@ void Samus::OnHitEnemyBullet()
 
 void Samus::OnHitBomb()
 {
-	_Velocity.y = BOMBFORCE;
-	onGround = false;
+	
+	if (triggerRoll) {
+		onGround = false;
+		_Velocity.y = BOMBFORCE;
+	}
 }
 
 void Samus::SetCanRoll()
@@ -543,6 +552,11 @@ bool Samus::PlayDeadSound()
 void Samus::UpdateVelocity(GameObject * obj)
 {
 	count++;
+	countRoll++;
+
+	if (countRoll >= 2) { // Not collide with all platform		
+		triggerRoll = true;
+	}
 
 	if (count >= 2) { // Not collide with all platform
 		onGround = false;
@@ -553,11 +567,17 @@ void Samus::UpdateVelocity(GameObject * obj)
 	if (onGround) return;
 
 	if (getVelocity().y >= -200) {
-		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION*dt);
+		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION * dt);
 	}
 	else if (getVelocity().y < -200) {
-		setVelocity(getVelocity().x, -_PULLINGFORCE* dt);
+		setVelocity(getVelocity().x, -_PULLINGFORCE * dt);
 	}
+}
+
+void Samus::OnTriggerEnter()
+{
+	triggerRoll = false;
+	countRoll = 0;
 }
 
 void Samus::SetNewData()
@@ -614,7 +634,7 @@ void Samus::CreateAnimation_()
 	JumpShoot = Animation_("JumpShoot", [=] {setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
 	JumpUp = Animation_("JumpUp", [=] { lookUp = false; }, NULL, NULL, true);
 	JumpRoll = Animation_("JumpRoll", [=] { setSize(34, 45); }, NULL, [=] {setSize(34, 60); }, true);
-	Roll = Animation_("Roll", [=] { setSize(26, 22); }, NULL, [=] {setSize(34, 60); }, true);
+	Roll = Animation_("Roll", [=] { head->setPosition(_Position.x, _Position.y + 22); setSize(26, 22); }, NULL, [=] {setSize(34, 60); }, true);
 	Hit = Animation_("Hit", NULL, NULL, NULL, false);
 
 }

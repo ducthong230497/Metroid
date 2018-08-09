@@ -646,6 +646,19 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 		{
 			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, POINT(NOT_COLLIDED, 0));
 		}
+		break;
+	}
+	case HEAD | PLATFORM: case HEAD | BREAKABLE_PLATFORM:
+	{
+		if (gameObjectA->_CategoryMask == HEAD)
+		{
+			((Samus*)gameObjectA->parent)->OnTriggerEnter();
+		}
+		else
+		{
+			((Samus*)gameObjectB->parent)->OnTriggerEnter();
+		}		
+		break;
 	}
 	default: break;
 	}

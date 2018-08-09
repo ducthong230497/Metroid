@@ -29,7 +29,7 @@ private:
 	std::vector<Rocket*> rockets;
 	float lastShootTime;
 	float maxJumpHeight = 0;
-	int count = 0;
+	int count = 0, countRoll = 0;
 	bool isAppear;
 	void InitSamusAnimation(Texture * samusTexture);
 	void HandleAnimation();
@@ -72,7 +72,7 @@ public:
 		Roll,
 		Hit;
 
-	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy, activeJump,fall, hitBullet;
+	bool canRoll, onGround, move, roll, lookUp, canStand, start,shoot,down, canControl, moveThroughDoor, hitEnemy, activeJump,fall, hitBullet,triggerRoll;
 	float jumpTime = 0.f;
 	Samus();
 	void SetScene(Scene *s);
@@ -96,7 +96,7 @@ public:
 	bool IsDead();
 	bool PlayDeadSound();
 	void UpdateVelocity(GameObject* obj);
-
+	void OnTriggerEnter();
 	void SetNewData();
 };
 

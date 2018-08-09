@@ -55,14 +55,14 @@ void MainScene::Init()
 	for (std::vector<GameObject*>::iterator it = platforms.begin(); it != platforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID | Category::CANNON_BULLET;
+		(*it)->_BitMask = Category::PLAYER | Category::HEAD | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::KRAID | Category::CANNON_BULLET;
 	}
 
 	std::vector<GameObject*> breakablePlatforms = quadTree->GetObjectsGroup("BreakablePlatform");
 	for (std::vector<GameObject*>::iterator it = breakablePlatforms.begin(); it != breakablePlatforms.end(); ++it)
 	{
 		(*it)->_CategoryMask = BREAKABLE_PLATFORM;
-		(*it)->_BitMask = Category::PLAYER | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
+		(*it)->_BitMask = Category::PLAYER | Category::HEAD | Category::PLAYER_BULLET | Category::PLAYER_ROCKET | Category::RIO | Category::RIPPER | Category::SKREE | Category::ZOOMER | Category::BOMB_EXPLOSION;
 		((BreakablePlatform*)(*it))->SetScene(this);
 		((BreakablePlatform*)(*it))->SetTilemap(tileMap);
 	}
@@ -254,7 +254,9 @@ void MainScene::Update()
 
 	GameObjects.clear();
 	GameObjects.insert(GameObjects.begin(), samus);
-
+	if(samus->animator.currentAnimation.name == "Roll")
+		GameObjects.insert(GameObjects.begin(), samus->head);
+	 
 	if (apprearanceTime < APPEARANCETIME)
 	{
 		apprearanceTime += dt;
@@ -307,27 +309,34 @@ void MainScene::Update()
 	if (bombItem != nullptr) GameObjects.push_back(bombItem);
 	if (bomb != nullptr) GameObjects.push_back(bomb);
 	//for (std::vector<GameObject*>::iterator it1 = GameObjects.begin(); it1 != GameObjects.end(); it1++, i++) {
-	for (int i = 0; i < GameObjects.size(); i++) 
+	for (int i = 0; i < GameObjects.size(); i++)
 	{
-		if (!GameObjects.at(i)->isTrigger)
-		{
-			if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
-			(GameObjects.at(i))->UpdateVelocity(samus);
-			POINT velocity = (GameObjects.at(i))->getVelocity();
-			POINT position = (GameObjects.at(i))->getPosition();
-			position.x += velocity.x * dt;
-			position.y += velocity.y * dt;
-			RECT boardphase = collision->GetBroadphaseRect((GameObjects.at(i)), dt);
-			RECT box1 = collision->GetRECT((GameObjects.at(i)));
 
-			bool moveX = true, moveY = true, performOverLaying = true;
-			bool needMoveX = false, needMoveY = false;
-			//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
-			for (int j = 0; j < GameObjects.size(); ++j)
+		if (GameObjects.at(i)->_CategoryMask == PLATFORM) continue;
+		(GameObjects.at(i))->UpdateVelocity(samus);
+		POINT velocity = (GameObjects.at(i))->getVelocity();
+		POINT position = (GameObjects.at(i))->getPosition();
+		position.x += velocity.x * dt;
+		position.y += velocity.y * dt;
+		RECT boardphase = collision->GetBroadphaseRect((GameObjects.at(i)), dt);
+		RECT box1 = collision->GetRECT((GameObjects.at(i)));
+
+		bool moveX = true, moveY = true, performOverLaying = true;
+		bool needMoveX = false, needMoveY = false;
+		//for (std::vector<GameObject*>::iterator it2 = GameObjects.begin(); it2 != GameObjects.end(); it2++, j++) {
+		for (int j = 0; j < GameObjects.size(); ++j)
+		{
+			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
+			if (GameObjects[i]->getCategoryMask() == Category::HEAD)
 			{
-				if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
-				if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
+				int a = 2;
+			}
+			if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
+			{
+				if (!GameObjects.at(i)->isTrigger)
 				{
+
+
 					RECT box2 = collision->GetRECT((GameObjects.at(j)));
 					if (collision->IsOverlayingRect(boardphase, box2))
 					{
@@ -369,13 +378,17 @@ void MainScene::Update()
 						}
 					}
 				}
+				else {
+					if (collision->IsOverlaying((GameObjects.at(i)), (GameObjects.at(j))))
+					{
+						callback->OnTriggerEnter((GameObjects.at(i)), (GameObjects.at(j)), performOverLaying);
+						performOverLaying = true;
+					}
+				}
 			}
-			(GameObjects.at(i))->Next(dt, moveX, moveY);
 		}
-		else
-		{
+		(GameObjects.at(i))->Next(dt, moveX, moveY);
 
-		}
 		(GameObjects.at(i))->Update(dt);
 	}
 

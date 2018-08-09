@@ -8,6 +8,18 @@ GameObject::GameObject()
 	isActive = true;
 	_CategoryMask = NONE;
 	_BitMask = NONE;
+	parent = NULL;
+}
+
+GameObject::GameObject(GameObject* parent)
+{
+	this->parent = parent;
+	_Position.x = _Position.y = 0;
+	_Size.x = _Size.y = 0;
+	_Velocity.x = _Velocity.y = 0;
+	isActive = true;
+	_CategoryMask = NONE;
+	_BitMask = NONE;
 }
 
 GameObject::~GameObject()
