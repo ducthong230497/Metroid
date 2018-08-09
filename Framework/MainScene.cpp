@@ -226,6 +226,13 @@ void MainScene::Init()
 	MotherBrainSound = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
 #pragma endregion
 
+#pragma region collide velocity
+	std::vector<GameObject*> vel = quadTree->GetObjectsGroup("Collide");
+	GameObject* vels = vel.front();
+	vels->setBitMask(Category::PLAYER);
+	vels->setCategoryMask(Category::VELOCITY);
+#pragma endregion
+
 	nextScene = MAINSCENE;
 	Trace::Log("Init MainScene");
 }
@@ -233,7 +240,7 @@ void MainScene::Init()
 void MainScene::Update()
 {
 	float dt = Time->getDeltaTime() / 1000.0f;
-
+	samus->dt = dt;
 	if (samus->IsDead())
 	{
 		samusDeadTime += dt;

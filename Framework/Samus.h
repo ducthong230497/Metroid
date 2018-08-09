@@ -23,7 +23,7 @@ private:
 	int _SPEED, _JUMPFORCE, _ACCELERATION, _PULLINGFORCE, _PUSHFORCE;
 
 	Scene * scene;
-	float dt;
+	
 	Texture samusTexture;
 	std::vector<Bullet*> bullets;
 	std::vector<Rocket*> rockets;
@@ -61,6 +61,7 @@ private:
 	CSound * deathSound;
 
 public:
+	float dt;
 	Animator  animator;
 	Animation_
 		Appear,
@@ -93,6 +94,8 @@ public:
 	bool IsDead();
 	bool PlayDeadSound();
 	void UpdateVelocity(GameObject* obj);
+
+	void SetNewData();
 };
 
 #endif

@@ -490,6 +490,17 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 			((CannonBullet*)gameObjectB)->OnHitGround();
 		}
 	}
+	case PLAYER | VELOCITY:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((Samus*)gameObjectA)->SetNewData();
+		}
+		else
+		{
+			((Samus*)gameObjectB)->SetNewData();
+		}
+	}
 	default: break;
 	}
 }
