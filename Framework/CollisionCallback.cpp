@@ -279,7 +279,7 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 	}
 	case PLAYER_ROCKET | KRAID:
 	{
-		if (gameObjectA->_CategoryMask == RIO)
+		if (gameObjectA->_CategoryMask == KRAID)
 		{
 			((Kraid*)gameObjectA)->OnHitRocket();
 			((Rocket*)gameObjectB)->OnHit();
