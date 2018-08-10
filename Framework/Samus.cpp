@@ -12,6 +12,7 @@
 #define PUSHY 400
 #define MAXINVINCIBLETIME 0.3
 #define BOMBFORCE 600
+#define LOST_HEALTH 2
 
 void Samus::InitSamusAnimation(Texture * samusTexture)
 {
@@ -476,10 +477,10 @@ void Samus::OnHitRocketItem()
 
 void Samus::OnHitEnemy(GameObject *enemy, POINT CollisionDirection)
 {
-	health -= 1;
+	health -= LOST_HEALTH;
 	hitEnemy = true;
 	canControl = false;
-	_BitMask = PLATFORM;
+	_BitMask = PLATFORM | BREAKABLE_PLATFORM | HEALTHITEM | DOOR | OUTER_DOOR | ZEEBETITE | ROCKET_ITEM;
 	onGround = false;
 
 
@@ -578,14 +579,6 @@ void Samus::OnTriggerEnter()
 {
 	triggerRoll = false;
 	countRoll = 0;
-}
-
-void Samus::SetNewData()
-{
-	/*_JUMPFORCE = 800;
-	_ACCELERATION = 100 / 0.016f;
-	_PULLINGFORCE = 520 / 0.016f;
-	_PUSHFORCE = 9 / 0.016f;*/
 }
 
 void Samus::HandleAnimation()

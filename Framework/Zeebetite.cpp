@@ -23,6 +23,7 @@ void Zeebetite::Init(Texture * itemsTexture, int x, int y)
 	SetPosition(x, y);
 	SetSize(16, 64);
 
+	collisionType = Static;
 	_CategoryMask = ZEEBETITE;
 	_BitMask = PLAYER | PLAYER_BULLET | PLAYER_ROCKET;
 	health = ZEEBETITEHEALTH;

@@ -522,17 +522,19 @@ void CollisionCallback::OnCollisionEnter(GameObject * gameObjectA, GameObject * 
 		{
 			((CannonBullet*)gameObjectB)->OnHitGround();
 		}
+		break;
 	}
-	case PLAYER | VELOCITY:
+	case PLAYER | KRAID:
 	{
 		if (gameObjectA->_CategoryMask == PLAYER)
 		{
-			((Samus*)gameObjectA)->SetNewData();
+			((Samus*)gameObjectA)->OnHitEnemy(gameObjectB, CollisionDirection);
 		}
 		else
 		{
-			((Samus*)gameObjectB)->SetNewData();
+			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, CollisionDirection);
 		}
+		break;
 	}
 	default: break;
 	}
@@ -643,6 +645,18 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 	case ZOOMER | PLAYER:
 	{
 		if (gameObjectA->_CategoryMask == ZOOMER)
+		{
+			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, POINT(NOT_COLLIDED, 0));
+		}
+		break;
+	}
+	case PLAYER | KRAID:
+	{
+		if (gameObjectA->_CategoryMask == PLAYER)
+		{
+			((Samus*)gameObjectA)->OnHitEnemy(gameObjectB, POINT(NOT_COLLIDED, 0));
+		}
+		else
 		{
 			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, POINT(NOT_COLLIDED, 0));
 		}

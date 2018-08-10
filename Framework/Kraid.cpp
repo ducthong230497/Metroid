@@ -47,7 +47,7 @@ void Kraid::Init(Texture * texture, int x, int y)
 	SetPosition(x, y);
 
 	//setup body
-	collisionType = Dynamic;
+	collisionType = Static;
 	
 	_Velocity.y = -50;
 	

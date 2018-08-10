@@ -97,7 +97,6 @@ public:
 	bool PlayDeadSound();
 	void UpdateVelocity(GameObject* obj);
 	void OnTriggerEnter();
-	void SetNewData();
 };
 
 #endif
