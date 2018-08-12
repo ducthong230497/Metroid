@@ -228,7 +228,7 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 
 		_CollisionPosition.x = targetGameObject->getPosition().x + rentry * DeltaTime*target_tempvx;
 		_CollisionPosition.y = targetGameObject->getPosition().y + rentry * DeltaTime*target_tempvy;
-
+		
 		CollisionInfo ci;
 		ci.position = _CollisionPosition;
 		ci.direction = _CollisionDirection;

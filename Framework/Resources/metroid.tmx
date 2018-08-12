@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" infinite="0" nextobjectid="227">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" nextobjectid="227">
  <tileset firstgid="1" name="metroidTileMap" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="metroidTileMap2.png" width="258" height="193"/>
  </tileset>
@@ -155,7 +155,7 @@
  <objectgroup name="Kraid">
   <object id="187" x="4704" y="288" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="Platform" locked="1">
+ <objectgroup name="Platform">
   <object id="1" x="224" y="1600" width="288" height="480"/>
   <object id="2" x="832" y="1728" width="128" height="128"/>
   <object id="3" x="864" y="1792" width="128" height="128"/>
@@ -308,7 +308,7 @@
   <object id="178" x="2848" y="1920" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Rio">
-  <object id="136" x="4512" y="1728" width="32" height="32"/>
+  <object id="136" x="4672" y="1696" width="95.5" height="94.5"/>
  </objectgroup>
  <objectgroup name="Marunari">
   <object id="158" x="704" y="1888" width="32" height="32"/>
@@ -327,7 +327,7 @@
   <object id="99" x="2784" y="3648" width="32" height="32"/>
   <object id="108" x="2688" y="2752" width="32" height="32"/>
   <object id="109" x="2688" y="3232" width="32" height="32"/>
-  <object id="139" x="3138" y="1668" width="1532" height="348"/>
+  <object id="139" x="3138" y="1668" width="1684" height="348"/>
   <object id="148" x="5376" y="1696" width="32" height="32"/>
   <object id="149" x="5344" y="1440" width="32" height="32"/>
   <object id="150" x="5280" y="1312" width="32" height="32"/>

@@ -642,11 +642,11 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 		}
 		performOverlaying = false;
 	}
-	case ZOOMER | PLAYER:
+	case ZOOMER | PLAYER: case PLAYER | SKREE: case PLAYER | CANNON_BULLET:
 	{
-		if (gameObjectA->_CategoryMask == ZOOMER)
+		if (gameObjectA->_CategoryMask == PLAYER)
 		{
-			((Samus*)gameObjectB)->OnHitEnemy(gameObjectA, POINT(NOT_COLLIDED, 0));
+			((Samus*)gameObjectA)->OnHitEnemy(gameObjectB, POINT(NOT_COLLIDED, 0));
 		}
 		break;
 	}
