@@ -641,6 +641,7 @@ void CollisionCallback::OnTriggerEnter(GameObject * gameObjectA, GameObject * ga
 			((Samus*)gameObjectB)->OnHitBomb();
 		}
 		performOverlaying = false;
+		break;
 	}
 	case ZOOMER | PLAYER: case PLAYER | SKREE: case PLAYER | CANNON_BULLET:
 	{

@@ -422,6 +422,29 @@ void Samus::ProcessInput(CKeyboard * KeyBoard)
 		HandleAnimation();
 
 
+#pragma region CheckPoint
+		if (KeyBoard->IsFirstKeyDown(DIK_1))
+		{
+			_Position = ((MainScene*)scene)->checkPoints[0]->getPosition();
+		}
+		else if (KeyBoard->IsFirstKeyDown(DIK_2))
+		{
+			_Position = ((MainScene*)scene)->checkPoints[1]->getPosition();
+		}
+		else if (KeyBoard->IsFirstKeyDown(DIK_3))
+		{
+			_Position = ((MainScene*)scene)->checkPoints[2]->getPosition();
+		}
+		else if (KeyBoard->IsFirstKeyDown(DIK_4))
+		{
+			_Position = ((MainScene*)scene)->checkPoints[3]->getPosition();
+		}
+		else if (KeyBoard->IsFirstKeyDown(DIK_5))
+		{
+			_Position = ((MainScene*)scene)->checkPoints[4]->getPosition();
+		}
+#pragma endregion
+
 	}
 }
 

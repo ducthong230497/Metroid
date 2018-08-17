@@ -743,6 +743,16 @@ GameObject * QuadTree::InitGameObject(std::string str, float id, float x, float 
 		cannon->id = id;
 		return cannon;
 	}
+	else if (str._Equal("CheckPoint"))
+	{
+		GameObject * checkPoint = new GameObject();
+		checkPoint->setPosition(rect.x, rect.y);
+		checkPoint->setSize(rect.width, rect.height);
+		checkPoint->_CategoryMask = 0;
+		checkPoint->_BitMask = 0;
+		checkPoint->id = id;
+		return checkPoint;
+	}
 	return nullptr;
 }
 

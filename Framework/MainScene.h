@@ -83,6 +83,7 @@ public:
 	
 	std::vector<GameObject*> doors;
 
+	std::vector<GameObject*> checkPoints;
 	int flagsound;
 private:
 	Collision *collision;

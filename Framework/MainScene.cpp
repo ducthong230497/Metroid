@@ -226,6 +226,14 @@ void MainScene::Init()
 	MotherBrainSound = Sound::LoadSound("Resources/Audio/MotherBrain.wav");
 #pragma endregion
 
+#pragma region CheckPoints
+	checkPoints = quadTree->GetObjectsGroup("CheckPoint");
+#pragma endregion
+
+
+
+
+
 #pragma region collide velocity
 	std::vector<GameObject*> vel = quadTree->GetObjectsGroup("Collide");
 	GameObject* vels = vel.front();
