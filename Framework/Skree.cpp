@@ -2,7 +2,8 @@
 #include "MainScene.h"
 
 #define SKREEBULLETSPEED 600
-
+#define SKREESPEEDX 90
+#define SKREESPEEDY 300
 Skree::Skree()
 {
 }
@@ -74,11 +75,11 @@ void Skree::UpdateVelocity(GameObject * player)
 			collisionType = CollisionType::Dynamic;
 			if (player->getPosition().x - getPosition().x > 0)
 			{
-				setVelocity(90, -300);
+				setVelocity(SKREESPEEDX, -SKREESPEEDY);
 			}
 			else
 			{
-				setVelocity(-90, -300);
+				setVelocity(-SKREESPEEDX, -SKREESPEEDY);
 			}
 		}
 	}
@@ -141,8 +142,6 @@ void Skree::Update(float dt)
 					((MainScene*)scene)->RemoveObject(this);
 				}
 
-				//world->DestroyBody(body);
-				//body = NULL;
 				isHitGround = false; //set this to not instantiate more bullets
 			}
 		}
@@ -156,7 +155,7 @@ void Skree::Update(float dt)
 		{
 			for (int i = 0; i < ((MainScene*)scene)->skreeBullet.size(); ++i)
 			{
-				//world->DestroyBody(bullet->body);
+				 
 				std::vector<GameObject*>::iterator it = std::find(((MainScene*)scene)->skreeBullet.begin(), ((MainScene*)scene)->skreeBullet.end(), ((MainScene*)scene)->skreeBullet[i]);
 				if (it != ((MainScene*)scene)->skreeBullet.end())
 				{

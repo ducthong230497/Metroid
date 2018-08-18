@@ -132,24 +132,6 @@ bool Collision::Collide(GameObject * targetGameObject, GameObject * otherGameObj
 		_CollisionDirection.x = NOT_COLLIDED;
 		_CollisionDirection.y = NOT_COLLIDED;
 
-		//int touching = IsTouching(targetGameObject, otherGameObject);
-		//if (touching == 1 && targetVelocity.y != 0)
-		//{
-		//	_Listener->OnCollisionExit(targetGameObject, otherGameObject, _CollisionDirection);
-		//}
-		//else
-		//{
-
-		//	if (touching == 2 && targetVelocity.x != 0)
-		//	{
-		//		_Listener->OnCollisionExit(targetGameObject, otherGameObject, _CollisionDirection);
-		//	}
-		//}
-
-		//if (IsPreviousCollding(targetGameObject, otherGameObject,DeltaTime))
-		//{
-		//	_Listener->OnCollisionExit(targetGameObject, otherGameObject, _CollisionDirection);
-		//}
 
 		_CollisionRatio = 1.0f;
 		_RemainingTime = std::numeric_limits<float>::infinity();

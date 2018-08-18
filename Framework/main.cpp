@@ -1,5 +1,5 @@
 #include "define.h"
-#include "TestGame.h"
+#include "Metroid.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	AGG->Init(hInstance, L"Aladdin Game", 800, 600, false, 38);
 	AGG->Run();*/
 
-	TestGame *g = new TestGame();
+	Metroid *g = new Metroid();
 	g->Init(hInstance, L"Metroid", SCREEN_WIDTH, SCREEN_HEIGHT, 0, 38);
 	g->Run();
 	return 0;

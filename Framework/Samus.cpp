@@ -594,7 +594,7 @@ void Samus::UpdateVelocity(GameObject * obj)
 		setVelocity(getVelocity().x, getVelocity().y - _ACCELERATION * dt);
 	}
 	else if (getVelocity().y < -200) {
-		setVelocity(getVelocity().x, -_PULLINGFORCE * dt);
+		setVelocity(getVelocity().x, -(_PULLINGFORCE+100) * dt  );
 	}
 }
 

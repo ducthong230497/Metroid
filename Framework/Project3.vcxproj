@@ -169,6 +169,7 @@
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marunari.cpp" />
+    <ClCompile Include="Metroid.cpp" />
     <ClCompile Include="MotherBrain.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="Outer_Door.cpp" />
@@ -186,7 +187,6 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="MenuScene.cpp" />
-    <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="testScene_1.cpp" />
     <ClCompile Include="testScene_2.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -240,6 +240,7 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Marunari.h" />
+    <ClInclude Include="Metroid.h" />
     <ClInclude Include="MotherBrain.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="Outer_Door.h" />
@@ -257,7 +258,6 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="MenuScene.h" />
-    <ClInclude Include="TestGame.h" />
     <ClInclude Include="testScene_1.h" />
     <ClInclude Include="testScene_2.h" />
     <ClInclude Include="Texture.h" />

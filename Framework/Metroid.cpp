@@ -1,18 +1,18 @@
-#include "TestGame.h"
+#include "Metroid.h"
 
-TestGame::TestGame():sceneManager(SceneManager::getInstance())
+Metroid::Metroid():sceneManager(SceneManager::getInstance())
 {
 }
 
-TestGame::~TestGame()
+Metroid::~Metroid()
 {
 }
 
-void TestGame::Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, bool isfullscreen, UINT framerate)
+void Metroid::Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, bool isfullscreen, UINT framerate)
 {
 	Window->Init(hInstance, name, width, height, isfullscreen, framerate);
-	Window->OnKillFocus = std::bind(&TestGame::OnKillFocus, this);
-	Window->OnSetFocus = std::bind(&TestGame::OnSetFocus, this);
+	Window->OnKillFocus = std::bind(&Metroid::OnKillFocus, this);
+	Window->OnSetFocus = std::bind(&Metroid::OnSetFocus, this);
 
 	Device->Init(*Window);
 	Keyboard->Init(Window->gethWnd(), Window->gethInstance());
@@ -23,23 +23,23 @@ void TestGame::Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, 
 	quadtree.BuildTreeNodesFromTMX("Resources/mapQuadTree.xml", "Resources/metroid.tmx");
 }
 
-void TestGame::RenderFrame()
+void Metroid::RenderFrame()
 {
 	//sceneManager->Update();
 	sceneManager->Render();
 }
 
-void TestGame::ProcessInput()
+void Metroid::ProcessInput()
 {
 	sceneManager->getCurrentScene()->ProcessInput();
 }
 
-void TestGame::OnKillFocus()
+void Metroid::OnKillFocus()
 {
 	Keyboard->Unacquire();
 }
 
-void TestGame::OnSetFocus()
+void Metroid::OnSetFocus()
 {
 	Keyboard->Acquire();
 }

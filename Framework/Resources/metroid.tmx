@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" infinite="0" nextobjectid="232">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="180" height="140" tilewidth="32" tileheight="32" nextobjectid="243">
  <tileset firstgid="1" name="metroidTileMap" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="metroidTileMap2.png" width="258" height="193"/>
  </tileset>
@@ -316,7 +316,6 @@
  <objectgroup name="Zoomer">
   <object id="25" x="1184" y="1728" width="32" height="32"/>
   <object id="26" x="1344" y="1728" width="32" height="32"/>
-  <object id="27" x="514" y="1666" width="2012" height="668"/>
   <object id="92" x="2816" y="2144" width="32" height="32"/>
   <object id="93" x="2688" y="2272" width="32" height="32"/>
   <object id="94" x="2784" y="2400" width="32" height="32"/>

@@ -335,10 +335,10 @@ void MainScene::Update()
 		for (int j = 0; j < GameObjects.size(); ++j)
 		{
 			if (i == j || (GameObjects.at(i)->collisionType == Static && GameObjects.at(j)->collisionType == Static)) continue;
-			if (GameObjects[i]->getCategoryMask() == Category::HEAD)
+			/*if (GameObjects[i]->getCategoryMask() == Category::HEAD)
 			{
 				int a = 2;
-			}
+			}*/
 			if (collision->CanMaskCollide((GameObjects.at(i)), (GameObjects.at(j))))
 			{
 				if (!GameObjects.at(i)->isTrigger)

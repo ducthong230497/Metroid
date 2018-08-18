@@ -1,6 +1,6 @@
 #include "Zoomer.h"
 #include "MainScene.h"
-
+#define ZOOMERSPEED 70
 Zoomer::Zoomer()
 {
 }
@@ -31,7 +31,7 @@ void Zoomer::Init(Texture * zoomerTexture, float x, float y, bool Direction)
 	prevCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);
 	curCollisionDirection = POINT(NOT_COLLIDED, NOT_COLLIDED);
 
-	setVelocity(70, -70);
+	setVelocity(ZOOMERSPEED, -ZOOMERSPEED);
 	startVelocityX = _Velocity.x;
 	initalDirection = Direction;
 	cooldownAfterCollisionChange = 3;
@@ -179,64 +179,7 @@ void Zoomer::Update(float dt)
 
 void Zoomer::Update(float dt, Camera * cam)
 {
-	//if (body->GetPosition().x > cam->GetPosition().x - screenWidth / 2 && body->GetPosition().x < cam->GetPosition().x + screenWidth / 2
-	//	&&
-	//	(body->GetPosition().y - body->GetSize().y / 2 - 5) < (cam->GetPosition().y + screenHeight / 2) && (body->GetPosition().y + body->GetSize().y / 2 + 5) > (cam->GetPosition().y - screenHeight / 2)) {
-	//	outsideOfCamera = false;
-	//	body->SetBodyType(Body::BodyType::Kinematic);
-	//	if (isDead) return;
-
-	//	if (health <= 0)
-	//	{
-	//		isDead = true;
-	//		world->DestroyBody(body);
-	//		return;
-	//	}
-
-	//	if (hitBulletTime == -1) //-1 means not being hit by bullet
-	//	{
-	//		SetRegion(*zoomerAnimation.Next(dt));
-	//	}
-	//	else
-	//	{
-	//		if (hitBulletTime < MAXHITBULLETTIME)
-	//		{
-	//			hitBulletTime += dt;
-	//		}
-	//		else
-	//		{
-	//			hitBulletTime = -1;
-	//			body->SetBodyType(Body::BodyType::Kinematic);
-	//		}
-	//	}
-
-	//	if (hitPlayerTime != -1)
-	//	{
-	//		if (hitPlayerTime < MAXHITPLAYERHITTIME)
-	//		{
-	//			hitPlayerTime += dt;
-	//		}
-	//		else
-	//		{
-	//			hitPlayerTime = -1;
-	//			body->maskBits = PLAYER_BIT | PLATFORM_BIT | BULLET_BIT | EXPLOSION_BIT | BREAKABLEPLATFORM_BIT | DOOR_BIT;
-	//		}
-	//	}
-
-	//	//set sprite position
-	//	if (body != NULL)
-	//		this->SetPosition(body->GetPosition().x, body->GetPosition().y);
-
-	//	//body->SetVelocity(0.5f, -0.5f);
-	//	if (body->GetBodyType() != Body::BodyType::Static)
-	//	{
-	//		StickToGround();
-	//	}
-	//}
-	//else {
-	//	body->SetBodyType(Body::BodyType::Static);
-	//	outsideOfCamera = true;
-	//}
+	
 }
 
 void Zoomer::OnHitGround(POINT CollisionDirection)
@@ -246,10 +189,6 @@ void Zoomer::OnHitGround(POINT CollisionDirection)
 
 	if (t == 1)
 	{
-		if (id == 27)
-		{
-			int a = 2;
-		}
 		prevCollisionPosition = _Position;
 		t = 0;
 		bx = curCollisionDirection.x != NOT_COLLIDED ? true : false;

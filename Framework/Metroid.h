@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "SceneManager.h"
 
-class TestGame : public Game
+class Metroid : public Game
 {
 protected:
 	SceneManager * sceneManager;
@@ -14,7 +14,7 @@ protected:
 	virtual void RenderFrame();
 	virtual void ProcessInput();
 public:
-	TestGame();
-	~TestGame();
+	Metroid();
+	~Metroid();
 	void Init(HINSTANCE hInstance, LPCWSTR name, UINT width, UINT height, bool isfullscreen, UINT framerate);
 };

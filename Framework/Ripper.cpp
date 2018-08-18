@@ -1,5 +1,5 @@
 #include "Ripper.h"
-
+#define RIPPERSPEED 90
 Ripper::Ripper()
 {
 }
@@ -24,7 +24,7 @@ void Ripper::Init(Texture *ripperTexture, float x, float y)
 	_BitMask = PLAYER | PLATFORM | PLAYER_BULLET | PLAYER_ROCKET;
 	collisionType = CollisionType::Dynamic;
 
-	_Velocity.x = -90;
+	_Velocity.x = -RIPPERSPEED;
 	_Velocity.y = 0;
 
 	//sound when Ripper is shot

@@ -141,9 +141,6 @@
     <ClCompile Include="testScene_1.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
-    <ClCompile Include="TestGame.cpp">
-      <Filter>Core\src</Filter>
-    </ClCompile>
     <ClCompile Include="testScene_2.cpp">
       <Filter>Manager\SneneManager\src</Filter>
     </ClCompile>
@@ -297,6 +294,9 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Object\src</Filter>
     </ClCompile>
+    <ClCompile Include="Metroid.cpp">
+      <Filter>Core\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -343,9 +343,6 @@
     </ClInclude>
     <ClInclude Include="testScene_1.h">
       <Filter>Manager\SneneManager\include</Filter>
-    </ClInclude>
-    <ClInclude Include="TestGame.h">
-      <Filter>Core\include</Filter>
     </ClInclude>
     <ClInclude Include="testScene_2.h">
       <Filter>Manager\SneneManager\include</Filter>
@@ -505,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Object\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Metroid.h">
+      <Filter>Core\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

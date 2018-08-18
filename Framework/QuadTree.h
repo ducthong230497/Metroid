@@ -107,17 +107,6 @@ public:
 		}
 	}
 	~QuadTreeNode() {}
-	//unsigned int GetParentID()
-	//{
-	//	return parentID;
-	//}
-
-	//unsigned int GetID()
-	//{
-	//	return id;
-	//}
-
-
 };
 
 
@@ -180,9 +169,6 @@ public:
 	~QuadTree();
 
 	void SetMinSquareSize(float minSquareXY);
-
-	////if world is set, 
-	//void SetWorld(World *world);
 
 	//
 	void BuildTreeNodesFromTMX(const std::string &outpath, const std::string &tmxFilePath);
