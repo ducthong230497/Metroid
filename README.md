@@ -1,6 +1,6 @@
 # Metroid
 This is a replica of Metroid 1986.
-This project is made for my subject game basic game programing.
+This project is made for my game subject name basic game programing.
 
 ## Reference
 English book - 
@@ -32,4 +32,5 @@ Collision filtering (alike layer in Unity)
 ```
 Spatial division (Quadtree)
 ```
+### Image Example
 ![Image description](https://github.com/ducthong230497/Metroid/blob/master/metroid.jpg)
