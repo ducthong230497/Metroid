@@ -32,3 +32,4 @@ Collision filtering (alike layer in Unity)
 ```
 Spatial division (Quadtree)
 ```
+![Image description](https://github.com/ducthong230497/Metroid/blob/master/metroid.jpg)
