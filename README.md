@@ -27,7 +27,7 @@ Tilemap
 Collision detection
 ```
 ```
-[Collision filtering](http://www.iforce2d.net/b2dtut/collision-filtering) (alike layer in Unity)
+*[Collision filtering](http://www.iforce2d.net/b2dtut/collision-filtering) (alike layer in Unity)
 ```
 ```
 Spatial division (Quadtree)
