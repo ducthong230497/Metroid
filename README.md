@@ -3,7 +3,7 @@ This is a replica of Metroid 1986.
 This project is made for my game subject name basic game programing.
 
 ## Reference
-English book - 
+English book - [Game Programming C++](https://www.amazon.com/Game-Programming-Creating-Games-Design/dp/0134597206)
 
 Vietnamese book - [Nhập môn phát triển game](http://sachdaihoc.edu.vn/san-pham/1/sach/18/tin-hoc/1342/giao-trinh-nhap-mon-phat-trien-game.htm)
 
