@@ -1,6 +1,6 @@
 # Metroid
 This is a replica of Metroid 1986.
-This project is made for my game subject name basic game programing.
+This project was made for my game subject name basic game programing.
 
 ## Reference
 English book - [Game Programming C++](https://www.amazon.com/Game-Programming-Creating-Games-Design/dp/0134597206)
